@@ -1,0 +1,66 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}CV {{ profile.user.username }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-10">
+    <div class="bg-white rounded-[32px] border border-neutral-200 shadow-xl overflow-hidden">
+        <div class="bg-neutral-900 text-white px-8 py-10">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.35em] text-neutral-400 font-black">Профессиональное резюме</p>
+                    <h1 class="mt-4 text-4xl font-black leading-tight">{{ profile.user.get_full_name|default:profile.user.username }}</h1>
+                    <p class="mt-3 max-w-2xl text-neutral-300 text-sm leading-relaxed">{{ profile.summary|default:'Укажите краткое резюме, чтобы сразу привлечь внимание работодателя.' }}</p>
+                </div>
+                <div class="rounded-3xl bg-neutral-800/80 border border-white/10 p-6 text-sm text-neutral-200 shadow-lg shadow-black/10">
+                    <p class="uppercase tracking-[0.3em] text-neutral-400 font-bold text-[11px]">Контакт</p>
+                    <div class="mt-4 space-y-3 text-sm">
+                        <div><span class="font-bold">Email:</span> {{ profile.user.email|default:'Не указан' }}</div>
+                        <div><span class="font-bold">Роль:</span> {{ profile.get_role_display }}</div>
+                        <div><span class="font-bold">Образование:</span> {{ profile.education|default:'Не указано' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 p-8">
+            <div class="md:col-span-2 space-y-8">
+                <section class="space-y-4">
+                    <div class="flex items-center justify-between gap-4">
+                        <h2 class="text-xl font-black">Опыт</h2>
+                        <a href="{% url 'download_cv_pdf' %}" class="rounded-full bg-neutral-900 text-white px-5 py-3 text-xs uppercase tracking-[0.2em] font-black hover:bg-neutral-800 transition">Скачать PDF</a>
+                    </div>
+                    <div class="rounded-[28px] border border-neutral-200 bg-neutral-50 p-6">
+                        <p class="text-sm leading-relaxed text-neutral-700">{{ profile.experience|default:'Опыт не указан. Добавьте места работы, проекты или стажировки.' }}</p>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <h2 class="text-xl font-black">Навыки</h2>
+                    <div class="rounded-[28px] border border-neutral-200 bg-neutral-50 p-6">
+                        <p class="whitespace-pre-line text-sm leading-relaxed text-neutral-700">{{ profile.skills|default:'Навыки не указаны. Перечислите технологии, инструменты и компетенции через запятую или новую строку.' }}</p>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <h2 class="text-xl font-black">О себе</h2>
+                    <div class="rounded-[28px] border border-neutral-200 bg-neutral-50 p-6">
+                        <p class="text-sm leading-relaxed text-neutral-700">{{ profile.bio|default:'Добавьте дополнительную информацию, например профессиональные интересы, цели или достижения.' }}</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="space-y-8">
+                <section class="rounded-[28px] border border-neutral-200 bg-neutral-50 p-6">
+                    <h3 class="text-lg font-black">Профиль</h3>
+                    <div class="mt-4 space-y-3 text-sm text-neutral-700">
+                        <div><span class="font-semibold">Университет / Компания:</span> {{ profile.university|default:'Не указано' }}</div>
+                        <div><span class="font-semibold">Образование:</span> {{ profile.education|default:'Не указано' }}</div>
+                        <div><span class="font-semibold">Резюме:</span> {{ profile.summary|truncatechars:120|default:'Не указано' }}</div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock %}

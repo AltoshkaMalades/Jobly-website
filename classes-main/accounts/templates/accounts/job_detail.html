@@ -1,0 +1,145 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}{{ job.title }} — JobAggregator{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12 max-w-6xl">
+    <div class="grid md:grid-cols-3 gap-8">
+        
+        <div class="md:col-span-2 space-y-6">
+            <div class="bg-white p-8 rounded-3xl border border-neutral-100 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="px-3 py-1 bg-neutral-900 text-white rounded-full text-[10px] font-bold uppercase tracking-wider">
+                            {{ job.category }}
+                        </span>
+                        <h1 class="text-4xl font-black text-neutral-900 mt-4 leading-tight">{{ job.title }}</h1>
+                        <p class="text-xl text-neutral-500 font-medium mt-1">{{ job.company }}</p>
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'toggle_favorite' job.id %}" 
+                       class="p-4 rounded-2xl border transition-all group shadow-sm 
+                       {% if is_favorite %} bg-red-50 border-red-200 text-red-500 {% else %} bg-white border-neutral-100 text-neutral-300 hover:bg-red-50 hover:border-red-100 hover:text-red-500 {% endif %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-colors {% if is_favorite %} fill-current {% endif %}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 py-6 border-y border-neutral-50">
+                    <div class="space-y-1">
+                        <p class="text-[10px] uppercase font-bold text-neutral-400">Локация</p>
+                        <p class="text-sm font-semibold text-neutral-900">📍 {{ job.location }}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-[10px] uppercase font-bold text-neutral-400">Зарплата</p>
+                        <p class="text-sm font-semibold text-neutral-900">💰 {{ job.salary|default:"По договоренности" }}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-[10px] uppercase font-bold text-neutral-400">Опубликовано</p>
+                        <p class="text-sm font-semibold text-neutral-900">📅 {{ job.created_at|date:"d E" }}</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-[10px] uppercase font-bold text-neutral-400">Интерес</p>
+                        <p class="text-sm font-bold text-neutral-900 text-indigo-600">👥 {{ job.applications.count }} откликов</p>
+                    </div>
+                </div>
+
+                <div class="prose prose-neutral max-w-none">
+                    <h3 class="text-xl font-bold mb-4 text-neutral-900">О вакансии</h3>
+                    <p class="text-neutral-600 leading-relaxed text-lg whitespace-pre-line">{{ job.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:col-span-1">
+            <div class="sticky top-24 space-y-6">
+                
+                {% if user.is_authenticated %}
+                    {% if user.profile.role == 'student' %}
+                        {% if has_applied %}
+                            <div class="bg-white border-2 border-green-500/20 p-8 rounded-3xl text-center shadow-lg shadow-green-500/5 relative overflow-hidden">
+                                <div class="absolute -top-4 -right-4 w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-neutral-900 mb-2">Отклик отправлен!</h3>
+                                <p class="text-neutral-500 text-sm">Работодатель уже получил ваше уведомление.</p>
+                            </div>
+                        {% else %}
+                            <div class="bg-neutral-900 p-8 rounded-3xl text-white shadow-2xl">
+                                <h3 class="text-2xl font-bold mb-6 text-center">Откликнуться</h3>
+                                <form action="{% url 'apply_job' job.id %}" method="POST" class="space-y-5">
+                                    {% csrf_token %}
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest ml-1">Сопроводительное письмо</label>
+                                        <textarea name="cover_letter" rows="5" required 
+                                            class="w-full bg-neutral-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-white transition-all placeholder:text-neutral-600" 
+                                            placeholder="Напишите, почему вы подходите..."></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full bg-white text-black font-bold py-4 rounded-2xl hover:bg-neutral-200 transition-all active:scale-95 shadow-xl shadow-white/5">
+                                        Отправить заявку
+                                    </button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    {% elif user.profile.role == 'employer' and job.employer == user %}
+                        <div class="bg-indigo-600 p-8 rounded-3xl text-white text-center shadow-xl">
+                            <h3 class="font-bold text-xl mb-2">Ваша вакансия</h3>
+                            <p class="text-indigo-100 text-sm mb-6">Управляйте откликами</p>
+                            <a href="{% url 'view_applications' job.id %}" class="block bg-white text-indigo-600 font-bold py-3 rounded-2xl hover:bg-indigo-50 transition-all">
+                                Просмотр {{ job.applications.count }} откликов
+                            </a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="bg-neutral-100 p-8 rounded-3xl text-center border border-neutral-200/50">
+                        <div class="w-12 h-12 bg-neutral-200 rounded-full flex items-center justify-center mx-auto mb-4">🔒</div>
+                        <p class="text-neutral-600 font-medium mb-4">Войдите как студент</p>
+                        <a href="{% url 'login' %}" class="block w-full bg-neutral-900 text-white font-bold py-4 rounded-2xl hover:bg-neutral-800">Авторизоваться</a>
+                    </div>
+                {% endif %}
+
+                <div class="group relative overflow-hidden bg-neutral-50 border border-neutral-100 p-6 rounded-3xl cursor-pointer" onclick="openModal()">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                            ▶
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-neutral-900">Как откликнуться?</h4>
+                            <p class="text-xs text-neutral-500">Минутное обучение</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-neutral-100">
+                    <h4 class="text-[10px] font-bold text-neutral-400 uppercase mb-3 tracking-widest">Контакты</h4>
+                    <p class="text-sm font-bold text-neutral-900 break-all">
+    {% firstof job.contact_email job.employer.email "contact@company.com" %}
+</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="videoModal" class="fixed inset-0 z-[100] hidden bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="relative w-full max-w-4xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-neutral-400 z-10 font-bold text-3xl">&times;</button>
+        <iframe id="tutorialVideo" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('videoModal').classList.remove('hidden');
+        document.getElementById('tutorialVideo').src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"; 
+    }
+    function closeModal() {
+        document.getElementById('videoModal').classList.add('hidden');
+        document.getElementById('tutorialVideo').src = "";
+    }
+</script>
+{% endblock %}

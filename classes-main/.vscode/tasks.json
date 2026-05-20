@@ -1,0 +1,99 @@
+{
+    // VS Code Tasks Configuration for Django Job Aggregator
+    // Press Ctrl+Shift+B to run the default test task
+    // Or Ctrl+Shift+P -> "Tasks: Run Task" to see all available tasks
+
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run All Tests with Coverage",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "test.ps1"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": [],
+            "detail": "Runs all tests with coverage report and cleanup (Ctrl+Shift+B)"
+        },
+        {
+            "label": "Run Unit Tests Only",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "test.ps1", "-TestType", "unit"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Runs only unit tests (fast)"
+        },
+        {
+            "label": "Run Integration Tests Only",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "test.ps1", "-TestType", "integration"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Runs only integration tests"
+        },
+        {
+            "label": "Run Tests Fast (No Coverage)",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "test.ps1", "-TestType", "fast"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Runs tests quickly without coverage (stops on first failure)"
+        },
+        {
+            "label": "Clean Temporary Files",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "test.ps1", "-CleanOnly"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Cleans up __pycache__, .pyc files, and test artifacts"
+        },
+        {
+            "label": "Show Test Help",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", "test.ps1", "-Help"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Shows help and usage information for test script"
+        }
+    ]
+}

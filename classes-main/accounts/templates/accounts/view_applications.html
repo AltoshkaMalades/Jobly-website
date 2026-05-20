@@ -1,0 +1,67 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Отклики на: {{ job.title }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12 max-w-4xl">
+    <div class="mb-10">
+        <a href="{% url 'job_detail' job.id %}" class="text-sm text-neutral-500 hover:text-neutral-900 transition-colors flex items-center gap-2 mb-4">
+            ← Вернуться к вакансии
+        </a>
+        <h1 class="text-4xl font-black text-neutral-900 tracking-tight">Отклики</h1>
+        <p class="text-neutral-500 text-lg mt-2 font-medium">Вакансия: <span class="text-neutral-900">{{ job.title }}</span></p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 mb-12">
+        <div class="bg-neutral-50 p-6 rounded-3xl border border-neutral-100">
+            <p class="text-[10px] uppercase font-bold text-neutral-400 tracking-widest mb-1">Всего заявок</p>
+            <p class="text-3xl font-black text-neutral-900">{{ apps.count }}</p>
+        </div>
+        <div class="bg-indigo-50 p-6 rounded-3xl border border-indigo-100">
+            <p class="text-[10px] uppercase font-bold text-indigo-400 tracking-widest mb-1">Новых сегодня</p>
+            <p class="text-3xl font-black text-indigo-600">{% if apps.count > 0 %}1{% else %}0{% endif %}</p>
+        </div>
+        <div class="bg-green-50 p-6 rounded-3xl border border-green-100">
+            <p class="text-[10px] uppercase font-bold text-green-400 tracking-widest mb-1">Статус</p>
+            <p class="text-lg font-black text-green-600 mt-2">Активна</p>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        {% if apps %}
+            {% for app in apps %}
+            <div class="group bg-white border border-neutral-100 p-8 rounded-[2rem] hover:border-neutral-900 transition-all duration-300 shadow-sm hover:shadow-xl">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-neutral-900 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            {{ app.student.username|slice:":1"|upper }}
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-neutral-900">{{ app.student.username }}</h3>
+                            <p class="text-sm text-neutral-400 font-medium">Откликнулся {{ app.created_at|date:"d E, H:i" }}</p>
+                        </div>
+                    </div>
+                    
+                    <a href="mailto:{{ app.student.email }}" class="px-6 py-3 bg-neutral-100 text-neutral-900 rounded-xl text-sm font-bold hover:bg-neutral-900 hover:text-white transition-all">
+                        Написать кандидату
+                    </a>
+                </div>
+
+                <div class="bg-neutral-50 p-6 rounded-2xl border border-neutral-100">
+                    <p class="text-[10px] uppercase font-bold text-neutral-400 tracking-widest mb-3">Сопроводительное письмо</p>
+                    <p class="text-neutral-700 leading-relaxed italic">
+                        "{{ app.cover_letter }}"
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-20 bg-neutral-50 rounded-[3rem] border-2 border-dashed border-neutral-200">
+                <div class="text-5xl mb-4">📩</div>
+                <h3 class="text-xl font-bold text-neutral-900">Пока нет откликов</h3>
+                <p class="text-neutral-500 mt-2">Вашу вакансию увидят студенты в общем поиске.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

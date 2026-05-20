@@ -1,0 +1,128 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-neutral-50">
+    <div class="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl border border-neutral-200">
+        
+        <div class="text-center mb-8">
+            <div class="w-12 h-12 bg-neutral-900 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span class="text-white font-bold text-xl">JA</span>
+            </div>
+            <h2 class="text-2xl font-bold text-neutral-900">Create your account</h2>
+            <p class="text-neutral-500 mt-2">Присоединяйтесь к JobAggregator</p>
+        </div>
+
+        {% if form.errors or captcha_error %}
+            <div class="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm">
+                <p class="font-bold mb-1">Исправьте следующие ошибки:</p>
+                <ul class="list-disc list-inside">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    {% if captcha_error %}
+                        <li>Безопасность: {{ captcha_error }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-neutral-700 mb-3">Я регистрируюсь как:</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="relative flex flex-col p-4 border rounded-xl cursor-pointer hover:bg-neutral-50 transition-all border-neutral-200 has-[:checked]:border-neutral-900 has-[:checked]:ring-1 has-[:checked]:ring-neutral-900">
+                        <input type="radio" name="role" value="student" class="sr-only" {% if role != 'employer' %}checked{% endif %}>
+                        <span class="text-sm font-bold text-neutral-900">Студент</span>
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-500 mt-1">Ищу работу</span>
+                    </label>
+                    <label class="relative flex flex-col p-4 border rounded-xl cursor-pointer hover:bg-neutral-50 transition-all border-neutral-200 has-[:checked]:border-neutral-900 has-[:checked]:ring-1 has-[:checked]:ring-neutral-900">
+                        <input type="radio" name="role" value="employer" class="sr-only" {% if role == 'employer' %}checked{% endif %}>
+                        <span class="text-sm font-bold text-neutral-900">Работодатель</span>
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-500 mt-1">Ищу таланты</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-neutral-700 mb-1">Username</label>
+                <input type="text" name="username" required
+                    class="w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all"
+                    placeholder="johndoe" value="{{ form.username.value|default:'' }}">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-neutral-700 mb-1">Email Address</label>
+                <input type="email" name="email" required
+                    class="w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all"
+                    placeholder="name@company.com" value="{{ form.email.value|default:'' }}">
+            </div>
+
+            <div class="relative">
+                <label class="block text-sm font-medium text-neutral-700 mb-1">Password</label>
+                <div class="relative">
+                    <input type="password" name="password1" id="id_password1" required
+                        class="w-full px-4 py-3 pr-12 rounded-xl border border-neutral-200 outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all"
+                        placeholder="••••••••">
+                    <button type="button" onclick="togglePass('id_password1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-900">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-neutral-700 mb-1">Confirm Password</label>
+                <input type="password" name="password2" id="id_password2" required
+                    class="w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all"
+                    placeholder="••••••••">
+            </div>
+
+            <div class="pt-2 border-t border-neutral-100">
+                <label class="block text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">Security Check</label>
+                <div class="flex flex-col gap-3">
+                    <div class="bg-neutral-100 rounded-xl overflow-hidden border border-neutral-200 flex items-center justify-center p-2">
+                        <div id="captcha-text" class="h-14 w-full flex items-center justify-center bg-gray-100 text-xl font-bold tracking-[0.5em] select-none">
+                            Генерация...
+                        </div>
+                        <input type="hidden" name="captcha_expected" id="captcha_expected">
+                    </div>
+                    <input type="text" name="captcha_input" required 
+                        class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-xl outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all text-sm"
+                        placeholder="Введите цифры выше">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold hover:bg-neutral-800 transition-all active:scale-[0.98]">
+                Create Account
+            </button>
+        </form>
+
+        <div class="mt-8 pt-6 border-t border-neutral-100 text-center">
+            <p class="text-neutral-500 text-sm">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-neutral-900 font-bold hover:underline">Log In</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Генерация капчи при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        const val = Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('captcha-text').innerText = val;
+        document.getElementById('captcha_expected').value = val;
+    });
+
+    function togglePass(inputId) {
+        const input = document.getElementById(inputId);
+        input.type = input.type === "password" ? "text" : "password";
+    }
+</script>
+{% endblock %}

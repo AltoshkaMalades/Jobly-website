@@ -1,0 +1,38 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Курсы обучения{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-10">
+    <div class="mb-10 text-center">
+        <span class="text-sm uppercase tracking-[0.35em] text-neutral-400 font-black">Learning</span>
+        <h1 class="mt-5 text-4xl font-black">Курсы и видео-уроки</h1>
+        <p class="mt-4 max-w-2xl mx-auto text-neutral-500">Изучайте профессиональные навыки шаг за шагом с помощью коротких видео и наглядных материалов.</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+        {% for course in courses %}
+            <article class="overflow-hidden rounded-[32px] border border-neutral-200 bg-white p-8 shadow-sm transition hover:shadow-lg">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-neutral-900 text-3xl text-white">{{ course.icon|default:'🎓' }}</div>
+                    <div>
+                        <h2 class="text-2xl font-black">{{ course.title }}</h2>
+                        <p class="text-sm text-neutral-500">{{ course.lessons.count }} уроков</p>
+                    </div>
+                </div>
+                <p class="text-neutral-600 leading-relaxed">{{ course.desc|default:'Описание курса отсутствует.' }}</p>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                    {% for lesson in course.lessons.all|slice:':3' %}
+                        <a href="{% url 'lesson_detail' lesson.pk %}" class="rounded-full border border-neutral-200 px-4 py-2 text-sm font-bold text-neutral-900 hover:bg-neutral-100 transition">{{ lesson.title }}</a>
+                    {% empty %}
+                        <div class="rounded-3xl bg-neutral-50 p-4 text-sm text-neutral-500">Пока нет уроков</div>
+                    {% endfor %}
+                </div>
+            </article>
+        {% empty %}
+            <div class="rounded-[32px] border border-neutral-200 bg-neutral-50 p-10 text-center text-neutral-500">Пока нет доступных курсов.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <a href="{% url 'home' %}" class="text-neutral-500 hover:text-neutral-900 mb-8 inline-block transition-colors">
+        ← Вернуться к списку
+    </a>
+
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="md:col-span-2 space-y-8">
+            <div>
+                <div class="flex gap-2 mb-4">
+                    <span class="bg-neutral-900 text-white px-3 py-1 rounded-lg text-xs font-bold uppercase">{{ job.category }}</span>
+                    <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-lg text-xs font-bold uppercase">Full-time</span>
+                </div>
+                <h1 class="text-4xl font-extrabold text-neutral-900 mb-4">{{ job.title }}</h1>
+                <div class="flex flex-wrap gap-6 text-neutral-600">
+                    <div class="flex items-center gap-2"><span>🏢</span> <strong>{{ job.company }}</strong></div>
+                    <div class="flex items-center gap-2"><span>📍</span> {{ job.location }}</div>
+                    <div class="flex items-center gap-2"><span>💰</span> <span class="font-bold text-neutral-900">{{ job.salary|default:"По договоренности" }}</span></div>
+                </div>
+            </div>
+
+            <div class="border-t border-neutral-100 pt-8">
+                <h2 class="text-xl font-bold mb-4">Описание вакансии</h2>
+                <div class="text-neutral-600 leading-relaxed whitespace-pre-wrap">
+                    {{ job.description }}
+                </div>
+            </div>
+        </div>
+
+        <div class="md:col-span-1">
+            <div class="bg-white border border-neutral-200 p-6 rounded-2xl sticky top-24 shadow-sm">
+                <h3 class="font-bold mb-4">Готовы откликнуться?</h3>
+                
+                <a href="mailto:{{ job.contact_email }}?subject=Отклик на вакансию: {{ job.title }}" 
+                   class="block w-full text-center py-4 bg-neutral-900 text-white rounded-xl font-bold hover:bg-neutral-800 transition-all shadow-lg hover:shadow-neutral-900/20 active:scale-95 mb-4">
+                    Apply Now
+                </a>
+                
+                <div class="text-center">
+                    <p class="text-xs text-neutral-400 mb-1">Прямой контакт:</p>
+                    <span class="text-sm font-medium text-neutral-900 select-all">{{ job.contact_email }}</span>
+                </div>
+
+                <hr class="my-6 border-neutral-100">
+
+                <p class="text-[10px] text-neutral-400 uppercase tracking-widest text-center">
+                    Опубликовано: {{ job.created_at|date:"d.m.Y" }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

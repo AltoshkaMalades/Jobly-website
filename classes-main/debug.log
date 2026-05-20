@@ -1,0 +1,1218 @@
+INFO 2026-03-28 11:12:56,032 autoreload 17980 11600 Watching for file changes with StatReloader
+INFO 2026-03-28 11:13:35,443 autoreload 21448 10324 Watching for file changes with StatReloader
+INFO 2026-03-28 11:14:08,981 autoreload 21448 10324 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:14:09,540 autoreload 19132 9512 Watching for file changes with StatReloader
+INFO 2026-03-28 11:14:44,036 autoreload 19132 9512 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:14:44,626 autoreload 9768 2100 Watching for file changes with StatReloader
+INFO 2026-03-28 11:14:50,018 autoreload 9768 2100 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:14:50,605 autoreload 13348 11404 Watching for file changes with StatReloader
+INFO 2026-03-28 11:15:52,084 autoreload 13348 11404 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:15:52,686 autoreload 20904 15748 Watching for file changes with StatReloader
+INFO 2026-03-28 11:16:27,044 autoreload 20904 15748 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:16:27,644 autoreload 16508 15944 Watching for file changes with StatReloader
+INFO 2026-03-28 11:16:28,887 autoreload 16508 15944 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:16:29,485 autoreload 5640 14480 Watching for file changes with StatReloader
+INFO 2026-03-28 11:17:19,343 autoreload 5640 14480 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py changed, reloading.
+INFO 2026-03-28 11:17:19,942 autoreload 12856 5328 Watching for file changes with StatReloader
+INFO 2026-03-28 11:17:22,550 log 12856 2344 "GET / HTTP/1.1" 200 12060
+WARNING 2026-03-28 11:17:22,804 log 12856 2344 Not Found: /favicon.ico
+WARNING 2026-03-28 11:17:22,804 log 12856 2344 "GET /favicon.ico HTTP/1.1" 404 7387
+INFO 2026-03-28 12:36:32,700 autoreload 14108 19300 Watching for file changes with StatReloader
+INFO 2026-03-28 12:36:35,018 log 14108 17288 "GET / HTTP/1.1" 200 12060
+WARNING 2026-03-28 12:36:35,463 log 14108 17288 Not Found: /favicon.ico
+WARNING 2026-03-28 12:36:35,463 log 14108 17288 "GET /favicon.ico HTTP/1.1" 404 7387
+INFO 2026-03-28 12:36:37,582 log 14108 17288 "GET /login/ HTTP/1.1" 200 9681
+INFO 2026-03-28 12:36:38,797 log 14108 17288 "GET /register/role/ HTTP/1.1" 302 0
+WARNING 2026-03-28 12:36:38,807 log 14108 17288 Not Found: /accounts/login/
+WARNING 2026-03-28 12:36:38,807 log 14108 17288 "GET /accounts/login/?next=/register/role/ HTTP/1.1" 404 7420
+INFO 2026-03-28 12:41:00,439 autoreload 14108 19300 C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\core\settings.py changed, reloading.
+INFO 2026-03-28 12:41:01,527 autoreload 21484 12840 Watching for file changes with StatReloader
+INFO 2026-03-28 12:41:04,763 log 21484 20572 "GET / HTTP/1.1" 200 12060
+INFO 2026-03-28 12:41:06,208 log 21484 20572 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-03-28 12:41:06,215 log 21484 20572 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+ERROR 2026-03-28 12:41:09,074 log 21484 20572 Internal Server Error: /login/
+Traceback (most recent call last):
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 502, in __get__
+    rel_obj = self.related.get_cached_value(instance)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\fields\mixins.py", line 21, in get_cached_value
+    return instance._state.fields_cache[self.cache_name]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'profile'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: accounts_profile.company_name
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\views.py", line 111, in login_view
+    if form.is_valid():
+       ~~~~~~~~~~~~~^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\forms\forms.py", line 206, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\forms\forms.py", line 201, in errors
+    self.full_clean()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\forms\forms.py", line 338, in full_clean
+    self._clean_form()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\forms\forms.py", line 354, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\forms.py", line 349, in clean
+    self.user_cache = authenticate(
+                      ~~~~~~~~~~~~^
+        self.request, username=username, password=password
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\backends.py", line 71, in authenticate
+    if user.check_password(password) and self.user_can_authenticate(user):
+       ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\base_user.py", line 109, in check_password
+    return check_password(raw_password, self.password, setter)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\hashers.py", line 85, in check_password
+    setter(password)
+    ~~~~~~^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\base_user.py", line 107, in setter
+    self.save(update_fields=["password"])
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\contrib\auth\base_user.py", line 62, in save
+    super().save(**kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\base.py", line 981, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\dispatch\dispatcher.py", line 209, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\accounts\models.py", line 97, in save_user_profile
+    instance.profile.save()
+    ^^^^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 509, in __get__
+    rel_obj = self.get_queryset(instance=instance).get(**filter_args)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Алтынбек\OneDrive\Рабочий стол\classes\envir\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: accounts_profile.company_name
+ERROR 2026-03-28 12:41:09,087 log 21484 20572 "POST /login/?next=/register/role/ HTTP/1.1" 500 230233
+INFO 2026-03-28 12:42:07,195 autoreload 20640 1672 Watching for file changes with StatReloader
+INFO 2026-03-28 12:42:09,322 log 20640 18616 "GET / HTTP/1.1" 200 12060
+INFO 2026-03-28 12:42:10,886 log 20640 18616 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-03-28 12:42:10,893 log 20640 18616 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-03-28 12:42:12,198 views 20640 18616 ВХОД: Altyn
+INFO 2026-03-28 12:42:12,211 log 20640 18616 "POST /login/?next=/register/role/ HTTP/1.1" 302 0
+INFO 2026-03-28 12:42:12,224 log 20640 18616 "GET / HTTP/1.1" 200 12060
+INFO 2026-03-28 12:42:20,916 log 20640 18616 "GET / HTTP/1.1" 200 12060
+INFO 2026-03-28 12:42:21,393 log 20640 18616 "GET /search/ HTTP/1.1" 200 10647
+INFO 2026-04-03 12:45:43,664 autoreload 32608 8224 Watching for file changes with StatReloader
+INFO 2026-04-03 12:45:46,650 log 32608 32764 "GET / HTTP/1.1" 200 12060
+WARNING 2026-04-03 12:45:47,312 log 32608 32764 Not Found: /favicon.ico
+WARNING 2026-04-03 12:45:47,312 log 32608 32764 "GET /favicon.ico HTTP/1.1" 404 7387
+INFO 2026-04-03 12:46:12,448 log 32608 32764 "GET /job/4/ HTTP/1.1" 200 10194
+INFO 2026-04-03 12:46:14,683 log 32608 32764 "GET /login/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:46:20,797 log 32608 32764 "GET /register/ HTTP/1.1" 200 12077
+ERROR 2026-04-03 12:46:57,142 log 32608 32764 Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py", line 92, in register
+    user.save()
+    ~~~~~~~~~^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\base_user.py", line 62, in save
+    super().save(**kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 981, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\dispatch\dispatcher.py", line 209, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 93, in create_user_profile
+    Profile.objects.create(user=instance)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 63, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1220, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+ERROR 2026-04-03 12:46:57,157 log 32608 32764 "POST /register/ HTTP/1.1" 500 194095
+INFO 2026-04-03 12:48:22,612 log 32608 32764 "POST /register/ HTTP/1.1" 200 12451
+INFO 2026-04-03 12:48:28,600 log 32608 32764 "GET /login/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:48:46,887 log 32608 32764 "GET / HTTP/1.1" 200 12060
+INFO 2026-04-03 12:50:10,625 log 32608 32764 "GET /login/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:12,496 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:50:12,514 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:14,613 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:50:14,633 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:15,889 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:50:15,943 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:16,938 log 32608 32764 "GET /login/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:28,430 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:50:28,447 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:37,808 log 32608 32764 "GET /register/role HTTP/1.1" 301 0
+INFO 2026-04-03 12:50:37,817 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:50:37,836 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:50:45,622 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:50:45,641 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:55:44,283 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:55:46,042 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:55:46,060 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:55:47,570 log 32608 32764 "GET /login/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:55:48,483 log 32608 32764 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-03 12:55:48,504 log 32608 32764 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-03 12:55:54,672 log 32608 32764 "GET /register/ HTTP/1.1" 200 12077
+INFO 2026-04-03 12:56:50,470 log 32608 32764 "POST /register/ HTTP/1.1" 200 12335
+INFO 2026-04-03 12:57:12,702 log 32608 32764 "POST /register/ HTTP/1.1" 200 12335
+INFO 2026-04-03 12:57:28,238 log 32608 32764 "POST /register/ HTTP/1.1" 200 12335
+INFO 2026-04-04 10:58:59,688 autoreload 22032 25156 Watching for file changes with StatReloader
+INFO 2026-04-04 10:59:05,484 log 22032 23376 "GET / HTTP/1.1" 200 12060
+WARNING 2026-04-04 10:59:06,866 log 22032 23376 Not Found: /favicon.ico
+WARNING 2026-04-04 10:59:06,867 log 22032 23376 "GET /favicon.ico HTTP/1.1" 404 7387
+INFO 2026-04-04 10:59:08,605 log 22032 23376 "GET /register/role/ HTTP/1.1" 302 0
+INFO 2026-04-04 10:59:08,664 log 22032 23376 "GET /login/?next=/register/role/ HTTP/1.1" 200 9681
+INFO 2026-04-04 11:07:26,099 log 22032 10612 "GET /login/?next=/register/role/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:28,121 log 22032 10612 "GET /register/ HTTP/1.1" 200 12067
+INFO 2026-04-04 11:07:42,376 log 22032 10612 "POST /register/ HTTP/1.1" 200 12325
+INFO 2026-04-04 11:07:44,657 log 22032 10612 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:46,031 log 22032 10612 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:49,954 log 22032 10612 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:50,825 log 22032 10612 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:51,661 log 22032 10612 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:52,413 log 22032 10612 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:07:53,420 log 22032 10612 "GET /register/ HTTP/1.1" 200 12067
+INFO 2026-04-04 11:08:47,971 log 22032 10612 "GET /register/ HTTP/1.1" 200 12067
+ERROR 2026-04-04 11:09:23,190 log 22032 10612 Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py", line 90, in register
+    user.save()
+    ~~~~~~~~~^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\base_user.py", line 62, in save
+    super().save(**kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 981, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\dispatch\dispatcher.py", line 209, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 93, in create_user_profile
+    Profile.objects.create(user=instance)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 63, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1220, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+ERROR 2026-04-04 11:09:23,214 log 22032 10612 "POST /register/ HTTP/1.1" 500 195031
+INFO 2026-04-04 11:17:38,384 autoreload 22032 25156 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-04 11:17:39,451 autoreload 24656 19088 Watching for file changes with StatReloader
+INFO 2026-04-04 11:17:41,087 log 24656 13940 "POST /register/ HTTP/1.1" 200 12436
+ERROR 2026-04-04 11:18:10,939 log 24656 13940 Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py", line 86, in register
+    user.save()
+    ~~~~~~~~~^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\base_user.py", line 62, in save
+    super().save(**kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 981, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\dispatch\dispatcher.py", line 209, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 93, in create_user_profile
+    Profile.objects.create(user=instance)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 63, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1220, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+ERROR 2026-04-04 11:18:10,949 log 24656 13940 "POST /register/ HTTP/1.1" 500 195138
+INFO 2026-04-04 11:19:14,626 autoreload 24656 19088 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-04 11:19:15,361 autoreload 34620 31996 Watching for file changes with StatReloader
+INFO 2026-04-04 11:19:17,760 log 34620 33484 "POST /register/ HTTP/1.1" 200 12435
+INFO 2026-04-04 11:19:19,492 log 34620 33484 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:19:21,860 log 34620 33484 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:19:26,790 log 34620 33484 "GET /register/ HTTP/1.1" 200 12067
+ERROR 2026-04-04 11:20:00,859 log 34620 33484 Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py", line 86, in register
+    user.save()
+    ~~~~~~~~~^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\base_user.py", line 62, in save
+    super().save(**kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 981, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\dispatch\dispatcher.py", line 209, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 93, in create_user_profile
+    Profile.objects.create(user=instance)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py", line 63, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\base.py", line 1220, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: accounts_profile.id
+ERROR 2026-04-04 11:20:00,872 log 34620 33484 "POST /register/ HTTP/1.1" 500 195332
+INFO 2026-04-04 11:21:44,876 autoreload 34620 31996 C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py changed, reloading.
+INFO 2026-04-04 11:21:45,752 autoreload 27808 25632 Watching for file changes with StatReloader
+INFO 2026-04-04 11:22:02,385 autoreload 27808 25632 C:\Users\Altyn\Documents\GitHub\classes\core\settings.py changed, reloading.
+INFO 2026-04-04 11:22:03,121 autoreload 9888 13540 Watching for file changes with StatReloader
+INFO 2026-04-04 11:22:05,732 log 9888 23780 "POST /register/ HTTP/1.1" 200 12440
+INFO 2026-04-04 11:22:08,401 log 9888 23780 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:22:17,542 log 9888 23780 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:22:27,046 log 9888 23780 "GET /register/ HTTP/1.1" 200 12067
+INFO 2026-04-04 11:22:40,396 log 9888 23780 "POST /register/ HTTP/1.1" 200 12325
+INFO 2026-04-04 11:22:59,280 log 9888 23780 "POST /register/ HTTP/1.1" 200 12325
+INFO 2026-04-04 11:27:28,395 autoreload 9888 13540 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-04 11:27:29,296 autoreload 32964 22672 Watching for file changes with StatReloader
+INFO 2026-04-04 11:28:19,657 autoreload 32964 22672 C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py changed, reloading.
+INFO 2026-04-04 11:28:20,340 autoreload 35696 19424 Watching for file changes with StatReloader
+INFO 2026-04-04 11:28:28,826 autoreload 35696 19424 C:\Users\Altyn\Documents\GitHub\classes\accounts\models.py changed, reloading.
+INFO 2026-04-04 11:28:29,403 autoreload 16484 23644 Watching for file changes with StatReloader
+INFO 2026-04-04 11:28:43,119 autoreload 32268 22212 Watching for file changes with StatReloader
+INFO 2026-04-04 11:30:14,099 autoreload 32268 22212 C:\Users\Altyn\Documents\GitHub\classes\accounts\urls.py changed, reloading.
+INFO 2026-04-04 11:30:14,704 autoreload 13860 29220 Watching for file changes with StatReloader
+INFO 2026-04-04 11:30:25,037 autoreload 14888 34492 Watching for file changes with StatReloader
+INFO 2026-04-04 11:31:54,187 autoreload 14888 34492 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-04 11:31:54,745 autoreload 25756 31092 Watching for file changes with StatReloader
+INFO 2026-04-04 11:32:03,254 autoreload 25756 31092 C:\Users\Altyn\Documents\GitHub\classes\accounts\urls.py changed, reloading.
+INFO 2026-04-04 11:32:04,111 autoreload 15260 18968 Watching for file changes with StatReloader
+INFO 2026-04-04 11:32:11,495 log 15260 31552 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 11:32:13,039 log 15260 31552 "GET /register/ HTTP/1.1" 200 12067
+INFO 2026-04-04 11:32:23,273 log 15260 31552 "POST /register/ HTTP/1.1" 200 12325
+INFO 2026-04-04 11:32:36,400 log 15260 31552 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:32:38,214 log 15260 31552 "POST /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:32:51,276 log 15260 31552 "GET /register/ HTTP/1.1" 200 12067
+INFO 2026-04-04 11:33:11,280 log 15260 31552 "POST /register/ HTTP/1.1" 200 12325
+INFO 2026-04-04 11:35:36,864 autoreload 15260 18968 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-04 11:35:37,753 autoreload 14944 32024 Watching for file changes with StatReloader
+INFO 2026-04-04 11:35:39,961 log 14944 23772 "POST /register/ HTTP/1.1" 200 1360
+INFO 2026-04-04 11:38:26,670 log 14944 23772 "POST /register/ HTTP/1.1" 200 1360
+INFO 2026-04-04 11:38:48,487 log 14944 23772 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 11:38:50,624 log 14944 23772 "GET /register/ HTTP/1.1" 200 711
+INFO 2026-04-04 11:38:53,327 log 14944 23772 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:39:26,752 log 14944 23772 "GET /register/ HTTP/1.1" 200 711
+INFO 2026-04-04 11:39:28,090 log 14944 23772 "GET /register/ HTTP/1.1" 200 711
+INFO 2026-04-04 11:40:17,491 log 14944 23772 "GET /register/ HTTP/1.1" 200 711
+INFO 2026-04-04 11:40:30,234 log 14944 23772 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 11:40:32,087 log 14944 23772 "GET /register/ HTTP/1.1" 200 711
+INFO 2026-04-04 11:41:13,876 log 14944 23772 "GET /register/ HTTP/1.1" 200 10487
+WARNING 2026-04-04 11:41:14,137 log 14944 23772 Not Found: /favicon.ico
+WARNING 2026-04-04 11:41:14,138 log 14944 23772 "GET /favicon.ico HTTP/1.1" 404 7120
+INFO 2026-04-04 11:41:47,516 log 14944 23772 "POST /register/ HTTP/1.1" 302 0
+INFO 2026-04-04 11:41:47,534 log 14944 23772 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-04 11:42:12,488 log 14944 23772 "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-04-04 11:42:12,500 log 14944 23772 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 11:42:13,220 log 14944 23772 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 11:42:15,430 log 14944 23772 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-04-04 11:42:15,444 log 14944 23772 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-04 11:42:21,755 log 14944 23772 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-04 11:42:24,117 log 14944 23772 "GET /job/5/ HTTP/1.1" 200 12592
+INFO 2026-04-04 11:42:29,015 log 14944 23772 "POST /job/5/apply/ HTTP/1.1" 302 0
+INFO 2026-04-04 11:42:29,037 log 14944 23772 "GET /job/5/ HTTP/1.1" 200 12290
+INFO 2026-04-04 11:43:38,099 log 14944 23772 "GET /search/ HTTP/1.1" 200 11174
+INFO 2026-04-04 11:43:38,844 log 14944 23772 "GET /profile/ HTTP/1.1" 200 10957
+INFO 2026-04-04 11:45:15,023 log 14944 23772 "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-04-04 11:45:15,039 log 14944 23772 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 11:45:15,956 log 14944 23772 "GET /register/ HTTP/1.1" 200 10487
+INFO 2026-04-04 11:48:24,184 autoreload 14944 32024 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-04 11:48:24,868 autoreload 33016 34512 Watching for file changes with StatReloader
+INFO 2026-04-04 11:48:51,168 log 33016 11612 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:29:53,310 autoreload 11392 27284 Watching for file changes with StatReloader
+INFO 2026-04-04 15:29:57,593 log 11392 13356 "GET / HTTP/1.1" 200 12050
+WARNING 2026-04-04 15:29:58,072 log 11392 13356 Not Found: /favicon.ico
+WARNING 2026-04-04 15:29:58,074 log 11392 13356 "GET /favicon.ico HTTP/1.1" 404 7120
+INFO 2026-04-04 15:30:09,950 log 11392 13356 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:46:50,923 autoreload 32424 24936 Watching for file changes with StatReloader
+INFO 2026-04-04 15:46:56,085 log 32424 26428 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 15:46:59,512 log 32424 26428 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:47:16,515 log 32424 26428 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 15:47:18,545 log 32424 26428 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:47:25,586 log 32424 26428 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:47:27,639 log 32424 26428 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:47:28,260 log 32424 26428 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-04 15:47:36,867 log 32424 26428 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-04 15:47:38,091 log 32424 26428 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-04 15:47:39,537 log 32424 26428 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-04-04 15:47:39,559 log 32424 26428 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-04 15:47:41,769 log 32424 26428 "GET /profile/ HTTP/1.1" 200 10957
+INFO 2026-04-04 15:48:05,368 log 32424 26428 "GET /job/1/ HTTP/1.1" 200 12573
+INFO 2026-04-04 15:48:18,764 log 32424 26428 "POST /job/1/apply/ HTTP/1.1" 302 0
+INFO 2026-04-04 15:48:18,792 log 32424 26428 "GET /job/1/ HTTP/1.1" 200 12271
+INFO 2026-04-04 15:48:49,401 log 32424 26428 "GET /profile/ HTTP/1.1" 200 11720
+INFO 2026-04-04 15:48:58,376 log 32424 26428 "GET /profile/edit/ HTTP/1.1" 200 8377
+INFO 2026-04-04 15:49:22,480 log 32424 26428 "POST /profile/edit/ HTTP/1.1" 302 0
+INFO 2026-04-04 15:49:22,503 log 32424 26428 "GET /profile/ HTTP/1.1" 200 11824
+INFO 2026-04-04 15:51:59,522 log 32424 26428 "GET /search/ HTTP/1.1" 200 11174
+INFO 2026-04-04 15:52:42,725 log 32424 26428 "GET /profile/ HTTP/1.1" 200 11538
+INFO 2026-04-04 15:52:48,120 log 32424 26428 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-04 15:54:33,312 log 32424 26428 "GET /search/ HTTP/1.1" 200 11174
+INFO 2026-04-04 15:54:37,601 log 32424 26428 "GET /search/?query=&category=Design HTTP/1.1" 200 9229
+INFO 2026-04-04 15:54:44,732 log 32424 26428 "GET /search/?query=&category=Menegment HTTP/1.1" 200 8570
+INFO 2026-04-04 15:54:51,126 log 32424 26428 "GET /job/2/ HTTP/1.1" 200 12563
+INFO 2026-04-04 15:55:16,560 log 32424 26428 "GET /job/1/ HTTP/1.1" 200 11985
+INFO 2026-04-04 15:55:28,618 log 32424 26428 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-05 22:17:46,012 autoreload 33880 22860 Watching for file changes with StatReloader
+INFO 2026-04-05 22:18:01,054 autoreload 22232 22288 Watching for file changes with StatReloader
+INFO 2026-04-05 22:18:15,238 log 33880 30336 "GET / HTTP/1.1" 200 12587
+WARNING 2026-04-05 22:18:15,934 log 33880 30336 Not Found: /favicon.ico
+WARNING 2026-04-05 22:18:15,935 log 33880 30336 "GET /favicon.ico HTTP/1.1" 404 7120
+INFO 2026-04-05 22:18:18,691 log 33880 30336 "GET /profile/ HTTP/1.1" 200 11538
+INFO 2026-04-05 22:18:20,242 log 33880 30336 "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-04-05 22:18:20,251 log 33880 30336 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-05 22:18:21,425 log 33880 30336 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-05 22:18:22,488 log 33880 30336 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-04-05 22:18:22,499 log 33880 30336 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-05 22:18:23,674 log 33880 30336 "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-04-05 22:18:23,683 log 33880 30336 "GET / HTTP/1.1" 200 12050
+INFO 2026-04-05 22:18:24,095 log 33880 30336 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-05 22:18:27,152 log 33880 30336 "GET /register/ HTTP/1.1" 200 11990
+INFO 2026-04-05 22:18:29,681 log 33880 30336 "GET /login/ HTTP/1.1" 200 9671
+INFO 2026-04-05 22:18:30,676 log 33880 30336 "POST /login/ HTTP/1.1" 302 0
+INFO 2026-04-05 22:18:30,688 log 33880 30336 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-05 22:18:32,048 log 33880 30336 "GET /search/ HTTP/1.1" 200 11174
+INFO 2026-04-05 22:18:34,078 log 33880 30336 "GET /job/3/ HTTP/1.1" 200 12561
+INFO 2026-04-05 22:18:39,288 log 33880 30336 "POST /job/3/apply/ HTTP/1.1" 302 0
+INFO 2026-04-05 22:18:39,302 log 33880 30336 "GET /job/3/ HTTP/1.1" 200 12259
+INFO 2026-04-05 22:18:40,164 log 33880 30336 "GET /profile/ HTTP/1.1" 200 12292
+INFO 2026-04-05 22:18:44,515 log 33880 30336 "GET /profile/edit/ HTTP/1.1" 200 8423
+INFO 2026-04-05 22:18:49,801 log 33880 30336 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-10 23:53:18,234 autoreload 2340 32956 Watching for file changes with StatReloader
+INFO 2026-04-10 23:53:20,758 log 2340 10956 "GET / HTTP/1.1" 200 12587
+WARNING 2026-04-10 23:53:21,304 log 2340 10956 Not Found: /favicon.ico
+WARNING 2026-04-10 23:53:21,305 log 2340 10956 "GET /favicon.ico HTTP/1.1" 404 7809
+INFO 2026-04-10 23:53:26,415 log 2340 10956 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-10 23:53:27,218 log 2340 10956 "GET /search/ HTTP/1.1" 200 11174
+INFO 2026-04-10 23:53:33,648 log 2340 10956 "GET / HTTP/1.1" 200 12587
+INFO 2026-04-11 00:04:53,120 autoreload 9176 10168 Watching for file changes with StatReloader
+INFO 2026-04-11 00:05:30,843 autoreload 9176 10168 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:05:31,307 autoreload 35188 23232 Watching for file changes with StatReloader
+INFO 2026-04-11 00:05:41,608 autoreload 35188 23232 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:05:42,053 autoreload 34460 30284 Watching for file changes with StatReloader
+INFO 2026-04-11 00:06:26,752 autoreload 34460 30284 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:06:27,202 autoreload 34696 27728 Watching for file changes with StatReloader
+INFO 2026-04-11 00:07:00,935 autoreload 34696 27728 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:07:01,404 autoreload 31236 30108 Watching for file changes with StatReloader
+INFO 2026-04-11 00:07:01,594 log 31236 14200 "GET / HTTP/1.1" 200 16212
+ERROR 2026-04-11 00:07:10,235 log 31236 14200 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: accounts_profile.education
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py", line 114, in profile_view
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: accounts_profile.education
+ERROR 2026-04-11 00:07:10,240 log 31236 14200 "GET /profile/ HTTP/1.1" 500 152969
+INFO 2026-04-11 00:10:53,084 log 31236 14200 "GET / HTTP/1.1" 200 16212
+INFO 2026-04-11 00:10:55,196 log 31236 14200 "GET /profile/ HTTP/1.1" 200 15917
+INFO 2026-04-11 00:11:17,144 log 31236 14200 "POST /ai-chat/ HTTP/1.1" 200 282
+INFO 2026-04-11 00:15:47,185 log 31236 14200 "GET / HTTP/1.1" 200 16212
+ERROR 2026-04-11 00:15:49,211 log 31236 14200 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py", line 121, in profile_view
+    return render(request, 'accounts/profile.html', context)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\defaulttags.py", line 1008, in do_if
+    nodelist = parser.parse(("endif",))
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\classes\envir\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Altyn\Documents\GitHub\classes\accounts\templates\accounts\profile.html, Invalid block tag on line 211: 'endblock', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+ERROR 2026-04-11 00:15:49,214 log 31236 14200 "GET /profile/ HTTP/1.1" 500 228623
+INFO 2026-04-11 00:19:05,775 log 31236 14200 "GET / HTTP/1.1" 200 16212
+INFO 2026-04-11 00:19:07,657 log 31236 14200 "GET /profile/ HTTP/1.1" 200 17570
+INFO 2026-04-11 00:19:11,936 log 31236 14200 "GET /profile/edit/ HTTP/1.1" 200 13146
+INFO 2026-04-11 00:19:15,971 log 31236 14200 "POST /profile/edit/ HTTP/1.1" 302 0
+INFO 2026-04-11 00:19:15,979 log 31236 14200 "GET /profile/ HTTP/1.1" 200 17856
+INFO 2026-04-11 00:19:20,287 log 31236 14200 "GET /profile/cv/ HTTP/1.1" 200 12914
+INFO 2026-04-11 00:19:22,595 log 31236 14200 "GET /profile/cv/download/ HTTP/1.1" 200 2018
+INFO 2026-04-11 00:19:32,641 log 31236 14200 "POST /ai-chat/ HTTP/1.1" 200 282
+INFO 2026-04-11 00:19:40,999 log 31236 14200 "GET /profile/ HTTP/1.1" 200 17570
+INFO 2026-04-11 00:19:46,490 log 31236 14200 "GET / HTTP/1.1" 200 16212
+INFO 2026-04-11 00:20:40,470 autoreload 31236 30108 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:20:40,966 autoreload 30760 24740 Watching for file changes with StatReloader
+INFO 2026-04-11 00:21:30,899 autoreload 30760 24740 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:21:31,355 autoreload 2472 35828 Watching for file changes with StatReloader
+INFO 2026-04-11 00:21:33,658 autoreload 2472 35828 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:21:34,115 autoreload 31972 388 Watching for file changes with StatReloader
+INFO 2026-04-11 00:24:33,628 autoreload 31972 388 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:24:34,107 autoreload 34480 29968 Watching for file changes with StatReloader
+INFO 2026-04-11 00:25:53,385 autoreload 34480 29968 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:25:53,852 autoreload 23816 30396 Watching for file changes with StatReloader
+INFO 2026-04-11 00:25:58,213 autoreload 23816 30396 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:25:58,675 autoreload 13176 19172 Watching for file changes with StatReloader
+INFO 2026-04-11 00:26:03,022 autoreload 13176 19172 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:26:03,480 autoreload 3640 25132 Watching for file changes with StatReloader
+INFO 2026-04-11 00:26:52,379 autoreload 3640 25132 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:26:52,857 autoreload 35132 29472 Watching for file changes with StatReloader
+INFO 2026-04-11 00:26:57,236 autoreload 35132 29472 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:26:57,691 autoreload 35832 31732 Watching for file changes with StatReloader
+INFO 2026-04-11 00:27:06,087 autoreload 35832 31732 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:27:06,557 autoreload 28316 22128 Watching for file changes with StatReloader
+INFO 2026-04-11 00:27:37,232 autoreload 28316 22128 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:27:37,745 autoreload 164 32948 Watching for file changes with StatReloader
+INFO 2026-04-11 00:27:51,199 autoreload 164 32948 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:27:51,651 autoreload 8728 34260 Watching for file changes with StatReloader
+INFO 2026-04-11 00:27:53,961 autoreload 8728 34260 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:27:54,424 autoreload 5624 33960 Watching for file changes with StatReloader
+INFO 2026-04-11 00:27:55,744 autoreload 5624 33960 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:27:56,190 autoreload 32296 30212 Watching for file changes with StatReloader
+INFO 2026-04-11 00:30:30,870 log 32296 24180 "GET / HTTP/1.1" 200 16212
+INFO 2026-04-11 00:30:31,675 autoreload 32296 30212 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:30:32,160 autoreload 12824 24980 Watching for file changes with StatReloader
+INFO 2026-04-11 00:30:37,876 log 12824 28372 "POST /ai-chat/ HTTP/1.1" 200 89
+INFO 2026-04-11 00:31:25,285 autoreload 12824 24980 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:31:25,759 autoreload 34308 26728 Watching for file changes with StatReloader
+INFO 2026-04-11 00:31:31,172 autoreload 34308 26728 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:31:31,637 autoreload 34616 27608 Watching for file changes with StatReloader
+INFO 2026-04-11 00:31:41,048 autoreload 34616 27608 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:31:41,560 autoreload 24260 32748 Watching for file changes with StatReloader
+INFO 2026-04-11 00:31:47,946 autoreload 24260 32748 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:31:48,422 autoreload 30920 14980 Watching for file changes with StatReloader
+INFO 2026-04-11 00:34:06,450 autoreload 30920 14980 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:34:06,926 autoreload 30064 9600 Watching for file changes with StatReloader
+INFO 2026-04-11 00:34:14,314 autoreload 30064 9600 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:34:14,856 autoreload 28096 35292 Watching for file changes with StatReloader
+INFO 2026-04-11 00:34:38,448 autoreload 28096 35292 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:34:38,919 autoreload 28028 30024 Watching for file changes with StatReloader
+INFO 2026-04-11 00:35:51,089 autoreload 28028 30024 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:35:51,593 autoreload 32364 12984 Watching for file changes with StatReloader
+INFO 2026-04-11 00:35:55,446 log 32364 33120 "POST /ai-chat/ HTTP/1.1" 200 192
+INFO 2026-04-11 00:37:01,951 autoreload 32364 12984 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:37:02,436 autoreload 1124 35732 Watching for file changes with StatReloader
+INFO 2026-04-11 00:37:10,855 autoreload 1124 35732 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:37:11,352 autoreload 33256 34736 Watching for file changes with StatReloader
+INFO 2026-04-11 00:37:20,747 autoreload 33256 34736 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:37:21,222 autoreload 22124 35736 Watching for file changes with StatReloader
+INFO 2026-04-11 00:37:24,573 autoreload 22124 35736 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:37:25,050 autoreload 24980 21904 Watching for file changes with StatReloader
+INFO 2026-04-11 00:37:43,550 autoreload 24980 21904 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:37:44,063 autoreload 28540 28800 Watching for file changes with StatReloader
+INFO 2026-04-11 00:37:46,402 autoreload 28540 28800 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:37:46,874 autoreload 33252 34940 Watching for file changes with StatReloader
+INFO 2026-04-11 00:38:07,202 log 33252 496 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:38:29,553 log 33252 496 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:38:37,233 log 33252 496 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:38:54,121 log 33252 496 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:39:22,599 autoreload 33252 34940 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:39:23,099 autoreload 892 35456 Watching for file changes with StatReloader
+INFO 2026-04-11 00:39:33,418 autoreload 892 35456 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:39:33,868 autoreload 26240 29512 Watching for file changes with StatReloader
+INFO 2026-04-11 00:39:41,232 autoreload 26240 29512 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:39:41,693 autoreload 18924 35368 Watching for file changes with StatReloader
+INFO 2026-04-11 00:39:50,056 autoreload 18924 35368 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:39:50,505 autoreload 1584 35708 Watching for file changes with StatReloader
+INFO 2026-04-11 00:39:58,754 log 1584 21616 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:40:03,185 log 1584 21616 "GET /profile/ HTTP/1.1" 200 17570
+INFO 2026-04-11 00:40:13,324 log 1584 21616 "GET / HTTP/1.1" 200 16212
+INFO 2026-04-11 00:40:18,969 log 1584 21616 "GET / HTTP/1.1" 200 16212
+INFO 2026-04-11 00:40:27,002 log 1584 21616 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:41:59,667 log 1584 21616 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:43:54,131 log 1584 21616 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:46:33,359 autoreload 1584 35708 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:46:33,846 autoreload 14752 23296 Watching for file changes with StatReloader
+INFO 2026-04-11 00:46:36,192 autoreload 14752 23296 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:46:36,684 autoreload 2812 9264 Watching for file changes with StatReloader
+INFO 2026-04-11 00:46:37,974 autoreload 2812 9264 C:\Users\Altyn\Documents\GitHub\classes\accounts\views.py changed, reloading.
+INFO 2026-04-11 00:46:38,424 autoreload 11780 26492 Watching for file changes with StatReloader
+INFO 2026-04-11 00:46:40,463 autoreload 1184 24208 Watching for file changes with StatReloader
+INFO 2026-04-11 00:47:19,344 log 11780 14236 "GET / HTTP/1.1" 200 18615
+WARNING 2026-04-11 00:47:34,739 log 11780 22124 Not Found: /courses/
+WARNING 2026-04-11 00:47:34,739 log 11780 22124 "GET /courses/ HTTP/1.1" 404 8057
+WARNING 2026-04-11 00:47:34,744 log 11780 11252 Not Found: /accounts/profile/
+WARNING 2026-04-11 00:47:34,744 log 11780 11252 "GET /accounts/profile/ HTTP/1.1" 404 8084
+INFO 2026-04-11 00:47:49,778 log 11780 15604 "GET /learning/ HTTP/1.1" 200 10603
+INFO 2026-04-11 00:47:49,781 log 11780 27764 "GET /profile/ HTTP/1.1" 302 0
+INFO 2026-04-11 00:47:49,801 log 11780 27764 "GET /login/?next=/profile/ HTTP/1.1" 200 13497
+INFO 2026-04-11 00:48:05,388 log 11780 9784 "GET /profile/cv/ HTTP/1.1" 302 0
+INFO 2026-04-11 00:48:05,390 log 11780 9784 "GET /login/?next=/profile/cv/ HTTP/1.1" 200 13497
+INFO 2026-04-11 00:48:11,346 log 11780 32488 "GET / HTTP/1.1" 200 18615
+INFO 2026-04-11 00:48:34,478 log 11780 19224 "GET / HTTP/1.1" 200 18299
+INFO 2026-04-11 00:48:36,157 log 11780 19224 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 00:48:39,171 log 11780 19224 "GET /learning/lesson/1/ HTTP/1.1" 200 11504
+INFO 2026-04-11 00:48:44,736 log 11780 19224 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 00:48:45,775 log 11780 19224 "GET /profile/cv/ HTTP/1.1" 200 13317
+INFO 2026-04-11 00:48:50,341 log 11780 19224 "GET /profile/ HTTP/1.1" 200 17973
+INFO 2026-04-11 00:48:53,392 log 11780 19224 "GET /profile/cv/ HTTP/1.1" 200 13317
+INFO 2026-04-11 00:48:58,516 log 11780 19224 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 00:50:16,451 log 11780 19224 "GET / HTTP/1.1" 200 18299
+INFO 2026-04-11 00:50:17,389 log 11780 19224 "GET /search/ HTTP/1.1" 200 15202
+INFO 2026-04-11 00:50:21,737 log 11780 19224 "GET /profile/cv/ HTTP/1.1" 200 13317
+INFO 2026-04-11 00:51:22,680 log 11780 19224 "POST /ai-chat/ HTTP/1.1" 200 92
+INFO 2026-04-11 00:51:52,233 autoreload 11780 26492 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:51:52,756 autoreload 9560 1872 Watching for file changes with StatReloader
+INFO 2026-04-11 00:51:52,771 autoreload 1184 24208 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:51:53,209 autoreload 31144 20028 Watching for file changes with StatReloader
+INFO 2026-04-11 00:52:03,160 autoreload 9560 1872 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:52:03,646 autoreload 7388 31724 Watching for file changes with StatReloader
+INFO 2026-04-11 00:52:03,648 autoreload 31144 20028 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:52:04,086 autoreload 16056 22148 Watching for file changes with StatReloader
+INFO 2026-04-11 00:52:52,521 autoreload 7388 31724 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:52:52,983 autoreload 10648 28232 Watching for file changes with StatReloader
+INFO 2026-04-11 00:52:53,030 autoreload 16056 22148 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 00:52:53,488 autoreload 22088 13376 Watching for file changes with StatReloader
+INFO 2026-04-11 01:08:07,958 autoreload 8960 16900 Watching for file changes with StatReloader
+INFO 2026-04-11 01:08:08,312 log 8960 35224 "GET / HTTP/1.1" 200 18299
+INFO 2026-04-11 01:08:21,719 log 8960 35224 "POST /ai-chat/ HTTP/1.1" 200 176
+INFO 2026-04-11 01:09:42,035 log 8960 35224 "POST /ai-chat/ HTTP/1.1" 200 127
+INFO 2026-04-11 01:10:14,940 log 8960 35224 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 01:11:04,592 log 8960 35224 "GET / HTTP/1.1" 200 18299
+INFO 2026-04-11 01:11:05,748 log 8960 35224 "GET /search/ HTTP/1.1" 200 15202
+INFO 2026-04-11 01:11:06,259 log 8960 35224 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 01:11:07,571 log 8960 35224 "GET /profile/cv/ HTTP/1.1" 200 13317
+INFO 2026-04-11 01:11:11,620 log 8960 35224 "GET /profile/cv/download/ HTTP/1.1" 200 2018
+INFO 2026-04-11 01:18:16,951 log 8960 24456 "GET /profile/cv/download/ HTTP/1.1" 200 2018
+INFO 2026-04-11 08:03:09,759 autoreload 18020 34944 Watching for file changes with StatReloader
+INFO 2026-04-11 08:03:14,613 log 18020 9692 "GET / HTTP/1.1" 200 18299
+WARNING 2026-04-11 08:03:15,057 log 18020 9692 Not Found: /favicon.ico
+WARNING 2026-04-11 08:03:15,058 log 18020 9692 "GET /favicon.ico HTTP/1.1" 404 8066
+INFO 2026-04-11 08:03:36,415 log 18020 41452 "GET /learning/lesson/1/ HTTP/1.1" 200 11504
+INFO 2026-04-11 08:04:15,494 log 18020 41452 "POST /ai-chat/ HTTP/1.1" 200 127
+INFO 2026-04-11 08:06:21,898 autoreload 18020 34944 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 08:06:23,192 autoreload 13504 22972 Watching for file changes with StatReloader
+INFO 2026-04-11 08:06:25,841 autoreload 13504 22972 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 08:06:26,702 autoreload 33856 8560 Watching for file changes with StatReloader
+INFO 2026-04-11 08:06:50,728 autoreload 33856 8560 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 08:06:51,676 autoreload 6680 10652 Watching for file changes with StatReloader
+INFO 2026-04-11 08:07:24,871 autoreload 6680 10652 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 08:07:25,817 autoreload 2892 28880 Watching for file changes with StatReloader
+INFO 2026-04-11 08:07:38,680 autoreload 2892 28880 C:\Users\Altyn\Documents\GitHub\classes\accounts\ai_assistant.py changed, reloading.
+INFO 2026-04-11 08:07:39,629 autoreload 38480 2812 Watching for file changes with StatReloader
+INFO 2026-04-11 08:09:14,574 log 38480 17992 "POST /ai-chat/ HTTP/1.1" 200 2059
+INFO 2026-04-11 08:09:51,617 log 38480 20276 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 08:10:01,193 log 38480 20276 "GET /profile/cv/ HTTP/1.1" 200 13317
+INFO 2026-04-11 08:10:03,613 log 38480 20276 "GET /profile/cv/download/ HTTP/1.1" 200 2018
+INFO 2026-04-11 08:10:14,398 log 38480 20276 "GET /learning/ HTTP/1.1" 200 11342
+INFO 2026-04-11 08:10:16,774 log 38480 20276 "GET /search/ HTTP/1.1" 200 15202
+INFO 2026-04-11 08:10:20,494 log 38480 20276 "GET / HTTP/1.1" 200 18299
+INFO 2026-04-11 08:10:21,992 log 38480 20276 "GET /profile/ HTTP/1.1" 200 17973
+INFO 2026-04-11 08:10:27,330 log 38480 20276 "GET /profile/cv/ HTTP/1.1" 200 13317
+INFO 2026-04-11 08:10:31,109 log 38480 20276 "GET /profile/ HTTP/1.1" 200 17973
+INFO 2026-04-11 08:10:33,461 log 38480 20276 "GET /profile/edit/ HTTP/1.1" 200 13549
+INFO 2026-04-11 11:15:20,089 autoreload 2084 10868 Watching for file changes with StatReloader
+INFO 2026-04-11 11:15:23,594 log 2084 488 "GET / HTTP/1.1" 200 18299
+WARNING 2026-04-11 11:15:23,979 log 2084 488 Not Found: /favicon.ico
+WARNING 2026-04-11 11:15:23,979 log 2084 488 "GET /favicon.ico HTTP/1.1" 404 8066
+INFO 2026-04-11 11:16:04,797 log 2084 488 "POST /ai-chat/ HTTP/1.1" 200 2505
+INFO 2026-04-11 11:17:00,994 log 2084 488 "POST /ai-chat/ HTTP/1.1" 200 255
+INFO 2026-05-20 17:20:09,647 autoreload 26820 27520 Watching for file changes with StatReloader
+INFO 2026-05-20 17:31:58,895 autoreload 20720 30196 Watching for file changes with StatReloader
+INFO 2026-05-20 17:33:12,557 log 20720 23780 "GET / HTTP/1.1" 200 18615
+WARNING 2026-05-20 17:33:13,676 log 20720 23780 Not Found: /favicon.ico
+WARNING 2026-05-20 17:33:13,677 log 20720 23780 "GET /favicon.ico HTTP/1.1" 404 8066
+INFO 2026-05-20 17:33:25,144 log 20720 23780 "GET / HTTP/1.1" 200 18615
+INFO 2026-05-20 17:33:26,917 log 20720 23780 "GET /search/ HTTP/1.1" 200 14463
+INFO 2026-05-20 17:34:00,404 log 20720 23780 "GET /register/ HTTP/1.1" 200 15816
+INFO 2026-05-20 17:34:04,668 log 20720 23780 "GET /learning/ HTTP/1.1" 200 10603
+INFO 2026-05-20 17:34:11,908 log 20720 23780 "GET /learning/lesson/1/ HTTP/1.1" 200 10765
+INFO 2026-05-20 17:34:15,653 log 20720 23780 "GET /learning/ HTTP/1.1" 200 10603
+INFO 2026-05-20 17:34:18,945 log 20720 23780 "GET /learning/lesson/1/ HTTP/1.1" 200 10765
+INFO 2026-05-20 17:34:22,757 log 20720 23780 "GET / HTTP/1.1" 200 18615
+INFO 2026-05-20 17:34:23,893 log 20720 23780 "GET / HTTP/1.1" 200 18615
+INFO 2026-05-20 17:44:09,843 autoreload 7 135194616271744 Watching for file changes with StatReloader
+INFO 2026-05-20 17:47:04,315 log 7 135194482833088 "GET / HTTP/1.1" 200 18615
+WARNING 2026-05-20 17:47:05,232 log 7 135194482833088 Not Found: /favicon.ico
+WARNING 2026-05-20 17:47:05,233 log 7 135194482833088 "GET /favicon.ico HTTP/1.1" 404 8066
+INFO 2026-05-20 17:47:16,334 log 7 135194482833088 "GET /learning/ HTTP/1.1" 200 10603
+INFO 2026-05-20 17:47:17,771 log 7 135194482833088 "GET /search/ HTTP/1.1" 200 14463
+INFO 2026-05-20 17:47:19,054 log 7 135194482833088 "GET / HTTP/1.1" 200 18615
+INFO 2026-05-20 17:47:30,429 log 7 135194482833088 "GET /learning/ HTTP/1.1" 200 10603
+INFO 2026-05-20 17:47:33,895 log 7 135194482833088 "GET /learning/ HTTP/1.1" 200 10603
+INFO 2026-05-20 17:47:35,172 log 7 135194482833088 "GET /search/ HTTP/1.1" 200 14463
+INFO 2026-05-20 17:47:35,779 log 7 135194482833088 "GET / HTTP/1.1" 200 18615
