@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url  
 
 # Базовые директории
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -65,7 +66,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # --- БАЗА ДАННЫХ ---
 DATABASES = {
-    'default': {
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+    ) if os.environ.get('DATABASE_URL') else {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
