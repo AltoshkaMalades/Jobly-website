@@ -27,7 +27,7 @@ jobs:
 
       - name: Run migrations
         run: |
-          py -m alembic upgrade head
+          python -m alembic upgrade head
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Run tests
