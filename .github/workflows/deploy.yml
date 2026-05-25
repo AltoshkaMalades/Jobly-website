@@ -3,15 +3,15 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 2 * * *'
 
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: classes-main
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,8 +30,22 @@ jobs:
           python -m alembic upgrade head
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: Run tests
         run: |
           python manage.py test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run backup
+        run: |
+          pg_dump $DATABASE_URL > backup_$(date +%Y-%m-%d).sql
+          echo "✅ Backup создан!"
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
