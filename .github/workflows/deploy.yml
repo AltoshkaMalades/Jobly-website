@@ -8,6 +8,10 @@ jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: classes-main
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
