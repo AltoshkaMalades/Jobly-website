@@ -18,19 +18,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
-
-import django
-django.setup()
-
-from django.db import models
 target_metadata = None
-target_metadata = [app.models_module.__dict__['Base'].metadata 
-                   for app in apps.get_app_configs() 
-                   if hasattr(app.models_module, 'Base')] or None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
