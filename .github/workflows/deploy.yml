@@ -43,7 +43,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: name: Install PostgreSQL client
+      - name: Install PostgreSQL client
         run: |
           sudo apt-get install -y wget gnupg
           sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt noble-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
