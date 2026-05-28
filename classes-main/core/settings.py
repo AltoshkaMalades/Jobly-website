@@ -86,12 +86,6 @@ CACHES = {
     }
 }
 
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', CELERY_BROKER_URL)
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
 
 # --- ВАЛИДАЦИЯ ПАРОЛЕЙ ---
 AUTH_PASSWORD_VALIDATORS = [
@@ -150,6 +144,12 @@ LOGGING = {
     },
 }
 
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', CELERY_BROKER_URL)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
 # --- ВАЖНОЕ ДОПОЛНЕНИЕ ---
 # Указываем Django, куда перенаправлять неавторизованных пользователей
 LOGIN_URL = 'login'
