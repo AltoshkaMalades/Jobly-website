@@ -75,6 +75,24 @@ DATABASES = {
     }
 }
 
+REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
+REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': REDIS_URL,
+    }
+}
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', CELERY_BROKER_URL)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
 # --- ВАЛИДАЦИЯ ПАРОЛЕЙ ---
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},

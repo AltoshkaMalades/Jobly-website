@@ -6,15 +6,20 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .models import Job, Profile, Application, Favorite
 from .forms import ProfileForm, JobCreateForm, UserRegisterForm, ApplicationForm
+from .tasks import send_welcome_email_task
 from .utils import generate_cv_pdf
 from .ai_assistant import get_ai_response
 from learning.models import Course
+
+CACHE_TTL = 60 * 5
 
 logger = logging.getLogger('django')
 
@@ -34,10 +39,18 @@ def role_required(allowed_roles=[]):
 
 # --- ГЛАВНЫЕ СТРАНИЦЫ ---
 def home_page(request):
+    cache_key = 'home_page_html'
+    cached_html = cache.get(cache_key)
+    if cached_html:
+        return HttpResponse(cached_html)
+
     jobs = Job.objects.all().order_by('-created_at')[:6]
     courses = Course.objects.all().order_by('-created_at')[:3]
-    return render(request, 'accounts/index.html', {'jobs': jobs, 'courses': courses})
+    response = render(request, 'accounts/index.html', {'jobs': jobs, 'courses': courses})
+    cache.set(cache_key, response.content, CACHE_TTL)
+    return response
 
+@cache_page(CACHE_TTL)
 def search(request):
     query = request.GET.get('query', '')
     category = request.GET.get('category', '')
@@ -81,6 +94,7 @@ def register(request):
             profile.role = role
             profile.save()
             
+            send_welcome_email_task.delay(user.username, user.email)
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('home')
     else:

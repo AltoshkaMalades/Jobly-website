@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import health_check
 
 urlpatterns = [
     # 1. Админка
     path('admin/', admin.site.urls),
+    path('health/', health_check, name='health'),
     
     # 2. Подключаем все пути твоего приложения accounts
     # Это ОДНА СТРОКА заменит все твои ручные прописки путей ниже
