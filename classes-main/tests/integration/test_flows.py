@@ -60,3 +60,16 @@ def test_cv_download_returns_pdf(client):
     assert response['Content-Type'] == 'application/pdf'
     assert response['Content-Disposition'] == 'attachment; filename="cvuser_cv.pdf"'
     assert response.content.startswith(b'%PDF')
+
+
+@pytest.mark.django_db
+def test_login_rate_limit_triggers_after_five_failed_attempts(client):
+    User.objects.create_user(username='rateuser', password='TestPass123!')
+
+    for _ in range(5):
+        response = client.post('/login/', {'username': 'rateuser', 'password': 'WrongPass'})
+        assert response.status_code == 200
+
+    response = client.post('/login/', {'username': 'rateuser', 'password': 'WrongPass'})
+    assert response.status_code == 429
+    assert b'Too Many Requests' in response.content

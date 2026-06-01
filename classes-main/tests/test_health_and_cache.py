@@ -26,6 +26,8 @@ def test_home_page_caches_html(client):
     caches['default'].clear()
     response1 = client.get(reverse('home'))
     assert response1.status_code == 200
+    # Ensure cache key is set and subsequent responses are identical
+    assert caches['default'].get('home_page_html') is not None
     response2 = client.get(reverse('home'))
     assert response2.content == response1.content
 

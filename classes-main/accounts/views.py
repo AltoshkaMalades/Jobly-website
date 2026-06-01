@@ -44,7 +44,7 @@ def home_page(request):
     if cached_html:
         return HttpResponse(cached_html)
 
-    jobs = Job.objects.all().order_by('-created_at')[:6]
+    jobs = Job.objects.select_related('employer').order_by('-created_at')[:6]
     courses = Course.objects.all().order_by('-created_at')[:3]
     response = render(request, 'accounts/index.html', {'jobs': jobs, 'courses': courses})
     cache.set(cache_key, response.content, CACHE_TTL)
@@ -54,7 +54,7 @@ def home_page(request):
 def search(request):
     query = request.GET.get('query', '')
     category = request.GET.get('category', '')
-    jobs = Job.objects.all().order_by('-created_at')
+    jobs = Job.objects.select_related('employer').order_by('-created_at')
     if query:
         jobs = jobs.filter(title__icontains=query)
     if category:
@@ -63,7 +63,7 @@ def search(request):
     return render(request, 'accounts/search.html', {'jobs': jobs, 'query': query, 'categories': categories})
 
 def job_detail(request, pk):
-    job = get_object_or_404(Job, pk=pk)
+    job = get_object_or_404(Job.objects.select_related('employer'), pk=pk)
     has_applied = False
     is_favorite = False
     if request.user.is_authenticated:
@@ -94,7 +94,11 @@ def register(request):
             profile.role = role
             profile.save()
             
-            send_welcome_email_task.delay(user.username, user.email)
+            # Send welcome email asynchronously; protect registration flow
+            try:
+                send_welcome_email_task.delay(user.username, user.email)
+            except Exception:
+                logger.exception('Failed to queue welcome email; continuing registration')
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('home')
     else:
@@ -130,10 +134,10 @@ def profile_view(request):
     profile, _ = Profile.objects.get_or_create(user=request.user)
     context = {'profile': profile}
     if profile.role == 'employer':
-        context['my_jobs'] = Job.objects.filter(employer=request.user)
+        context['my_jobs'] = Job.objects.filter(employer=request.user).select_related('employer')
     else:
-        context['my_applications'] = Application.objects.filter(student=request.user).select_related('job')
-        context['my_favorites'] = Favorite.objects.filter(user=request.user).select_related('job')
+        context['my_applications'] = Application.objects.filter(student=request.user).select_related('job', 'job__employer')
+        context['my_favorites'] = Favorite.objects.filter(user=request.user).select_related('job', 'job__employer')
     return render(request, 'accounts/profile.html', context)
 
 @login_required
@@ -196,7 +200,7 @@ def apply_job(request, pk):
 @role_required(allowed_roles=['employer'])
 def view_applications(request, job_id):
     job = get_object_or_404(Job, id=job_id, employer=request.user)
-    apps = Application.objects.filter(job=job).select_related('student')
+    apps = Application.objects.filter(job=job).select_related('student', 'job', 'job__employer')
     return render(request, 'accounts/view_applications.html', {'job': job, 'applications': apps})
 
 @login_required

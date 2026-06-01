@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import RegexValidator
 
 # Константы ролей
 ROLE_CHOICES = (
@@ -17,7 +18,7 @@ class Job(models.Model):
     description = models.TextField(verbose_name="Описание")
     location = models.CharField(max_length=100, verbose_name="Локация")
     salary = models.CharField(max_length=50, blank=True, null=True, verbose_name="Зарплата")
-    category = models.CharField(max_length=100, verbose_name="Категория")
+    category = models.CharField(max_length=100, verbose_name="Категория", db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     contact_email = models.EmailField(default="admin@example.com")
 
@@ -25,13 +26,18 @@ class Job(models.Model):
         ordering = ['-created_at']
         verbose_name = "Вакансия"
         verbose_name_plural = "Вакансии"
+        indexes = [
+            models.Index(fields=['category']),
+            models.Index(fields=['created_at']),
+            models.Index(fields=['company']),
+        ]
 
     def __str__(self):
         return f"{self.title} @ {self.company}"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student', db_index=True)
     
     # Поля для студента
     university = models.CharField(max_length=200, blank=True)
@@ -42,6 +48,9 @@ class Profile(models.Model):
     
     # Поля для работодателя
     company_name = models.CharField(max_length=200, blank=True)
+    # Контактный телефон (опционально). Используем простую валидацию.
+    phone_validator = RegexValidator(regex=r'^\+?[0-9\s\-]{7,20}$', message='Enter a valid phone number.')
+    phone = models.CharField(max_length=20, blank=True, validators=[phone_validator], db_index=True)
     
     # Общие поля
     bio = models.TextField(blank=True)
@@ -51,6 +60,10 @@ class Profile(models.Model):
         ordering = ['-created_at']
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
+        indexes = [
+            models.Index(fields=['role']),
+            models.Index(fields=['phone']),
+        ]
 
     def __str__(self):
         return f"Профиль: {self.user.username} ({self.get_role_display()})"
@@ -65,13 +78,17 @@ class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_applications')
     cover_letter = models.TextField(verbose_name="Сопроводительное письмо")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='sent')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='sent', db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('job', 'student')
         verbose_name = "Отклик"
         verbose_name_plural = "Отклики"
+        indexes = [
+            models.Index(fields=['job', 'status']),
+            models.Index(fields=['student', 'status']),
+        ]
 
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
@@ -82,6 +99,10 @@ class Favorite(models.Model):
         unique_together = ('user', 'job')
         verbose_name = "Избранное"
         verbose_name_plural = "Избранное"
+        indexes = [
+            models.Index(fields=['user']),
+            models.Index(fields=['job']),
+        ]
 
 # --- СИГНАЛЫ (Исправленные) ---
 

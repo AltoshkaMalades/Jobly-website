@@ -37,6 +37,7 @@ PASSWORD_HASHERS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'accounts.middleware.EndpointRateLimitMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -75,9 +76,9 @@ DATABASES = {
     }
 }
 
-REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
-REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
-REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+# Read full Redis URL from environment when available (e.g. on Render).
+# Fallback to the Docker service name 'redis' for local development.
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
 
 CACHES = {
     'default': {
@@ -144,6 +145,7 @@ LOGGING = {
     },
 }
 
+# Celery should prefer explicit env vars, otherwise use the same REDIS_URL.
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', CELERY_BROKER_URL)
 CELERY_ACCEPT_CONTENT = ['json']

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 # Добавили Favorite в импорт
 from .models import Job, Profile, Application, Favorite 
+from django.core.validators import RegexValidator
 
 # 1. Форма редактирования профиля (Умная фильтрация полей)
 class ProfileForm(forms.ModelForm):
@@ -92,6 +93,11 @@ class UserRegisterForm(UserCreationForm):
         'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',
         'placeholder': 'example@mail.com'
     }))
+    phone_validator = RegexValidator(regex=r'^\+?[0-9\s\-]{7,20}$', message='Enter a valid phone number.')
+    phone = forms.CharField(required=False, max_length=20, validators=[phone_validator], widget=forms.TextInput(attrs={
+        'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',
+        'placeholder': '+7 701 000 0000'
+    }))
 
     class Meta:
         model = User
@@ -103,3 +109,17 @@ class UserRegisterForm(UserCreationForm):
             'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',
             'placeholder': 'Придумайте логин'
         })
+
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        # Ensure profile exists and save phone if provided
+        phone = self.cleaned_data.get('phone')
+        try:
+            profile, _ = Profile.objects.get_or_create(user=user)
+            if phone:
+                profile.phone = phone
+                profile.save()
+        except Exception:
+            # Don't let profile save errors break user creation
+            pass
+        return user
