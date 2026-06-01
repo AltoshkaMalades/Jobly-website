@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from celery.schedules import crontab
 import dj_database_url  
 
 # Базовые директории
@@ -152,6 +153,18 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+CELERY_BEAT_SCHEDULE = {
+    'daily-job-digest-at-midnight': {
+        'task': 'accounts.tasks.daily_job_digest_task',
+        'schedule': crontab(hour=0, minute=0),
+        'args': (),
+    },
+    'cleanup-old-sessions-every-15-minutes': {
+        'task': 'accounts.tasks.cleanup_old_sessions_task',
+        'schedule': 15 * 60,
+        'args': (),
+    },
+}
 # --- ВАЖНОЕ ДОПОЛНЕНИЕ ---
 # Указываем Django, куда перенаправлять неавторизованных пользователей
 LOGIN_URL = 'login'

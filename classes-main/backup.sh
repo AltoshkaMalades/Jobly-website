@@ -1,18 +1,23 @@
-#!/bin/bash
+﻿#!/bin/bash
+set -euo pipefail
 
 DATE=$(date +%Y-%m-%d_%H-%M)
-BACKUP_DIR="backups"
-DB_URL="postgresql://jobly_10g5_user:InGiyZZmMa2qFe5N3cPzcnzXU0Ywkk3H@dpg-d86ss6gjo6nc73es230g-a.frankfurt-postgres.render.com/jobly_10g5"
+BACKUP_DIR="${BACKUP_DIR:-backups}"
+DB_URL="${DATABASE_URL:-${PGDATABASE_URL:-postgresql://postgres:postgres@db:5432/app}}"
+RETENTION_DAYS="${RETENTION_DAYS:-7}"
 
-mkdir -p $BACKUP_DIR
+mkdir -p "$BACKUP_DIR"
 
-pg_dump $DB_URL > $BACKUP_DIR/backup_$DATE.sql
+echo "[backup] Using database URL: ${DB_URL%%@*}@***"
+echo "[backup] Saving to $BACKUP_DIR/backup_$DATE.sql"
 
-if [ $? -eq 0 ]; then
-    echo "✅ Backup created: $BACKUP_DIR/backup_$DATE.sql"
-else
-    echo "❌ Error!"
+if ! command -v pg_dump >/dev/null 2>&1; then
+  echo "pg_dump not found. Install PostgreSQL client tools."
+  exit 1
 fi
 
-find $BACKUP_DIR -name "*.sql" -mtime +7 -delete
-echo "🗑️Old backups deleted"
+pg_dump "$DB_URL" > "$BACKUP_DIR/backup_$DATE.sql"
+
+echo "✅ Backup created: $BACKUP_DIR/backup_$DATE.sql"
+find "$BACKUP_DIR" -name "*.sql" -mtime +$RETENTION_DAYS -delete
+echo "🗑️ Old backups deleted (older than $RETENTION_DAYS days)"

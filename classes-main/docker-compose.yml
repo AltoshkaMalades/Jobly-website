@@ -35,6 +35,22 @@ services:
       - db
     command: sh -c "celery -A core worker --loglevel=info"
 
+  celery-beat:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/app
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - db
+    command: sh -c "celery -A core beat --loglevel=info"
+
   redis:
     image: redis:7-alpine
     ports:
