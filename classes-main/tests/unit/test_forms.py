@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 @pytest.mark.django_db
-def test_user_register_form_saves_phone(tmp_path, db):
+def test_user_register_form_saves_phone():
     data = {
         'username': 'testuser',
         'password1': 'complexpassword123',
@@ -20,6 +20,7 @@ def test_user_register_form_saves_phone(tmp_path, db):
     assert user.profile.phone == '+7 701 123 4567'
 
 
+@pytest.mark.django_db
 def test_user_register_form_rejects_invalid_phone():
     data = {
         'username': 'badphone',

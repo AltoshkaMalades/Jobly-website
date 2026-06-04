@@ -10,7 +10,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         # Убедись, что в models.py у тебя есть поле company_name или используй текущие
-        fields = ['university', 'education', 'experience', 'skills', 'summary', 'bio']
+        fields = ['university', 'education', 'experience', 'skills', 'summary', 'bio', 'phone']
         widgets = {
             'university': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',

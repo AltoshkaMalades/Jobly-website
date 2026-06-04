@@ -9,9 +9,16 @@ on:
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7.2
+        ports:
+          - 6379:6379
     defaults:
       run:
         working-directory: classes-main
+    env:
+      REDIS_URL: redis://localhost:6379/0
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -25,19 +32,21 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run migrations
+      - name: Run backup and migrations
         run: |
-          python -m alembic upgrade head
+          bash scripts/backup_and_migrate.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          REDIS_URL: ${{ secrets.REDIS_URL }}
+          BACKUP_DIR: ./ci-backups
+          RETENTION_DAYS: 30
 
       - name: Run tests
         run: |
-          python manage.py test
+          pytest -v
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          REDIS_URL: ${{ secrets.REDIS_URL }}
+          DJANGO_TESTING: 1
+          REDIS_URL: redis://localhost:6379/0
 
   backup:
     runs-on: ubuntu-latest
@@ -47,15 +56,21 @@ jobs:
 
       - name: Install PostgreSQL client
         run: |
-          sudo apt-get install -y wget gnupg lsb-release
-          sudo sh -c 'echo "deb [arch=amd64] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends postgresql-client-18
-          /usr/lib/postgresql/18/bin/pg_dump --version
-      - name: Run backup
+          sudo apt-get install -y postgresql-client
+          pg_dump --version
+      
+      - name: Create backup
         run: |
-          /usr/lib/postgresql/18/bin/pg_dump $DATABASE_URL > backup_$(date +%Y-%m-%d).sql
-          echo "✅ Backup создан!"
+          mkdir -p backups
+          pg_dump "$DATABASE_URL" > backups/backup_$(date +%Y-%m-%d_%H-%M-%S).sql
+          echo "✅ Backup created successfully!"
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      
+      - name: Upload backup as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: database-backup-${{ github.run_number }}
+          path: backups/
+          retention-days: 30

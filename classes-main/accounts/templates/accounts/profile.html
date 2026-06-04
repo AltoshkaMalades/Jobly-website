@@ -17,6 +17,14 @@
                             </svg>
                             {{ user.email }}
                         </p>
+                        {% if profile.phone %}
+                        <p class="text-neutral-400 text-sm flex items-center justify-center md:justify-start gap-2 mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.18a2 2 0 011.414.586l1.828 1.828a2 2 0 001.414.586H18a2 2 0 012 2v3.18a2 2 0 01-.586 1.414l-1.828 1.828a2 2 0 00-.586 1.414V18a2 2 0 01-2 2h-3.18a2 2 0 01-1.414-.586l-1.828-1.828a2 2 0 00-1.414-.586H5a2 2 0 01-2-2V7a2 2 0 012-2z" />
+                            </svg>
+                            {{ profile.phone }}
+                        </p>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="px-6 py-2 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-white/10">

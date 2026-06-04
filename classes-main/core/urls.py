@@ -25,6 +25,7 @@ urlpatterns = [
     
     # 2. Подключаем все пути твоего приложения accounts
     # Это ОДНА СТРОКА заменит все твои ручные прописки путей ниже
+    path('accounts/', include('allauth.urls')),
     path('', include('accounts.urls')),
     path('learning/', include('learning.urls')),
 ]

@@ -54,6 +54,10 @@ class Profile(models.Model):
     
     # Общие поля
     bio = models.TextField(blank=True)
+
+    # SEC-002: Google OAuth
+    google_id = models.CharField(max_length=255, blank=True, null=True, unique=True, db_index=True)
+    is_oauth_user = models.BooleanField(default=False, help_text="Вход через Google OAuth")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

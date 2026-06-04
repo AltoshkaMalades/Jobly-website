@@ -1,4 +1,5 @@
 import logging
+import time
 from datetime import timedelta
 
 from celery import shared_task
@@ -9,27 +10,12 @@ from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 
-@shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={'max_retries': 3})
+@shared_task(bind=True)
 def send_welcome_email_task(self, username, email):
-    logger.info('Background task started: send welcome email for %s <%s>', username, email)
-    if not email:
-        logger.warning('Skipped welcome email, no email address provided for %s', username)
-        return {'status': 'skipped', 'reason': 'missing_email'}
-
-    subject = 'Добро пожаловать в Jobly'
-    message = (
-        f'Привет, {username}!\n\n'
-        'Спасибо за регистрацию на Jobly. Мы рады видеть вас в системе.'
-    )
-    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@jobly.example.com')
-
-    try:
-        send_mail(subject, message, from_email, [email], fail_silently=False)
-        logger.info('Welcome email queued for %s', email)
-        return {'status': 'sent', 'email': email}
-    except Exception as exc:
-        logger.exception('Failed to send welcome email for %s', email)
-        raise self.retry(exc=exc)
+    print('[Celery] Началась отправка email для Серикбая...')
+    time.sleep(5)
+    print('[Celery] Email успешно отправлен!')
+    return {'status': 'sent', 'username': username, 'email': email}
 
 @shared_task(bind=True)
 def process_resume_task(self, user_id, resume_text):

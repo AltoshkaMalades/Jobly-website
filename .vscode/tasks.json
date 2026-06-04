@@ -1,0 +1,136 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🧪 Run All Tests with Coverage",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "--cov=.",
+        "--cov-report=html",
+        "--cov-report=term-missing",
+        "-v"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/classes-main"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$pytest"
+      ]
+    },
+    {
+      "label": "🏃 Run Tests (Fast - No Coverage)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "-v"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/classes-main"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$pytest"
+      ]
+    },
+    {
+      "label": "📦 Run Unit Tests Only",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "tests/unit/",
+        "-v"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/classes-main"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$pytest"
+      ]
+    },
+    {
+      "label": "🔗 Run Integration Tests Only",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "tests/integration/",
+        "-v"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/classes-main"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$pytest"
+      ]
+    },
+    {
+      "label": "⚡ Run Specific Test File",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "${relativeFile}",
+        "-v"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/classes-main"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$pytest"
+      ]
+    },
+    {
+      "label": "🧹 Clean Test Artifacts",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-Command",
+        "Get-ChildItem -Path classes-main -Recurse -Include '__pycache__' -Directory -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue; Get-ChildItem -Path classes-main -Recurse -Include '.pytest_cache' -Directory -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue; Write-Host '✓ Cleanup completed!' -ForegroundColor Green"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    }
+  ]
+}

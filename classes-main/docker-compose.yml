@@ -1,69 +1,190 @@
 version: '3.8'
 
+# Docker Compose конфигурация для проекта Simulator Backend
+# Включает: Web, Redis, PostgreSQL, Celery, Celery Beat, Tests
+
 services:
+  # ============================================================================
+  # WEB СЕРВЕР (Django + Gunicorn)
+  # ============================================================================
   web:
     build: .
+    container_name: simulator-web
     volumes:
       - .:/app
+      - logs:/app/logs
     ports:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/app
+      - PYTHONDONTWRITEBYTECODE=1
+      - DEBUG=True
+      - SECRET_KEY=django-insecure-dev-key-for-docker
+      - ALLOWED_HOSTS=localhost,127.0.0.1,web
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
+      # Redis configuration - separate DBs for Celery (0) and Cache (1)
+      - REDIS_URL=redis://redis:6379
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - REDIS_CACHE_URL=redis://redis:6379/1
     depends_on:
-      - db
-      - redis
-    command: sh -c "python manage.py migrate && python manage.py seed_learning && gunicorn core.wsgi:application --bind 0.0.0.0:8000"
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: >
+      sh -c "
+      echo '⏳ Waiting for database...' &&
+      python manage.py migrate --noinput &&
+      echo '✅ Migrations done!' &&
+      python manage.py seed_learning &&
+      echo '✅ Seeding done!' &&
+      gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 120
+      "
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - backend-network
 
-  celery:
-    build: .
-    volumes:
-      - .:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/app
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    depends_on:
-      - redis
-      - db
-    command: sh -c "celery -A core worker --loglevel=info"
-
-  celery-beat:
-    build: .
-    volumes:
-      - .:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/app
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    depends_on:
-      - redis
-      - db
-    command: sh -c "celery -A core beat --loglevel=info"
-
+  # ============================================================================
+  # REDIS (для кэширования и очереди задач)
+  # ============================================================================
   redis:
     image: redis:7-alpine
+    container_name: simulator-redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend-network
 
+  # ============================================================================
+  # PostgreSQL DATABASE
+  # ============================================================================
   db:
     image: postgres:15-alpine
+    container_name: simulator-db
     environment:
-      - POSTGRES_DB=app
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=simulator_db
+      - POSTGRES_INITDB_ARGS=--encoding=UTF8
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend-network
 
+  # ============================================================================
+  # CELERY WORKER (для асинхронных задач)
+  # ============================================================================
+  celery:
+    build: .
+    container_name: simulator-celery
+    volumes:
+      - .:/app
+      - logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - DEBUG=True
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
+      # Redis configuration - Celery uses DB 0
+      - REDIS_URL=redis://redis:6379
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - REDIS_CACHE_URL=redis://redis:6379/1
+    depends_on:
+      - redis
+      - db
+      - web
+    command: celery -A core worker --loglevel=info --concurrency=4
+    networks:
+      - backend-network
+
+  # ============================================================================
+  # CELERY BEAT (для расписания задач)
+  # ============================================================================
+  celery-beat:
+    build: .
+    container_name: simulator-celery-beat
+    volumes:
+      - .:/app
+      - logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - DEBUG=True
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
+      # Redis configuration - Celery Beat uses DB 0
+      - REDIS_URL=redis://redis:6379
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - REDIS_CACHE_URL=redis://redis:6379/1
+    depends_on:
+      - redis
+      - db
+      - web
+    command: celery -A core beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    networks:
+      - backend-network
+
+  # ============================================================================
+  # PYTEST (для запуска тестов производительности и юнит тестов)
+  # ============================================================================
+  test:
+    build: .
+    container_name: simulator-test
+    volumes:
+      - .:/app
+      - logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - DEBUG=True
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
+      # Redis configuration - Tests use separate DB for cache
+      - REDIS_URL=redis://redis:6379
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - REDIS_CACHE_URL=redis://redis:6379/1
+    depends_on:
+      - redis
+      - db
+    command: pytest tests/performance/test_cache_performance.py -s -v --cov=. --cov-report=html --cov-report=term-missing
+    networks:
+      - backend-network
+
+# ============================================================================
+# VOLUMES (для persistence данных)
+# ============================================================================
 volumes:
   postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  logs:
+    driver: local
+
+# ============================================================================
+# NETWORKS (для связи между контейнерами)
+# ============================================================================
+networks:
+  backend-network:
+    driver: bridge

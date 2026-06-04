@@ -16,6 +16,7 @@
                     <p class="uppercase tracking-[0.3em] text-neutral-400 font-bold text-[11px]">Контакт</p>
                     <div class="mt-4 space-y-3 text-sm">
                         <div><span class="font-bold">Email:</span> {{ profile.user.email|default:'Не указан' }}</div>
+                        <div><span class="font-bold">Телефон:</span> {{ profile.phone|default:'Не указан' }}</div>
                         <div><span class="font-bold">Роль:</span> {{ profile.get_role_display }}</div>
                         <div><span class="font-bold">Образование:</span> {{ profile.education|default:'Не указано' }}</div>
                     </div>
