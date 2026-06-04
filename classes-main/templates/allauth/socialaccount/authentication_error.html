@@ -1,0 +1,46 @@
+{% extends "allauth/base.html" %}
+{% load i18n %}
+
+{% block title %}Ошибка входа - Jobly{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Jobly</h1>
+            <p>Ошибка входа</p>
+        </div>
+
+        <div class="auth-content">
+            <div class="alert alert-danger" style="background-color: #fee; border: 1px solid #fcc; color: #c33; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <i class="fas fa-exclamation-circle"></i>
+                {% blocktrans %}
+                К сожалению, при входе произошла ошибка. Пожалуйста, попробуйте еще раз или свяжитесь с нами, если проблема сохранится.
+                {% endblocktrans %}
+            </div>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">
+                    <strong>{% trans "Детали ошибки:" %}</strong>
+                </p>
+                <p style="font-size: 13px; color: #666; margin-bottom: 0;">
+                    {{ exception|default:_("Unknown error") }}
+                </p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="{% url 'account_login' %}" class="btn-primary-auth">
+                    {% trans "Попробовать еще раз" %}
+                </a>
+            </div>
+
+            <div class="auth-footer">
+                <p style="font-size: 12px;">
+                    {% trans "Нужна помощь?" %}
+                    <a href="mailto:support@jobly.kz">support@jobly.kz</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

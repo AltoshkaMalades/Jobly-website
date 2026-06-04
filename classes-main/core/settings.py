@@ -229,6 +229,30 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 
 # ============================================================================
+# ALLAUTH OPTIMIZATION: Seamless Google OAuth Flow
+# ============================================================================
+# Убирает промежуточную страницу подтверждения при входе через соцсети
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# Автоматически создает аккаунт, если пользователя нет
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
+# Не требует подтверждения email при соцсети
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Адаптер для автоматического логина без промежуточных шагов
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+
+# Заполняет профиль данными из Google автоматически
+SOCIALACCOUNT_QUERY_EMAIL = True
+
+# Профиль логирования для соцсетей
+SOCIALACCOUNT_STORE_TOKENS = True
+
+# Кастомный adapter для auto-signin
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+
+# ============================================================================
 # SEC-004: Google reCAPTCHA v3 Configuration
 # ============================================================================
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')

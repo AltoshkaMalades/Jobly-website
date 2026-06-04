@@ -1,0 +1,81 @@
+{% extends "allauth/base.html" %}
+{% load socialaccount %}
+{% load i18n %}
+
+{% block title %}Вход через Google - Jobly{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Jobly</h1>
+            <p>Платформа поиска работы мечты</p>
+        </div>
+
+        <div class="auth-content">
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            {% if sociallogin.account.get_provider.name == 'google' %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    Завершите вход в вашу учетную запись Google
+                </div>
+
+                <h3 class="mb-3" style="font-size: 18px; font-weight: 600; color: #333;">
+                    Подтверждение входа
+                </h3>
+
+                <p style="font-size: 14px; color: #666; margin-bottom: 25px;">
+                    Вы собираетесь войти с помощью Google аккаунта:
+                </p>
+
+                {% if sociallogin.account.extra_data.email %}
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
+                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Email:</div>
+                    <div style="font-size: 16px; font-weight: 600; color: #333;">
+                        {{ sociallogin.account.extra_data.email }}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if sociallogin.account.extra_data.name %}
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
+                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Имя:</div>
+                    <div style="font-size: 16px; font-weight: 600; color: #333;">
+                        {{ sociallogin.account.extra_data.name }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <form method="post" action="{% url 'socialaccount_signup' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.widget.input_type == 'hidden' %}
+                            {{ field }}
+                        {% endif %}
+                    {% endfor %}
+
+                    <button type="submit" class="btn-primary-auth">
+                        <i class="fas fa-sign-in-alt"></i> Продолжить
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                    <a href="{% url 'account_login' %}" style="color: #667eea; text-decoration: none; font-size: 13px;">
+                        ← Вернуться к входу
+                    </a>
+                </div>
+            {% else %}
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-primary-auth">
+                        Продолжить вход
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

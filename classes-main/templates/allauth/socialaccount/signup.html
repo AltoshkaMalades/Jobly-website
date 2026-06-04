@@ -1,0 +1,77 @@
+{% extends "allauth/base.html" %}
+{% load socialaccount %}
+{% load i18n %}
+
+{% block title %}Завершить регистрацию - Jobly{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Jobly</h1>
+            <p>Завершить регистрацию</p>
+        </div>
+
+        <div class="auth-content">
+            {% if form.non_field_errors %}
+                <div class="errorlist">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" class="signup">
+                {% csrf_token %}
+
+                <p style="font-size: 14px; color: #666; margin-bottom: 25px;">
+                    {% blocktrans with provider=account.get_provider.name %}
+                    Вы регистрируетесь через <strong>{{ provider }}</strong>. 
+                    Заполните оставшиеся данные для создания аккаунта.
+                    {% endblocktrans %}
+                </p>
+
+                {% if account.extra_data.email %}
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                    <small style="color: #999;">Email (из {{ account.get_provider.name }}):</small>
+                    <div style="font-weight: 600; color: #333;">{{ account.extra_data.email }}</div>
+                </div>
+                {% endif %}
+
+                {% for field in form %}
+                    {% if field.widget.input_type != 'hidden' %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small style="color: #999; display: block; margin-top: 4px;">
+                                    {{ field.help_text|safe }}
+                                </small>
+                            {% endif %}
+                            {% if field.errors %}
+                                <small class="text-danger d-block mt-1">
+                                    {% for error in field.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </small>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                {% endfor %}
+
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <button type="submit" class="btn-primary-auth">
+                    {% trans "Завершить регистрацию" %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
