@@ -5,77 +5,47 @@
 {% block title %}Вход через Google - Jobly{% endblock %}
 
 {% block content %}
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <h1>Jobly</h1>
-            <p>Платформа поиска работы мечты</p>
+<div class="auth-container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    <div class="auth-card" style="background: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); width: 100%; max-width: 450px;">
+        
+        <div class="auth-header" style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 32px; font-weight: 700; color: #3182ce; margin: 0 0 8px 0; letter-spacing: -0.5px;">Jobly</h1>
+            <p style="font-size: 15px; color: #718096; margin: 0;">Платформа поиска работы мечты</p>
         </div>
 
         <div class="auth-content">
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
+            <div class="alert alert-info" style="background-color: #ebf8ff; border-left: 4px solid #3182ce; color: #2b6cb0; padding: 15px; border-radius: 6px; margin-bottom: 25px; font-size: 14px;">
+                Завершите вход в вашу учетную запись Google для доступа к Jobly.
+            </div>
 
-            {% if sociallogin.account.get_provider.name == 'google' %}
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    Завершите вход в вашу учетную запись Google
-                </div>
+            <h3 style="font-size: 18px; font-weight: 600; color: #1a202c; margin-bottom: 10px;">
+                Подтверждение входа
+            </h3>
 
-                <h3 class="mb-3" style="font-size: 18px; font-weight: 600; color: #333;">
-                    Подтверждение входа
-                </h3>
+            <p style="font-size: 14px; color: #4a5568; margin-bottom: 25px; line-height: 1.5;">
+                Нажмите кнопку ниже, чтобы безопасно авторизоваться через ваш Google аккаунт.
+            </p>
 
-                <p style="font-size: 14px; color: #666; margin-bottom: 25px;">
-                    Вы собираетесь войти с помощью Google аккаунта:
-                </p>
-
-                {% if sociallogin.account.extra_data.email %}
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
-                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Email:</div>
-                    <div style="font-size: 16px; font-weight: 600; color: #333;">
-                        {{ sociallogin.account.extra_data.email }}
-                    </div>
-                </div>
+            {# Исправленная форма: отправляет POST на правильный эндпоинт провайдера с CSRF-токеном #}
+            <form method="post" action="{% provider_login_url 'google' process='login' %}">
+                {% csrf_token %}
+                
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
 
-                {% if sociallogin.account.extra_data.name %}
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
-                    <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Имя:</div>
-                    <div style="font-size: 16px; font-weight: 600; color: #333;">
-                        {{ sociallogin.account.extra_data.name }}
-                    </div>
-                </div>
-                {% endif %}
+                <button type="submit" class="btn-primary-auth" style="display: flex; align-items: center; justify-content: center; width: 100%; background: #3182ce; color: #ffffff; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s ease-in-out;">
+                    Продолжить через Google
+                </button>
+            </form>
 
-                <form method="post" action="{% url 'socialaccount_signup' %}">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {% if field.widget.input_type == 'hidden' %}
-                            {{ field }}
-                        {% endif %}
-                    {% endfor %}
-
-                    <button type="submit" class="btn-primary-auth">
-                        <i class="fas fa-sign-in-alt"></i> Продолжить
-                    </button>
-                </form>
-
-                <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
-                    <a href="{% url 'account_login' %}" style="color: #667eea; text-decoration: none; font-size: 13px;">
-                        ← Вернуться к входу
-                    </a>
-                </div>
-            {% else %}
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-primary-auth">
-                        Продолжить вход
-                    </button>
-                </form>
-            {% endif %}
+            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                <a href="{% url 'account_login' %}" style="color: #3182ce; text-decoration: none; font-size: 14px; font-weight: 500;">
+                    ← Вернуться к обычной форме входа
+                </a>
+            </div>
         </div>
+        
     </div>
 </div>
 {% endblock %}

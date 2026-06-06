@@ -7,12 +7,13 @@ import dj_database_url
 # Базовые директории
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# --- БЕЗОПАСНОСТ    ---
-SECRET_KEY = 'django-insecure-your-very-secret-key-here' 
+# --- БЕЗОПАСНОСТЬ ---
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-very-secret-key-here')
 
-DEBUG = True 
+# Автоматическое переключение DEBUG в зависимости от окружения
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'jobly.kz', '.onrender.com'] if not DEBUG else ['*']
 
 # --- ПРИЛОЖЕНИЯ ---
 INSTALLED_APPS = [
@@ -28,20 +29,16 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'django_recaptcha',  # SEC-004: Google reCAPTCHA
+    'django_recaptcha',  # reCAPTCHA
     'accounts',
     'learning',
 ]
 
 SITE_ID = 1
 
-# 1. КАСТОМНОЕ ХЕШИРОВАНИЕ (Argon2 вместо стандартного PBKDF2)
-# Не забудь выполнить: pip install argon2-cffi
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
 
 MIDDLEWARE = [
@@ -87,11 +84,7 @@ DATABASES = {
     }
 }
 
-# Read full Redis URL from environment when available (e.g. on Render).
-# Fallback to the Docker service name 'redis' for local development.
-# NOTE: We use separate Redis databases:
-#   - DB 0: Celery (broker and result backend)
-#   - DB 1: Django Cache
+# --- КЭШ И REDIS ---
 REDIS_BASE_URL = os.environ.get('REDIS_URL', 'redis://redis:6379')
 REDIS_CELERY_URL = os.environ.get('CELERY_BROKER_URL', f'{REDIS_BASE_URL}/0')
 REDIS_CACHE_URL = os.environ.get('REDIS_CACHE_URL', f'{REDIS_BASE_URL}/1')
@@ -100,7 +93,6 @@ IS_TESTING = os.environ.get('DJANGO_TESTING') == '1' or any(
     'pytest' in arg or 'test' in arg for arg in sys.argv
 )
 
-# Use in-memory cache for development/testing, Redis for production
 if IS_TESTING or not os.environ.get('REDIS_URL'):
     CACHES = {
         'default': {
@@ -113,10 +105,9 @@ else:
             'BACKEND': 'django.core.cache.backends.redis.RedisCache',
             'LOCATION': REDIS_CACHE_URL,
             'KEY_PREFIX': 'django-cache',
-            'TIMEOUT': 300,  # 5 минут по умолчанию
+            'TIMEOUT': 300,
         }
     }
-
 
 # --- ВАЛИДАЦИЯ ПАРОЛЕЙ ---
 AUTH_PASSWORD_VALIDATORS = [
@@ -137,7 +128,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 2. НАСТРОЙКИ HTTPS И ЗАЩИТЫ (Пункт 3 задания)
+# --- БЕЗОПАСНОСТЬ (HTTPS И CSRF) ---
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -145,16 +136,30 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
+    
+    # Доверенные домены для Django 5.x CSRF на проде
+    CSRF_TRUSTED_ORIGINS = [
+        "https://jobly.kz",
+        "https://*.onrender.com"
+    ]
+else:
+    # Настройки для бесперебойного тестирования OAuth локально без HTTPS
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://localhost:8000"]
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
 
-# 3. ЛОГИРОВАНИЕ ДЕЙСТВИЙ (Пункт 4 задания)
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
+# --- ЛОГИРОВАНИЕ ---
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
         },
     },
@@ -162,7 +167,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
+            'filename': BASE_DIR / 'debug.log',
             'formatter': 'verbose',
         },
     },
@@ -175,8 +180,7 @@ LOGGING = {
     },
 }
 
-# Celery should prefer explicit env vars, otherwise use the same REDIS_URL.
-# NOTE: Celery uses DB 0 (separate from Django Cache which uses DB 1)
+# --- CELERY ---
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_CELERY_URL)
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', REDIS_CELERY_URL)
 CELERY_ACCEPT_CONTENT = ['json']
@@ -189,78 +193,45 @@ CELERY_BEAT_SCHEDULE = {
     'daily-job-digest-at-midnight': {
         'task': 'accounts.tasks.daily_job_digest_task',
         'schedule': crontab(hour=0, minute=0),
-        'args': (),
     },
     'cleanup-old-sessions-every-15-minutes': {
         'task': 'accounts.tasks.cleanup_old_sessions_task',
         'schedule': 15 * 60,
-        'args': (),
     },
 }
-# --- ВАЖНОЕ ДОПОЛНЕНИЕ ---
-# Указываем Django, куда перенаправлять неавторизованных пользователей
+
+# --- РЕДИРЕКТЫ И АВТОРIЗАЦИЯ ---
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# ============================================================================
-# SEC-002: Google OAuth 2.0 Configuration via django-allauth
-# ============================================================================
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
+# УДАЛЕН конфликтный блок 'APP' внутри SOCIALACCOUNT_PROVIDERS.
+# Теперь конфигурация берется строго из Базы Данных (Django Admin -> Social Applications)
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
-        'APP': {
-            'client_id': os.environ.get('GOOGLE_OAUTH2_KEY', ''),
-            'secret': os.environ.get('GOOGLE_OAUTH2_SECRET', ''),
-            'key': '',
-        },
     }
 }
 
+# --- ALLAUTH ОПТИМИЗАЦИЯ ДЛЯ SIGN IN ---
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 
-# ============================================================================
-# ALLAUTH OPTIMIZATION: Seamless Google OAuth Flow
-# ============================================================================
-# Убирает промежуточную страницу подтверждения при входе через соцсети
-SOCIALACCOUNT_LOGIN_ON_GET = True
-
-# Автоматически создает аккаунт, если пользователя нет
-SOCIALACCOUNT_AUTO_SIGNUP = True
-
-# Не требует подтверждения email при соцсети
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
-
-# Адаптер для автоматического логина без промежуточных шагов
-SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
-
-# Заполняет профиль данными из Google автоматически
-SOCIALACCOUNT_QUERY_EMAIL = True
-
-# Профиль логирования для соцсетей
-SOCIALACCOUNT_STORE_TOKENS = True
-
-# Кастомный adapter для auto-signin
-ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
-
-# ============================================================================
-# SEC-004: Google reCAPTCHA v3 Configuration
-# ============================================================================
+# --- RECAPTCHA ---
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']  # Allow test keys in development
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
-# ============================================================================
-# SEC-007: Secret Scanning Configuration
-# ============================================================================
-# Трufflehog будет сканировать репо в CI/CD
-SECRETS_LOCATION = os.path.join(BASE_DIR, '..')  # Scan from repo root
+# --- SECRET SCANNING ---
+SECRETS_LOCATION = BASE_DIR.parent
