@@ -71,39 +71,3 @@ class EndpointRateLimitMiddleware:
             return response
 
         return self.get_response(request)
-
-
-class SecurityHeadersMiddleware:
-    """Добавляет Permissions-Policy и другие дополнительные заголовки безопасности."""
-
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        response = self.get_response(request)
-        
-        # Permissions-Policy: ограничивает доступ к API браузера
-        response['Permissions-Policy'] = (
-            'camera=(), microphone=(), geolocation=(), '
-            'payment=(), usb=(), magnetometer=(), gyroscope=(), '
-            'accelerometer=(), vr=(), xr-spatial-tracking=()'
-        )
-        
-        # Content-Security-Policy для XSS и другие атаки
-        csp_header = (
-            "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://www.gstatic.com; "
-            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; "
-            "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; "
-            "img-src 'self' data: https: https://www.svgrepo.com https://www.google.com https://www.gstatic.com; "
-            "connect-src 'self' https://accounts.google.com https://apis.google.com; "
-            "frame-src 'self' https://accounts.google.com https://www.google.com https://www.gstatic.com; "
-            "object-src 'none'; "
-            "base-uri 'self'; "
-            "form-action 'self' https://accounts.google.com; "
-            "frame-ancestors 'none'; "
-            "upgrade-insecure-requests;"
-        )
-        response['Content-Security-Policy'] = csp_header
-        
-        return response

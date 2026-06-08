@@ -55,13 +55,23 @@
         </div>
 
         <div class="mt-6">
-            <form method="POST" action="{% provider_login_url 'google' process='login' %}" class="w-full">
-                {% csrf_token %}
-                <button type="submit" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />
-                    Continue with Google
-                </button>
-            </form>
+            {% get_providers as socialaccount_providers %}
+            {% if socialaccount_providers %}
+                <form method="POST" action="{% provider_login_url 'google' process='login' %}" class="w-full">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />
+                        Continue with Google
+                    </button>
+                </form>
+            {% else %}
+                <div class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-500 bg-neutral-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0l5.853 5.122m-12.282-7.595a9.003 9.003 0 0 1 12.727 0m-9.546 5.046a4.5 4.5 0 0 1 6.364 0M9 9.971A8.966 8.966 0 0 1 12 3m5 6.97a8.966 8.966 0 0 0-3-5.97m-2.441 7.231a6 6 0 1 0 0 8.486M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    Google Auth настраивается сервером...
+                </div>
+            {% endif %}
         </div>
 
         <div class="mt-8 pt-6 border-t border-neutral-50 text-center">
