@@ -1,3 +1,4 @@
+# Python
 accounts/__pycache__/forms.cpython-313.pyc
 accounts/__pycache__/models.cpython-313.pyc
 db.sqlite3
@@ -11,3 +12,34 @@ accounts/__pycache__/views.cpython-313.pyc
 core/__pycache__/settings.cpython-313.pyc
 core/__pycache__/urls.cpython-313.pyc
 core/__pycache__/wsgi.cpython-313.pyc
+
+# Environment & Secrets (SEC-007)
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Django
+*.log
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+htmlcov/
+
+# Cache & Temp
+.cache/
+*.tmp
+debug.log

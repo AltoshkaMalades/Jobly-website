@@ -55,10 +55,13 @@
         </div>
 
         <div class="mt-6">
-            <a href="{% provider_login_url 'google' process='login' %}" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />
-                Continue with Google
-            </a>
+            <form method="POST" action="{% provider_login_url 'google' process='login' %}" class="w-full">
+                {% csrf_token %}
+                <button type="submit" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />
+                    Continue with Google
+                </button>
+            </form>
         </div>
 
         <div class="mt-8 pt-6 border-t border-neutral-50 text-center">

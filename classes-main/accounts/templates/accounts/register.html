@@ -1,4 +1,5 @@
 {% extends 'accounts/base.html' %}
+{% load socialaccount %}
 
 {% block content %}
 <div class="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-neutral-50">
@@ -91,18 +92,28 @@
             </div>
 
             <div class="pt-2 border-t border-neutral-100">
-                <label class="block text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">Security Check</label>
-                <div class="flex flex-col gap-3">
-                    <div class="bg-neutral-100 rounded-xl overflow-hidden border border-neutral-200 flex items-center justify-center p-2">
-                        <div id="captcha-text" class="h-14 w-full flex items-center justify-center bg-gray-100 text-xl font-bold tracking-[0.5em] select-none">
-                            Генерация...
-                        </div>
-                        <input type="hidden" name="captcha_expected" id="captcha_expected">
+                <label class="block text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">Security Verification (SEC-004)</label>
+                {% if form.captcha %}
+                    <div class="bg-neutral-50 rounded-xl p-4 border border-neutral-200">
+                        {{ form.captcha }}
                     </div>
-                    <input type="text" name="captcha_input" required 
-                        class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-xl outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all text-sm"
-                        placeholder="Введите цифры выше">
-                </div>
+                    {% if form.captcha.errors %}
+                        <div class="text-red-600 text-sm mt-2">{{ form.captcha.errors }}</div>
+                    {% endif %}
+                {% else %}
+                    <!-- Fallback CAPTCHA if django-recaptcha not configured -->
+                    <div class="flex flex-col gap-3">
+                        <div class="bg-neutral-100 rounded-xl overflow-hidden border border-neutral-200 flex items-center justify-center p-2">
+                            <div id="captcha-text" class="h-14 w-full flex items-center justify-center bg-gray-100 text-xl font-bold tracking-[0.5em] select-none">
+                                Генерация...
+                            </div>
+                            <input type="hidden" name="captcha_expected" id="captcha_expected">
+                        </div>
+                        <input type="text" name="captcha_input" required 
+                            class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-xl outline-none focus:ring-2 focus:ring-neutral-900/10 focus:border-neutral-900 transition-all text-sm"
+                            placeholder="Введите цифры выше">
+                    </div>
+                {% endif %}
             </div>
 
             <button type="submit" class="w-full py-3 bg-neutral-900 text-white rounded-xl font-bold hover:bg-neutral-800 transition-all active:scale-[0.98]">

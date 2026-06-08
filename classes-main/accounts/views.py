@@ -36,6 +36,9 @@ logger = logging.getLogger('django')
 
 # --- ДЕКОРАТОРЫ ---
 def role_required(allowed_roles=[]):
+    """
+    SEC-003: RBAC decorator ensuring proper 403 Forbidden for unauthorized access
+    """
     def decorator(view_func):
         def _wrapped_view(request, *args, **kwargs):
             if not request.user.is_authenticated:
@@ -43,10 +46,37 @@ def role_required(allowed_roles=[]):
             profile, _ = Profile.objects.get_or_create(user=request.user)
             if profile.role in allowed_roles or request.user.is_superuser:
                 return view_func(request, *args, **kwargs)
-            logger.warning(f"Доступ запрещен: {request.user.username}")
-            raise PermissionDenied 
+            
+            # SEC-003: Log unauthorized access attempt
+            ip_address = get_client_ip(request)
+            log_security_event(
+                'UNAUTHORIZED_ACCESS',
+                request.user,
+                f'Attempted to access {view_func.__name__} with role {profile.role}. Required: {allowed_roles}',
+                ip_address
+            )
+            raise PermissionDenied("403: Access Denied - Insufficient Permissions")
         return _wrapped_view
     return decorator
+
+def admin_required(view_func):
+    """
+    SEC-003: Decorator requiring admin role
+    """
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        if not request.user.is_superuser and not (hasattr(request.user, 'profile') and request.user.profile.role == 'admin'):
+            ip_address = get_client_ip(request)
+            log_security_event(
+                'ADMIN_ACCESS_DENIED',
+                request.user,
+                f'Attempted admin access to {view_func.__name__}',
+                ip_address
+            )
+            raise PermissionDenied("403: Admin Access Required")
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
 # --- ГЛАВНЫЕ СТРАНИЦЫ ---
 def home_page(request):
@@ -405,3 +435,148 @@ def ai_chat(request):
     
     ai_response = get_ai_response(user_message)
     return JsonResponse({'response': ai_response})
+
+# --- API ENDPOINTS FOR SECURITY DEMONSTRATION ---
+@login_required
+@role_required(allowed_roles=['employer'])
+def api_admin_jobs(request):
+    """
+    SEC-003: Admin API endpoint - only employers can access
+    Returns 403 Forbidden if unauthorized
+    """
+    profile = get_object_or_404(Profile, user=request.user)
+    jobs = Job.objects.filter(employer=request.user).values('id', 'title', 'company', 'created_at')
+    return JsonResponse({
+        'status': 'success',
+        'user': request.user.username,
+        'role': profile.role,
+        'jobs_count': jobs.count(),
+        'jobs': list(jobs)
+    })
+
+@login_required
+@role_required(allowed_roles=['student'])
+def api_student_profile(request):
+    """
+    SEC-003 & SEC-005: Student API endpoint - verify owner access
+    Returns 403 Forbidden if non-student tries to access
+    """
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    applications = Application.objects.filter(student=request.user).values(
+        'id', 'job__title', 'status', 'created_at'
+    ).count()
+    favorites = Favorite.objects.filter(user=request.user).count()
+    
+    return JsonResponse({
+        'status': 'success',
+        'user': request.user.username,
+        'role': profile.role,
+        'applications_count': applications,
+        'favorites_count': favorites
+    })
+
+@login_required
+def api_user_data(request, user_id):
+    """
+    SEC-005: User data endpoint - verify owner access with 403 on mismatch
+    Only owner or superuser can access their own data
+    """
+    target_user = get_object_or_404(User, id=user_id)
+    
+    # SEC-005: Check if requester is owner or admin
+    if request.user.id != target_user.id and not request.user.is_superuser:
+        ip_address = get_client_ip(request)
+        log_security_event(
+            'UNAUTHORIZED_DATA_ACCESS',
+            request.user,
+            f'Attempted to access user {user_id} data',
+            ip_address
+        )
+        return JsonResponse(
+            {'error': 'Forbidden: Cannot access other users data'},
+            status=403
+        )
+    
+    profile = get_object_or_404(Profile, user=target_user)
+    return JsonResponse({
+        'status': 'success',
+        'user_id': target_user.id,
+        'username': target_user.username,
+        'email': target_user.email,
+        'role': profile.role,
+        'bio': profile.bio
+    })
+
+@require_POST
+def api_register(request):
+    """
+    SEC-006: API Registration endpoint with proper password validation
+    Returns 400/422 status with error details for weak passwords
+    """
+    try:
+        username = request.POST.get('username', '').strip()
+        email = request.POST.get('email', '').strip()
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+        role = request.POST.get('role', 'student')
+        
+        # Check for empty fields
+        if not all([username, email, password1, password2]):
+            return JsonResponse({
+                'status': 'error',
+                'message': 'All fields are required',
+                'errors': {'detail': 'Missing required fields'}
+            }, status=400)
+        
+        # Check password match
+        if password1 != password2:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Passwords do not match',
+                'errors': {'password': ['Passwords do not match']}
+            }, status=400)
+        
+        # Create form to validate
+        form = UserRegisterForm(data={
+            'username': username,
+            'email': email,
+            'password1': password1,
+            'password2': password2
+        })
+        
+        if not form.is_valid():
+            # SEC-006: Return 422 for validation errors (bad input)
+            errors = {}
+            for field, field_errors in form.errors.items():
+                errors[field] = list(field_errors)
+            
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Password validation failed',
+                'errors': errors
+            }, status=422)
+        
+        # All validations passed
+        user = form.save()
+        profile, _ = Profile.objects.get_or_create(user=user)
+        profile.role = role
+        profile.save()
+        
+        # Log event
+        ip_address = get_client_ip(request)
+        log_security_event('USER_API_REGISTERED', user, f'Role: {role}', ip_address)
+        
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Registration successful',
+            'user_id': user.id,
+            'username': user.username
+        }, status=201)
+        
+    except Exception as e:
+        logger.exception('API registration error')
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Registration failed',
+            'detail': str(e)
+        }, status=500)

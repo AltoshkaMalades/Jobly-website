@@ -28,6 +28,12 @@ urlpatterns = [
     path('job/<int:job_id>/favorite/', views.toggle_favorite, name='toggle_favorite'),
     path('ai-chat/', views.ai_chat, name='ai_chat'),
     
+    # --- API ENDPOINTS FOR SECURITY DEMONSTRATION (SEC-003, SEC-005, SEC-006) ---
+    path('api/admin/jobs/', views.api_admin_jobs, name='api_admin_jobs'),
+    path('api/student/profile/', views.api_student_profile, name='api_student_profile'),
+    path('api/user/<int:user_id>/', views.api_user_data, name='api_user_data'),
+    path('api/register/', views.api_register, name='api_register'),
+    
     # --- Сброс пароля ---
     path('password-reset/', 
          auth_views.PasswordResetView.as_view(template_name='accounts/password_reset.html'), 

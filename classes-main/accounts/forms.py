@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 # Добавили Favorite в импорт
 from .models import Job, Profile, Application, Favorite 
 from django.core.validators import RegexValidator
+# SEC-004: CAPTCHA
+try:
+    from django_recaptcha.fields import ReCaptchaField
+    from django_recaptcha.widgets import ReCaptchaV3
+    HAS_RECAPTCHA = True
+except ImportError:
+    HAS_RECAPTCHA = False
 
 # 1. Форма редактирования профиля (Умная фильтрация полей)
 class ProfileForm(forms.ModelForm):
@@ -98,6 +105,13 @@ class UserRegisterForm(UserCreationForm):
         'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',
         'placeholder': '+7 701 000 0000'
     }))
+    
+    # SEC-004: Add reCAPTCHA v3 field
+    if HAS_RECAPTCHA:
+        captcha = ReCaptchaField(
+            widget=ReCaptchaV3(attrs={'required_score': 0.5}),
+            error_messages={'required': 'CAPTCHA verification failed'}
+        )
 
     class Meta:
         model = User

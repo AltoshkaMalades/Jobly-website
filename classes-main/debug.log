@@ -2824,3 +2824,6 @@ INFO 2026-06-06 23:24:18,717 basehttp "POST /admin/socialaccount/socialapp/1/cha
 INFO 2026-06-06 23:24:18,733 basehttp "GET /admin/socialaccount/socialapp/ HTTP/1.1" 200 16865
 INFO 2026-06-06 23:24:18,748 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 INFO 2026-06-06 23:24:20,582 basehttp "GET /admin/ HTTP/1.1" 200 17286
+INFO 2026-06-06 23:33:25,794 basehttp "GET /admin/socialaccount/socialapp/1/change/ HTTP/1.1" 200 22174
+INFO 2026-06-06 23:33:25,894 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+INFO 2026-06-06 23:33:29,784 basehttp "GET / HTTP/1.1" 200 12236
