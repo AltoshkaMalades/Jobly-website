@@ -219,6 +219,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Can be 'optional', 'mandatory', or 'none'
 SOCIALACCOUNT_AUTO_SIGNUP = True
+# Use custom adapter that handles MultipleObjectsReturned gracefully
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.CustomSocialAccountAdapter'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {

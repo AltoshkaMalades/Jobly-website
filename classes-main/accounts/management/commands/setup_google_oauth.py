@@ -67,7 +67,17 @@ class Command(BaseCommand):
 
         # Шаг 2: Получить или создать SocialApplication для Google
         try:
-            app = SocialApp.objects.get(provider='google')
+            # Handle MultipleObjectsReturned by using filter + first
+            try:
+                app = SocialApp.objects.get(provider='google')
+            except SocialApp.MultipleObjectsReturned:
+                self.stdout.write(self.style.WARNING(
+                    "⚠️ Multiple Google SocialApps found! Using the most recent one."
+                ))
+                app = SocialApp.objects.filter(provider='google').order_by('-id').first()
+                if not app:
+                    raise SocialApp.DoesNotExist("No Google SocialApp found after MultipleObjectsReturned")
+            
             self.stdout.write(f"✓ Google SocialApp существует: {app.name}")
             
             # Обновить credentials если они отличаются

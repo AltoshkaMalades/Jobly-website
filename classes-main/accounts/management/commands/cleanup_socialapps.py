@@ -25,6 +25,7 @@ class Command(BaseCommand):
 
         # Get all providers
         providers = SocialApp.objects.values_list('provider', flat=True).distinct()
+        total_deleted = 0
 
         for provider in providers:
             apps = SocialApp.objects.filter(provider=provider).order_by('-id')
@@ -32,31 +33,62 @@ class Command(BaseCommand):
 
             if count > 1:
                 self.stdout.write(
-                    f"Found {count} {provider} SocialApp(s). Keeping the latest, removing duplicates..."
+                    self.style.WARNING(f"\n⚠️ Found {count} {provider} SocialApp(s). Keeping the latest, removing {count-1} duplicate(s)...")
                 )
                 
                 # Keep the first (latest) app, delete the rest
                 keep_app = apps[0]
-                delete_apps = apps[1:]
+                delete_apps = list(apps[1:])
 
                 for app in delete_apps:
-                    # Remove app from all sites
-                    SocialAppSite.objects.filter(app=app).delete()
-                    # Delete the app
-                    app.delete()
-                    self.stdout.write(f"  ✓ Deleted duplicate {provider} app (ID: {app.id})")
+                    try:
+                        # Remove app from all sites
+                        deleted_sites = SocialAppSite.objects.filter(app=app).delete()
+                        self.stdout.write(f"  ├─ Removed {app.id} from {deleted_sites[0]} site(s)")
+                        
+                        # Delete the app
+                        app_id = app.id
+                        app.delete()
+                        self.stdout.write(f"  └─ ✓ Deleted duplicate {provider} app (ID: {app_id})")
+                        total_deleted += 1
+                    except Exception as e:
+                        self.stdout.write(
+                            self.style.ERROR(f"  ✗ Error deleting {provider} app {app.id}: {str(e)}")
+                        )
 
                 # Ensure the kept app is assigned to current site
-                SocialAppSite.objects.get_or_create(
-                    app=keep_app,
-                    site=current_site
-                )
-                self.stdout.write(
-                    self.style.SUCCESS(f"✓ Kept {provider} app (ID: {keep_app.id}) for site {current_site}")
-                )
+                try:
+                    site_link, created = SocialAppSite.objects.get_or_create(
+                        app=keep_app,
+                        site=current_site
+                    )
+                    action = "Created" if created else "Verified existing"
+                    self.stdout.write(
+                        self.style.SUCCESS(f"✓ {action} link for {provider} app (ID: {keep_app.id}) to site {current_site}")
+                    )
+                except Exception as e:
+                    self.stdout.write(
+                        self.style.ERROR(f"Error linking {provider} app to site: {str(e)}")
+                    )
             elif count == 1:
-                self.stdout.write(f"✓ {provider}: 1 app found (OK)")
+                app = apps[0]
+                # Ensure it's linked to current site
+                try:
+                    SocialAppSite.objects.get_or_create(
+                        app=app,
+                        site=current_site
+                    )
+                    self.stdout.write(f"✓ {provider}: 1 app found (OK) - linked to {current_site}")
+                except Exception as e:
+                    self.stdout.write(f"⚠ {provider}: Error linking app to site: {str(e)}")
             else:
-                self.stdout.write(f"⚠ {provider}: No apps found")
+                self.stdout.write(f"⚠ {provider}: No apps found (will be created by setup_google_oauth)")
 
-        self.stdout.write(self.style.SUCCESS('\n✅ SocialApp cleanup completed!'))
+        if total_deleted > 0:
+            self.stdout.write(
+                self.style.SUCCESS(f'\n✅ SocialApp cleanup completed! Deleted {total_deleted} duplicate app(s).')
+            )
+        else:
+            self.stdout.write(
+                self.style.SUCCESS('\n✅ SocialApp cleanup completed! No duplicates found.')
+            )

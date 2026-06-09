@@ -4712,3 +4712,16 @@ INFO 2026-06-09 11:11:33,028 views 6772 25860 Skip welcome email task dispatch i
 INFO 2026-06-09 11:11:33,138 views 6772 25860 Skip welcome email task dispatch in local/test mode.
 WARNING 2026-06-09 11:11:33,924 log 6772 25860 Too Many Requests: /login/
 INFO 2026-06-09 11:11:34,005 views 6772 25860 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:12:12,278 autoreload 24760 72552 Watching for file changes with StatReloader
+INFO 2026-06-09 11:12:34,298 autoreload 59536 11432 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\templatetags\safe_socialaccount.py changed, reloading.
+INFO 2026-06-09 11:12:35,086 autoreload 60428 41404 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\templatetags\safe_socialaccount.py changed, reloading.
+INFO 2026-06-09 11:12:35,555 autoreload 19672 64252 Watching for file changes with StatReloader
+INFO 2026-06-09 11:12:36,298 autoreload 63192 69596 Watching for file changes with StatReloader
+INFO 2026-06-09 11:17:43,811 autoreload 63192 69596 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 11:17:44,499 autoreload 19672 64252 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 11:17:45,291 autoreload 30808 5128 Watching for file changes with StatReloader
+INFO 2026-06-09 11:17:45,888 autoreload 57368 16564 Watching for file changes with StatReloader
+INFO 2026-06-09 11:18:50,855 views 65632 13712 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:18:50,972 views 65632 13712 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-09 11:18:51,859 log 65632 13712 Too Many Requests: /login/
+INFO 2026-06-09 11:18:51,990 views 65632 13712 Skip welcome email task dispatch in local/test mode.

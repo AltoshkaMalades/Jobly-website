@@ -34,4 +34,11 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD python -c "import requests; requests.get('http://localhost:8000/health', timeout=5)" || exit 1
 
 # Команда по умолчанию (собирает статику, запускает миграции, очищает OAuth дубликаты, настраивает OAuth и сервер)
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py cleanup_socialapps && python manage.py setup_google_oauth && python manage.py seed_learning && gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4"]
+CMD ["sh", "-c", "set -e; \
+    echo '=== Collecting static files ===' && python manage.py collectstatic --noinput && \
+    echo '=== Running migrations ===' && python manage.py migrate --noinput && \
+    echo '=== Cleaning up duplicate OAuth apps ===' && python manage.py cleanup_socialapps && \
+    echo '=== Setting up Google OAuth ===' && python manage.py setup_google_oauth && \
+    echo '=== Seeding learning content ===' && python manage.py seed_learning && \
+    echo '=== Starting Gunicorn server ===' && \
+    gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 60 --access-logfile - --error-logfile -"]
