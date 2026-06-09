@@ -22,40 +22,47 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         """
         try:
             return super().get_app(request, provider)
-        except SocialApp.MultipleObjectsReturned:
-            logger.warning(f"Multiple SocialApp entries found for {provider}. Using fallback logic.")
-            try:
-                # Get the current site
-                if request:
-                    current_site = Site.objects.get_current()
-                else:
-                    current_site = Site.objects.get_default()
-                
-                # Get the first app for this provider that's linked to current site
-                app = (
-                    SocialApp.objects
-                    .filter(provider=provider, sites=current_site)
-                    .order_by('-id')
-                    .first()
-                )
-                
-                if not app:
-                    # If not linked to current site, get any app for this provider
+        except Exception as e:
+            # Catch MultipleObjectsReturned by checking class name, not type
+            # This handles Django's model-specific exception classes
+            if e.__class__.__name__ == 'MultipleObjectsReturned':
+                logger.warning(f"[CustomAdapter] Multiple SocialApp entries found for {provider}. Using fallback logic.")
+                try:
+                    # Get the current site
+                    if request:
+                        current_site = Site.objects.get_current()
+                    else:
+                        current_site = Site.objects.get_default()
+                    
+                    # Get the first app for this provider that's linked to current site
                     app = (
                         SocialApp.objects
-                        .filter(provider=provider)
+                        .filter(provider=provider, sites=current_site)
                         .order_by('-id')
                         .first()
                     )
-                
-                if app:
-                    logger.info(f"Using SocialApp {app.id} for provider {provider}")
-                    return app
-                else:
-                    logger.error(f"No {provider} app found even after MultipleObjectsReturned")
-                    raise SocialApp.DoesNotExist(f"No {provider} app found")
-            except Exception as e:
-                logger.error(f"Error in CustomSocialAccountAdapter.get_app: {str(e)}", exc_info=True)
+                    
+                    if not app:
+                        # If not linked to current site, get any app for this provider
+                        app = (
+                            SocialApp.objects
+                            .filter(provider=provider)
+                            .order_by('-id')
+                            .first()
+                        )
+                    
+                    if app:
+                        logger.info(f"[CustomAdapter] Using SocialApp {app.id} for provider {provider}")
+                        return app
+                    else:
+                        logger.error(f"[CustomAdapter] No {provider} app found even after MultipleObjectsReturned")
+                        raise
+                except Exception as inner_e:
+                    if inner_e.__class__.__name__ != 'MultipleObjectsReturned':
+                        logger.error(f"[CustomAdapter] Error in fallback: {str(inner_e)}", exc_info=True)
+                    raise e  # Re-raise the original exception
+            else:
+                # Not a MultipleObjectsReturned error, re-raise
                 raise
 
 

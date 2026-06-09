@@ -5000,3 +5000,21 @@ INFO 2026-06-09 11:50:21,785 views 5428 69076 Skip welcome email task dispatch i
 INFO 2026-06-09 11:50:21,966 views 5428 69076 Skip welcome email task dispatch in local/test mode.
 WARNING 2026-06-09 11:50:23,198 log 5428 69076 Too Many Requests: /login/
 INFO 2026-06-09 11:50:23,318 views 5428 69076 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:54:22,143 autoreload 40968 66184 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:54:23,173 autoreload 74600 30108 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:54:23,200 autoreload 74300 74248 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:54:24,784 autoreload 32100 67116 Watching for file changes with StatReloader
+INFO 2026-06-09 11:54:25,720 autoreload 59176 25656 Watching for file changes with StatReloader
+INFO 2026-06-09 11:54:25,747 autoreload 58700 57316 Watching for file changes with StatReloader
+INFO 2026-06-09 12:04:40,882 autoreload 32100 67116 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 12:04:41,895 autoreload 58700 57316 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 12:04:41,910 autoreload 59176 25656 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 12:04:43,651 autoreload 75592 74744 Watching for file changes with StatReloader
+INFO 2026-06-09 12:04:44,515 autoreload 75168 74760 Watching for file changes with StatReloader
+INFO 2026-06-09 12:04:44,550 autoreload 75492 74072 Watching for file changes with StatReloader
+INFO 2026-06-09 12:04:46,137 autoreload 75592 74744 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 12:04:48,755 autoreload 74148 58964 Watching for file changes with StatReloader
+INFO 2026-06-09 12:04:56,505 views 58252 68952 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 12:04:56,719 views 58252 68952 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-09 12:04:57,880 log 58252 68952 Too Many Requests: /login/
+INFO 2026-06-09 12:04:58,005 views 58252 68952 Skip welcome email task dispatch in local/test mode.
