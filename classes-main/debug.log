@@ -2827,3 +2827,23 @@ INFO 2026-06-06 23:24:20,582 basehttp "GET /admin/ HTTP/1.1" 200 17286
 INFO 2026-06-06 23:33:25,794 basehttp "GET /admin/socialaccount/socialapp/1/change/ HTTP/1.1" 200 22174
 INFO 2026-06-06 23:33:25,894 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 INFO 2026-06-06 23:33:29,784 basehttp "GET / HTTP/1.1" 200 12236
+INFO 2026-06-09 08:29:38,727 autoreload Watching for file changes with StatReloader
+INFO 2026-06-09 08:29:46,010 basehttp "GET / HTTP/1.1" 200 12236
+WARNING 2026-06-09 08:29:55,888 security [SECURITY] LOGOUT | User: 2 (admin) | IP: 127.0.0.1
+INFO 2026-06-09 08:29:55,903 basehttp "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-06-09 08:29:55,911 basehttp "GET / HTTP/1.1" 200 12236
+INFO 2026-06-09 08:29:57,611 basehttp "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-06-09 08:29:57,616 basehttp "GET / HTTP/1.1" 200 12236
+INFO 2026-06-09 08:29:57,811 basehttp "POST /logout/ HTTP/1.1" 302 0
+INFO 2026-06-09 08:29:57,817 basehttp "GET / HTTP/1.1" 200 12236
+INFO 2026-06-09 08:29:58,637 basehttp "GET / HTTP/1.1" 200 12236
+INFO 2026-06-09 08:30:00,000 basehttp "GET /search/ HTTP/1.1" 200 11599
+INFO 2026-06-09 08:30:01,752 basehttp "GET /register/ HTTP/1.1" 200 16515
+INFO 2026-06-09 08:30:46,839 autoreload C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\middleware.py changed, reloading.
+INFO 2026-06-09 08:30:48,324 autoreload Watching for file changes with StatReloader
+INFO 2026-06-09 08:30:49,872 basehttp "GET /register/ HTTP/1.1" 200 16515
+INFO 2026-06-09 08:30:53,657 basehttp "GET / HTTP/1.1" 200 12556
+INFO 2026-06-09 08:30:56,983 basehttp "GET /login/ HTTP/1.1" 200 14534
+INFO 2026-06-09 08:31:00,309 basehttp "POST /accounts/google/login/?process=login HTTP/1.1" 302 0
+INFO 2026-06-09 08:31:30,978 autoreload C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\middleware.py changed, reloading.
+INFO 2026-06-09 08:31:32,527 autoreload Watching for file changes with StatReloader
