@@ -4591,3 +4591,12 @@ ERROR 2026-06-09 09:53:51,465 basehttp 14588 50036 You're accessing the developm
 INFO 2026-06-09 09:59:37,801 autoreload 14588 60164 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
 INFO 2026-06-09 09:59:38,652 autoreload 2900 61248 Watching for file changes with StatReloader
 INFO 2026-06-09 09:59:47,407 autoreload 41924 72552 Watching for file changes with StatReloader
+INFO 2026-06-09 10:02:24,302 autoreload 41924 72552 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:02:25,156 autoreload 68408 50332 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:02:25,212 autoreload 73120 71924 Watching for file changes with StatReloader
+INFO 2026-06-09 10:02:25,964 autoreload 34540 72248 Watching for file changes with StatReloader
+INFO 2026-06-09 10:02:35,476 autoreload 34540 72248 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:02:35,632 autoreload 73120 71924 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:02:36,346 autoreload 67368 3852 Watching for file changes with StatReloader
+INFO 2026-06-09 10:02:36,486 autoreload 3992 71716 Watching for file changes with StatReloader
+INFO 2026-06-09 10:02:50,937 autoreload 14196 30924 Watching for file changes with StatReloader

@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'embed_video',
     'accounts',
     'learning',
@@ -171,3 +172,6 @@ else:
 # --- ВАЖНОЕ ДОПОЛНЕНИЕ ---
 # Указываем Django, куда перенаправлять неавторизованных пользователей
 LOGIN_URL = 'login'  # Это имя URL, который должен быть определен в urls.py для страницы входа
+
+# --- САЙТЫ (django.contrib.sites) ---
+SITE_ID = 1
