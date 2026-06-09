@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
-from allauth.socialaccount.models import SocialApp
 from django.db import transaction
 
 
@@ -29,6 +28,14 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
+        try:
+            from allauth.socialaccount.models import SocialApp
+        except ImportError:
+            self.stdout.write(self.style.ERROR(
+                "❌ django-allauth is not installed. Install it with: pip install django-allauth"
+            ))
+            return
+        
         client_id = options['client_id']
         secret = options['secret']
         domain = options['domain']

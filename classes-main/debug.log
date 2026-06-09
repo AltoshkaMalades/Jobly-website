@@ -4583,3 +4583,8 @@ INFO 2026-06-09 09:48:26,149 autoreload 69776 48704 C:\Users\Altyn\Documents\Git
 INFO 2026-06-09 09:48:26,559 autoreload 66820 26136 Watching for file changes with StatReloader
 INFO 2026-06-09 09:48:26,941 autoreload 68408 50332 Watching for file changes with StatReloader
 INFO 2026-06-09 09:48:45,714 autoreload 6712 70568 Watching for file changes with StatReloader
+INFO 2026-06-09 09:52:55,766 autoreload 14588 60164 Watching for file changes with StatReloader
+ERROR 2026-06-09 09:53:50,890 basehttp 14588 60160 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-09 09:53:51,154 basehttp 14588 63848 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-09 09:53:51,199 basehttp 14588 62344 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-09 09:53:51,465 basehttp 14588 50036 You're accessing the development server over HTTPS, but it only supports HTTP.
