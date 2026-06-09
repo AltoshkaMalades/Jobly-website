@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.contrib.sites.models import Site
 from django.db import transaction
 
 
@@ -29,10 +28,12 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         try:
+            from django.contrib.sites.models import Site
             from allauth.socialaccount.models import SocialApp
-        except ImportError:
+        except ImportError as e:
             self.stdout.write(self.style.ERROR(
-                "❌ django-allauth is not installed. Install it with: pip install django-allauth"
+                f"❌ Required module not available: {e}. "
+                "Install django-allauth with: pip install django-allauth"
             ))
             return
         
