@@ -43,6 +43,7 @@ PASSWORD_HASHERS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files efficiently in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'accounts.middleware.EndpointRateLimitMiddleware',
     'accounts.oauth_middleware.SocialAppDuplicateHandlerMiddleware',  # Handle MultipleObjectsReturned errors
@@ -219,7 +220,10 @@ else:
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Can be 'optional', 'mandatory', or 'none'
+ACCOUNT_LOGIN_REDIRECT_URL = 'profile'  # Redirect to profile after login
+ACCOUNT_SIGNUP_REDIRECT_URL = 'profile'  # Redirect to profile after signup
 SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True  # Allow GET requests for OAuth login
 # Use custom adapter that handles MultipleObjectsReturned gracefully
 SOCIALACCOUNT_ADAPTER = 'accounts.adapters.CustomSocialAccountAdapter'
 SOCIALACCOUNT_PROVIDERS = {
