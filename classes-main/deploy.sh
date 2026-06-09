@@ -14,6 +14,12 @@ docker compose exec -T web sh -c "mkdir -p ${BACKUP_DIR} && pg_dump -U postgres 
 
 echo "Файл ${BACKUP_FILE} успешно создан"
 
+echo "Сбор статических файлов..."
+
+docker compose exec -T web python manage.py collectstatic --noinput
+
+echo "Collecting static files... OK"
+
 echo "Применение миграций..."
 
 docker compose exec -T web python manage.py migrate --noinput
