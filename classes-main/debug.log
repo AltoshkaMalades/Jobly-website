@@ -4670,3 +4670,7 @@ INFO 2026-06-09 10:35:42,097 autoreload 56636 17168 C:\Users\Altyn\Documents\Git
 INFO 2026-06-09 10:35:42,995 autoreload 25192 34948 Watching for file changes with StatReloader
 INFO 2026-06-09 10:35:43,353 autoreload 55388 54956 Watching for file changes with StatReloader
 INFO 2026-06-09 10:36:43,263 autoreload 71788 13640 Watching for file changes with StatReloader
+INFO 2026-06-09 10:38:21,150 autoreload 25192 34948 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:38:21,885 autoreload 55388 54956 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:38:22,595 autoreload 16724 43772 Watching for file changes with StatReloader
+INFO 2026-06-09 10:38:23,189 autoreload 53136 21212 Watching for file changes with StatReloader
