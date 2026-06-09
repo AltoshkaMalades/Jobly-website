@@ -4588,3 +4588,6 @@ ERROR 2026-06-09 09:53:50,890 basehttp 14588 60160 You're accessing the developm
 ERROR 2026-06-09 09:53:51,154 basehttp 14588 63848 You're accessing the development server over HTTPS, but it only supports HTTP.
 ERROR 2026-06-09 09:53:51,199 basehttp 14588 62344 You're accessing the development server over HTTPS, but it only supports HTTP.
 ERROR 2026-06-09 09:53:51,465 basehttp 14588 50036 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-06-09 09:59:37,801 autoreload 14588 60164 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
+INFO 2026-06-09 09:59:38,652 autoreload 2900 61248 Watching for file changes with StatReloader
+INFO 2026-06-09 09:59:47,407 autoreload 41924 72552 Watching for file changes with StatReloader

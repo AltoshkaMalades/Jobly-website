@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from .views import health_check
 
 urlpatterns = [
@@ -24,21 +25,16 @@ urlpatterns = [
     path('health/', health_check, name='health'),
     
     # 2. Подключаем все пути твоего приложения accounts
-    # Попробуем подключить `allauth` только если он установлен (тестовая среда может его не иметь)
+    # Подключаем allauth только если он в INSTALLED_APPS
 ]
 
-try:
-    import allauth  # type: ignore
-except Exception:
-    # allauth не установлен — пропускаем маршрут, остальные пути остаются
-    urlpatterns += [
-        path('', include('accounts.urls')),
-        path('learning/', include('learning.urls')),
-    ]
-else:
+if 'allauth' in settings.INSTALLED_APPS:
     urlpatterns += [
         path('accounts/', include('allauth.urls')),
-        path('', include('accounts.urls')),
-        path('learning/', include('learning.urls')),
     ]
+
+urlpatterns += [
+    path('', include('accounts.urls')),
+    path('learning/', include('learning.urls')),
+]
     
