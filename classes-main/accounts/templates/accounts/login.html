@@ -1,5 +1,5 @@
 {% extends 'accounts/base.html' %}
-{% load socialaccount %}
+{% load safe_socialaccount %}
 
 {% block content %}
 <div class="min-h-[80vh] flex items-center justify-center bg-neutral-50 px-4">
@@ -55,9 +55,9 @@
         </div>
 
         <div class="mt-6">
-            {% get_providers as socialaccount_providers %}
+            {% safe_get_providers as socialaccount_providers %}
             {% if socialaccount_providers %}
-                <form method="POST" action="{% provider_login_url 'google' process='login' %}" class="w-full">
+                <form method="POST" action="{% safe_provider_login_url 'google' process='login' %}" class="w-full">
                     {% csrf_token %}
                     <button type="submit" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />

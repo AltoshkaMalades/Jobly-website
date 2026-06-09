@@ -4690,3 +4690,7 @@ INFO 2026-06-09 10:47:02,134 autoreload 55720 54028 C:\Users\Altyn\Documents\Git
 INFO 2026-06-09 10:47:02,154 autoreload 40768 56712 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
 INFO 2026-06-09 10:47:03,562 autoreload 56412 51308 Watching for file changes with StatReloader
 INFO 2026-06-09 10:47:03,563 autoreload 37356 64892 Watching for file changes with StatReloader
+INFO 2026-06-09 10:51:44,343 autoreload 37356 64892 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:51:44,726 autoreload 56412 51308 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\templatetags\safe_socialaccount.py changed, reloading.
+INFO 2026-06-09 10:51:45,761 autoreload 68700 5516 Watching for file changes with StatReloader
+INFO 2026-06-09 10:51:46,036 autoreload 69888 45680 Watching for file changes with StatReloader
