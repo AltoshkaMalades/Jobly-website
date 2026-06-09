@@ -121,6 +121,26 @@
             </button>
         </form>
 
+        <!-- Google OAuth Register -->
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
+            <div class="mt-6">
+                <div class="relative flex items-center">
+                    <div class="flex-grow border-t border-neutral-200"></div>
+                    <span class="flex-shrink mx-4 text-sm text-neutral-500 font-medium">OR</span>
+                    <div class="flex-grow border-t border-neutral-200"></div>
+                </div>
+
+                <form method="POST" action="{% provider_login_url 'google' process='connect' %}" class="w-full mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full inline-flex items-center justify-center gap-3 py-3 border border-neutral-200 rounded-xl font-semibold text-neutral-900 hover:bg-neutral-50 transition-all active:scale-[0.98]">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5" />
+                        Sign Up with Google
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+
         <div class="mt-8 pt-6 border-t border-neutral-100 text-center">
             <p class="text-neutral-500 text-sm">
                 Already have an account? 

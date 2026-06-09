@@ -33,5 +33,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD python -c "import requests; requests.get('http://localhost:8000/health', timeout=5)" || exit 1
 
-# Команда по умолчанию (собирает статику, запускает миграции и сервер)
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py seed_learning && gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4"]
+# Команда по умолчанию (собирает статику, запускает миграции, настраивает OAuth и сервер)
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py setup_google_oauth && python manage.py seed_learning && gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4"]

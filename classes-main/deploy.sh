@@ -25,3 +25,9 @@ echo "Применение миграций..."
 docker compose exec -T web python manage.py migrate --noinput
 
 echo "Applying migrations... OK"
+
+echo "Настройка Google OAuth..."
+
+docker compose exec -T web python manage.py setup_google_oauth
+
+echo "Setting up Google OAuth... OK"
