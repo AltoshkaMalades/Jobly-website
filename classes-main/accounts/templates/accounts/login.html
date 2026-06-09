@@ -57,13 +57,10 @@
         <div class="mt-6">
             {% safe_get_providers as socialaccount_providers %}
             {% if socialaccount_providers %}
-                <form method="POST" action="{% safe_provider_login_url 'google' process='login' %}" class="w-full">
-                    {% csrf_token %}
-                    <button type="submit" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />
-                        Continue with Google
-                    </button>
-                </form>
+                <a href="{% safe_provider_login_url 'google' process='login' %}" class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-900 hover:bg-neutral-100 transition-all block">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo" class="w-5 h-5" />
+                    Continue with Google
+                </a>
             {% else %}
                 <div class="w-full inline-flex items-center justify-center gap-3 py-4 border border-neutral-200 rounded-2xl font-semibold text-neutral-500 bg-neutral-50">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

@@ -4698,3 +4698,12 @@ INFO 2026-06-09 10:57:12,333 autoreload 68700 5516 C:\Users\Altyn\Documents\GitH
 INFO 2026-06-09 10:57:12,729 autoreload 69888 45680 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
 INFO 2026-06-09 10:57:13,785 autoreload 28640 1636 Watching for file changes with StatReloader
 INFO 2026-06-09 10:57:14,113 autoreload 18960 71856 Watching for file changes with StatReloader
+INFO 2026-06-09 10:59:10,062 autoreload 18960 71856 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:59:10,383 autoreload 28640 1636 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:59:11,440 autoreload 56772 27072 Watching for file changes with StatReloader
+INFO 2026-06-09 10:59:11,784 autoreload 41760 52500 Watching for file changes with StatReloader
+INFO 2026-06-09 10:59:40,092 autoreload 65844 50216 Watching for file changes with StatReloader
+INFO 2026-06-09 11:07:02,485 autoreload 41760 52500 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\templatetags\safe_socialaccount.py changed, reloading.
+INFO 2026-06-09 11:07:02,562 autoreload 56772 27072 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\templatetags\safe_socialaccount.py changed, reloading.
+INFO 2026-06-09 11:07:03,932 autoreload 60428 41404 Watching for file changes with StatReloader
+INFO 2026-06-09 11:07:03,945 autoreload 59536 11432 Watching for file changes with StatReloader

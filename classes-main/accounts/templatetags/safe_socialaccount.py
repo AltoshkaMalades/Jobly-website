@@ -16,7 +16,6 @@ def safe_provider_login_url(provider, process=None):
     """
     try:
         from allauth.socialaccount.models import SocialApp
-        from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
     except ImportError:
         # allauth not installed
         return '#'
@@ -33,12 +32,8 @@ def safe_provider_login_url(provider, process=None):
         except SocialApp.DoesNotExist:
             return '#'
         
-        # Build the login URL
-        adapter = DefaultSocialAccountAdapter()
-        callback_url = adapter.get_app(None, provider).get_absolute_url()
-        
-        # Construct the login URL manually
-        login_url = f'/accounts/google/login/'
+        # Construct the login URL - allauth expects this format for OAuth redirect
+        login_url = f'/accounts/{provider}/login/'
         if process:
             login_url += f'?process={process}'
         
