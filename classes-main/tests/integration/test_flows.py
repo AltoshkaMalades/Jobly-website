@@ -15,8 +15,6 @@ def test_user_registration_with_role_selection(client, role):
             'password1': 'TestPass123!',
             'password2': 'TestPass123!',
             'role': role,
-            'captcha_expected': '123456',
-            'captcha_input': '123456',
         }
     )
 

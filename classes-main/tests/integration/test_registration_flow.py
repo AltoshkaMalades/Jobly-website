@@ -21,8 +21,6 @@ def test_registration_saves_phone_and_shows_profile(client):
         'password2': 'StrongPass123!',
         'role': 'student',
         'phone': '+7 701 987 6543',
-        'captcha_expected': '123456',
-        'captcha_input': '123456',
     }
     response = client.post(url, data)
     assert response.status_code == 302

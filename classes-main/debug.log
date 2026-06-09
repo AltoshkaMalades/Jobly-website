@@ -4707,3 +4707,8 @@ INFO 2026-06-09 11:07:02,485 autoreload 41760 52500 C:\Users\Altyn\Documents\Git
 INFO 2026-06-09 11:07:02,562 autoreload 56772 27072 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\templatetags\safe_socialaccount.py changed, reloading.
 INFO 2026-06-09 11:07:03,932 autoreload 60428 41404 Watching for file changes with StatReloader
 INFO 2026-06-09 11:07:03,945 autoreload 59536 11432 Watching for file changes with StatReloader
+WARNING 2026-06-09 11:09:39,789 log 22448 31312 Too Many Requests: /login/
+INFO 2026-06-09 11:11:33,028 views 6772 25860 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:11:33,138 views 6772 25860 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-09 11:11:33,924 log 6772 25860 Too Many Requests: /login/
+INFO 2026-06-09 11:11:34,005 views 6772 25860 Skip welcome email task dispatch in local/test mode.
