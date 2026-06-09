@@ -80,6 +80,18 @@ def register(request):
     role = request.POST.get('role', request.GET.get('role', 'student'))
     captcha_error = None
     
+    # Warn if there are duplicate SocialApp entries (MultipleObjectsReturned issue)
+    try:
+        from allauth.socialaccount.models import SocialApp
+        google_apps = SocialApp.objects.filter(provider='google')
+        if google_apps.count() > 1:
+            messages.warning(
+                request,
+                'Warning: Multiple OAuth apps detected. Please run: python manage.py cleanup_socialapps'
+            )
+    except Exception:
+        pass  # Silently ignore errors (allauth not configured, etc.)
+    
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         user_captcha = request.POST.get('captcha_input')
@@ -112,6 +124,20 @@ def register(request):
     })
 
 def login_view(request):
+    context = {}
+    
+    # Warn if there are duplicate SocialApp entries (MultipleObjectsReturned issue)
+    try:
+        from allauth.socialaccount.models import SocialApp
+        google_apps = SocialApp.objects.filter(provider='google')
+        if google_apps.count() > 1:
+            messages.warning(
+                request,
+                'Warning: Multiple OAuth apps detected. Please run: python manage.py cleanup_socialapps'
+            )
+    except Exception:
+        pass  # Silently ignore errors (allauth not configured, etc.)
+    
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -119,7 +145,9 @@ def login_view(request):
             return redirect('home')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    
+    context['form'] = form
+    return render(request, 'accounts/login.html', context)
 
 def logout_view(request):
     logout(request)

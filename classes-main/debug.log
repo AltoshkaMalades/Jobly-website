@@ -4674,3 +4674,19 @@ INFO 2026-06-09 10:38:21,150 autoreload 25192 34948 C:\Users\Altyn\Documents\Git
 INFO 2026-06-09 10:38:21,885 autoreload 55388 54956 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
 INFO 2026-06-09 10:38:22,595 autoreload 16724 43772 Watching for file changes with StatReloader
 INFO 2026-06-09 10:38:23,189 autoreload 53136 21212 Watching for file changes with StatReloader
+INFO 2026-06-09 10:46:14,862 autoreload 16724 43772 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:46:14,986 autoreload 53136 21212 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:46:16,342 autoreload 26460 65292 Watching for file changes with StatReloader
+INFO 2026-06-09 10:46:16,410 autoreload 6616 72108 Watching for file changes with StatReloader
+INFO 2026-06-09 10:46:30,592 autoreload 26460 65292 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:46:30,669 autoreload 6616 72108 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:46:31,947 autoreload 33812 56036 Watching for file changes with StatReloader
+INFO 2026-06-09 10:46:31,971 autoreload 10116 32544 Watching for file changes with StatReloader
+INFO 2026-06-09 10:46:45,259 autoreload 10116 32544 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:46:45,260 autoreload 33812 56036 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py changed, reloading.
+INFO 2026-06-09 10:46:46,676 autoreload 55720 54028 Watching for file changes with StatReloader
+INFO 2026-06-09 10:46:46,693 autoreload 40768 56712 Watching for file changes with StatReloader
+INFO 2026-06-09 10:47:02,134 autoreload 55720 54028 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:47:02,154 autoreload 40768 56712 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:47:03,562 autoreload 56412 51308 Watching for file changes with StatReloader
+INFO 2026-06-09 10:47:03,563 autoreload 37356 64892 Watching for file changes with StatReloader
