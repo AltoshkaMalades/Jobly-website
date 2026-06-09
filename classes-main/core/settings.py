@@ -115,7 +115,9 @@ USE_TZ = True
 # --- СТАТИКА ---
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+# Only include STATICFILES_DIRS if the directory exists (avoid warnings in production)
+_static_dir = BASE_DIR / 'static'
+STATICFILES_DIRS = [_static_dir] if _static_dir.exists() else []
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 2. НАСТРОЙКИ HTTPS И ЗАЩИТЫ (Пункт 3 задания)

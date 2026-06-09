@@ -4619,3 +4619,11 @@ ERROR 2026-06-09 10:11:07,859 basehttp 70508 64256 You're accessing the developm
 INFO 2026-06-09 10:11:07,948 basehttp 70508 5820 code 400, message Bad request version ('localhost\x00#\x00\x00\x00')
 ERROR 2026-06-09 10:11:07,949 basehttp 70508 5820 You're accessing the development server over HTTPS, but it only supports HTTP.
 ERROR 2026-06-09 10:11:08,166 basehttp 70508 71988 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-06-09 10:17:49,677 autoreload 70508 38564 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:17:50,523 autoreload 72648 65436 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:17:50,957 autoreload 46476 43604 Watching for file changes with StatReloader
+INFO 2026-06-09 10:17:51,784 autoreload 70172 61328 Watching for file changes with StatReloader
+INFO 2026-06-09 10:18:27,257 autoreload 70172 61328 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:18:27,469 autoreload 46476 43604 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 10:18:28,675 autoreload 43736 2740 Watching for file changes with StatReloader
+INFO 2026-06-09 10:18:28,829 autoreload 53976 65576 Watching for file changes with StatReloader
