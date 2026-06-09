@@ -4605,3 +4605,17 @@ INFO 2026-06-09 10:07:02,839 autoreload 73104 65564 C:\Users\Altyn\Documents\Git
 INFO 2026-06-09 10:07:02,895 autoreload 67368 3852 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
 INFO 2026-06-09 10:07:03,697 autoreload 52264 61760 Watching for file changes with StatReloader
 INFO 2026-06-09 10:07:03,768 autoreload 71488 54972 Watching for file changes with StatReloader
+INFO 2026-06-09 10:09:43,693 autoreload 52264 61760 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
+INFO 2026-06-09 10:09:43,998 autoreload 71488 54972 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
+INFO 2026-06-09 10:09:44,587 autoreload 62504 27044 Watching for file changes with StatReloader
+INFO 2026-06-09 10:09:44,844 autoreload 73288 72116 Watching for file changes with StatReloader
+INFO 2026-06-09 10:10:22,541 autoreload 10548 65828 Watching for file changes with StatReloader
+INFO 2026-06-09 10:11:05,358 autoreload 10548 65828 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
+INFO 2026-06-09 10:11:05,369 autoreload 73288 72116 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\urls.py changed, reloading.
+INFO 2026-06-09 10:11:06,227 autoreload 72648 65436 Watching for file changes with StatReloader
+INFO 2026-06-09 10:11:06,230 autoreload 70508 38564 Watching for file changes with StatReloader
+ERROR 2026-06-09 10:11:07,633 basehttp 70508 57052 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-09 10:11:07,859 basehttp 70508 64256 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-06-09 10:11:07,948 basehttp 70508 5820 code 400, message Bad request version ('localhost\x00#\x00\x00\x00')
+ERROR 2026-06-09 10:11:07,949 basehttp 70508 5820 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-09 10:11:08,166 basehttp 70508 71988 You're accessing the development server over HTTPS, but it only supports HTTP.
