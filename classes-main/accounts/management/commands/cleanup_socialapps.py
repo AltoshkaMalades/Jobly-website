@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db import connection
 
 
 class Command(BaseCommand):
@@ -33,7 +34,7 @@ class Command(BaseCommand):
 
             if count > 1:
                 self.stdout.write(
-                    self.style.WARNING(f"\n⚠️ Found {count} {provider} SocialApp(s). Keeping the latest, removing {count-1} duplicate(s)...")
+                    self.style.WARNING(f"\n⚠️  Found {count} {provider} SocialApp(s). Keeping the latest, removing {count-1} duplicate(s)...")
                 )
                 
                 # Keep the first (latest) app, delete the rest
@@ -92,3 +93,34 @@ class Command(BaseCommand):
             self.stdout.write(
                 self.style.SUCCESS('\n✅ SocialApp cleanup completed! No duplicates found.')
             )
+        
+        # Force database consistency check
+        self._verify_consistency()
+
+    def _verify_consistency(self):
+        """Verify that no duplicates remain in the database."""
+        try:
+            from allauth.socialaccount.models import SocialApp
+        except ImportError:
+            return
+        
+        self.stdout.write("\n🔍 Verifying database consistency...")
+        
+        providers = SocialApp.objects.values_list('provider', flat=True).distinct()
+        has_duplicates = False
+        
+        for provider in providers:
+            count = SocialApp.objects.filter(provider=provider).count()
+            if count > 1:
+                has_duplicates = True
+                self.stdout.write(
+                    self.style.ERROR(f"⚠️  WARNING: Still found {count} {provider} apps after cleanup!")
+                )
+        
+        if not has_duplicates:
+            self.stdout.write(
+                self.style.SUCCESS("✓ Database is consistent! No duplicates found.")
+            )
+        
+        # Force database consistency check
+        self._verify_consistency()

@@ -4745,3 +4745,258 @@ INFO 2026-06-09 11:33:35,357 views 64300 2356 Skip welcome email task dispatch i
 INFO 2026-06-09 11:33:35,573 views 64300 2356 Skip welcome email task dispatch in local/test mode.
 WARNING 2026-06-09 11:33:36,843 log 64300 2356 Too Many Requests: /login/
 INFO 2026-06-09 11:33:36,982 views 64300 2356 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:39:22,568 autoreload 28452 10652 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:39:22,928 autoreload 68084 48216 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:39:25,413 autoreload 56452 15384 Watching for file changes with StatReloader
+INFO 2026-06-09 11:39:25,506 autoreload 69448 72964 Watching for file changes with StatReloader
+INFO 2026-06-09 11:39:54,794 autoreload 69448 72964 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:39:54,849 autoreload 56452 15384 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:39:57,496 autoreload 57672 30408 Watching for file changes with StatReloader
+INFO 2026-06-09 11:39:57,496 autoreload 68840 17216 Watching for file changes with StatReloader
+INFO 2026-06-09 11:40:02,043 autoreload 57672 30408 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:40:02,078 autoreload 68840 17216 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:40:04,637 autoreload 58240 68876 Watching for file changes with StatReloader
+INFO 2026-06-09 11:40:04,641 autoreload 17364 71864 Watching for file changes with StatReloader
+INFO 2026-06-09 11:40:13,639 autoreload 58240 68876 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:40:13,660 autoreload 17364 71864 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:40:16,230 autoreload 66484 26940 Watching for file changes with StatReloader
+INFO 2026-06-09 11:40:16,230 autoreload 20988 66060 Watching for file changes with StatReloader
+INFO 2026-06-09 11:40:29,468 autoreload 66484 26940 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\apps.py changed, reloading.
+INFO 2026-06-09 11:40:29,541 autoreload 20988 66060 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\apps.py changed, reloading.
+INFO 2026-06-09 11:40:32,262 autoreload 68500 2836 Watching for file changes with StatReloader
+INFO 2026-06-09 11:40:32,264 autoreload 71568 71620 Watching for file changes with StatReloader
+INFO 2026-06-09 11:41:07,350 views 63656 20868 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:41:07,531 views 63656 20868 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-09 11:41:08,776 log 63656 20868 Too Many Requests: /login/
+INFO 2026-06-09 11:41:08,903 views 63656 20868 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:42:16,934 autoreload 73972 73976 Watching for file changes with StatReloader
+INFO 2026-06-09 11:42:48,807 autoreload 68500 2836 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\oauth_middleware.py changed, reloading.
+INFO 2026-06-09 11:42:49,459 autoreload 71568 71620 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:42:49,460 autoreload 73972 73976 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\oauth_middleware.py changed, reloading.
+INFO 2026-06-09 11:42:51,514 autoreload 48596 58240 Watching for file changes with StatReloader
+INFO 2026-06-09 11:42:52,146 autoreload 64732 42408 Watching for file changes with StatReloader
+INFO 2026-06-09 11:42:52,156 autoreload 42644 74228 Watching for file changes with StatReloader
+ERROR 2026-06-09 11:43:03,279 log 74660 18980 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+ERROR 2026-06-09 11:43:03,326 log 74660 18980 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+INFO 2026-06-09 11:44:05,262 autoreload 48596 58240 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:44:05,281 autoreload 42644 74228 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:44:05,281 autoreload 64732 42408 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:44:08,621 autoreload 41760 25748 Watching for file changes with StatReloader
+INFO 2026-06-09 11:44:08,739 autoreload 25832 72108 Watching for file changes with StatReloader
+INFO 2026-06-09 11:44:08,740 autoreload 71016 61632 Watching for file changes with StatReloader
+ERROR 2026-06-09 11:44:28,990 log 62656 42184 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+ERROR 2026-06-09 11:44:29,022 log 62656 42184 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+INFO 2026-06-09 11:44:45,616 autoreload 41760 25748 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:44:45,954 autoreload 25832 72108 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:44:45,977 autoreload 71016 61632 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:44:48,275 autoreload 74064 74716 Watching for file changes with StatReloader
+INFO 2026-06-09 11:44:48,578 autoreload 42940 31372 Watching for file changes with StatReloader
+INFO 2026-06-09 11:44:48,579 autoreload 74588 74388 Watching for file changes with StatReloader
+ERROR 2026-06-09 11:44:57,802 log 72936 60612 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+ERROR 2026-06-09 11:44:57,844 log 72936 60612 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+INFO 2026-06-09 11:46:01,291 autoreload 74588 74388 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:46:01,299 autoreload 42940 31372 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:46:01,441 autoreload 74064 74716 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:46:04,055 autoreload 63656 71900 Watching for file changes with StatReloader
+INFO 2026-06-09 11:46:04,056 autoreload 52860 38256 Watching for file changes with StatReloader
+INFO 2026-06-09 11:46:04,095 autoreload 66436 74328 Watching for file changes with StatReloader
+ERROR 2026-06-09 11:47:32,048 log 57180 73820 Internal Server Error: /accounts/google/login/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\base\mixins.py", line 9, in dispatch
+    provider = self.adapter.get_provider()
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\providers\oauth2\views.py", line 44, in get_provider
+    return get_adapter(self.request).get_provider(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.request, provider=self.provider_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 216, in get_provider
+    app = self.get_app(request, provider=provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 24, in get_app
+    return super().get_app(request, provider)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 72, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+INFO 2026-06-09 11:47:49,635 autoreload 63656 71900 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:47:49,678 autoreload 52860 38256 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:47:49,853 autoreload 66436 74328 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py changed, reloading.
+INFO 2026-06-09 11:47:52,299 autoreload 74300 74248 Watching for file changes with StatReloader
+INFO 2026-06-09 11:47:52,302 autoreload 40968 66184 Watching for file changes with StatReloader
+INFO 2026-06-09 11:47:52,460 autoreload 74600 30108 Watching for file changes with StatReloader
+INFO 2026-06-09 11:50:21,785 views 5428 69076 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-09 11:50:21,966 views 5428 69076 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-09 11:50:23,198 log 5428 69076 Too Many Requests: /login/
+INFO 2026-06-09 11:50:23,318 views 5428 69076 Skip welcome email task dispatch in local/test mode.
