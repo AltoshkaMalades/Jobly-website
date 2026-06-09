@@ -16,8 +16,8 @@ class SecurityHeadersMiddleware:
         # Разрешены все источники для локальной разработки, Tailwind и внешних ресурсов
         response['Content-Security-Policy'] = (
             "default-src 'self' *; "
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com; "
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://cdn.tailwindcss.com; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; "
             "img-src 'self' data: https://www.svgrepo.com https://*.googleusercontent.com *; "
             "font-src 'self' data: https://fonts.gstatic.com; "
             "frame-src 'self' https://www.google.com https://recaptcha.net; "
