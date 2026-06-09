@@ -4578,3 +4578,8 @@ INFO 2026-06-09 09:33:28,814 autoreload 28604 29112 Watching for file changes wi
 INFO 2026-06-09 09:34:16,596 autoreload 45548 71696 Watching for file changes with StatReloader
 INFO 2026-06-09 09:35:41,746 autoreload 69776 48704 Watching for file changes with StatReloader
 INFO 2026-06-09 09:37:55,952 basehttp 45548 10484 "GET / HTTP/1.1" 200 12556
+INFO 2026-06-09 09:48:25,662 autoreload 45548 71696 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 09:48:26,149 autoreload 69776 48704 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
+INFO 2026-06-09 09:48:26,559 autoreload 66820 26136 Watching for file changes with StatReloader
+INFO 2026-06-09 09:48:26,941 autoreload 68408 50332 Watching for file changes with StatReloader
+INFO 2026-06-09 09:48:45,714 autoreload 6712 70568 Watching for file changes with StatReloader
