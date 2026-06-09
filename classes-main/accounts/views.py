@@ -78,7 +78,6 @@ def job_detail(request, pk):
 def register(request):
     # По умолчанию берем из GET (если пришли по ссылке), но если в форме выбрали другое — приоритет форме
     role = request.POST.get('role', request.GET.get('role', 'student'))
-    captcha_error = None
     
     # Warn if there are duplicate SocialApp entries (MultipleObjectsReturned issue)
     try:
@@ -94,13 +93,9 @@ def register(request):
     
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        user_captcha = request.POST.get('captcha_input')
-        expected_captcha = request.POST.get('captcha_expected')
-
-        if user_captcha != expected_captcha:
-            captcha_error = "Неверный код безопасности."
         
-        if form.is_valid() and not captcha_error:
+        # Form validation includes reCAPTCHA if configured
+        if form.is_valid():
             user = form.save()
             # Вот здесь мы сохраняем выбранную роль в профиль
             profile, _ = Profile.objects.get_or_create(user=user)
@@ -119,8 +114,7 @@ def register(request):
     
     return render(request, 'accounts/register.html', {
         'form': form, 
-        'role': role, 
-        'captcha_error': captcha_error
+        'role': role,
     })
 
 def login_view(request):

@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
+import os
 
 
 class Command(BaseCommand):
@@ -9,20 +10,20 @@ class Command(BaseCommand):
         parser.add_argument(
             '--client-id',
             type=str,
-            default='909443104126-baj9tq8uhj7tb6fg3vv8d9vvg03c7qr4.apps.googleusercontent.com',
-            help='Google OAuth Client ID',
+            default=os.environ.get('GOOGLE_OAUTH_CLIENT_ID', '909443104126-baj9tq8uhj7tb6fg3vv8d9vvg03c7qr4.apps.googleusercontent.com'),
+            help='Google OAuth Client ID (or env var GOOGLE_OAUTH_CLIENT_ID)',
         )
         parser.add_argument(
             '--secret',
             type=str,
-            default='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',
-            help='Google OAuth Client Secret',
+            default=os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET', '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'),
+            help='Google OAuth Client Secret (or env var GOOGLE_OAUTH_CLIENT_SECRET)',
         )
         parser.add_argument(
             '--domain',
             type=str,
-            default='jobly.kz',
-            help='Domain name для Site',
+            default=os.environ.get('SITE_DOMAIN', 'jobly.kz'),
+            help='Domain name для Site (or env var SITE_DOMAIN)',
         )
 
     @transaction.atomic

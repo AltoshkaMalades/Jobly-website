@@ -13,7 +13,7 @@
             <p class="text-neutral-500 mt-2">Присоединяйтесь к JobAggregator</p>
         </div>
 
-        {% if form.errors or captcha_error %}
+        {% if form.errors %}
             <div class="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm">
                 <p class="font-bold mb-1">Исправьте следующие ошибки:</p>
                 <ul class="list-disc list-inside">
@@ -25,9 +25,6 @@
                     {% for error in form.non_field_errors %}
                         <li>{{ error }}</li>
                     {% endfor %}
-                    {% if captcha_error %}
-                        <li>Безопасность: {{ captcha_error }}</li>
-                    {% endif %}
                 </ul>
             </div>
         {% endif %}
