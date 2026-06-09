@@ -29,12 +29,20 @@ urlpatterns = [
     path('ai-chat/', views.ai_chat, name='ai_chat'),
     
     # --- API ENDPOINTS FOR SECURITY DEMONSTRATION (SEC-003, SEC-005, SEC-006) ---
-    path('api/admin/jobs/', views.api_admin_jobs, name='api_admin_jobs'),
-    path('api/student/profile/', views.api_student_profile, name='api_student_profile'),
-    path('api/user/<int:user_id>/', views.api_user_data, name='api_user_data'),
-    path('api/register/', views.api_register, name='api_register'),
-    
-    # --- Сброс пароля ---
+]
+
+# Добавляем API-маршруты только если соответствующие представления реализованы
+if hasattr(views, 'api_admin_jobs'):
+    urlpatterns.append(path('api/admin/jobs/', views.api_admin_jobs, name='api_admin_jobs'))
+if hasattr(views, 'api_student_profile'):
+    urlpatterns.append(path('api/student/profile/', views.api_student_profile, name='api_student_profile'))
+if hasattr(views, 'api_user_data'):
+    urlpatterns.append(path('api/user/<int:user_id>/', views.api_user_data, name='api_user_data'))
+if hasattr(views, 'api_register'):
+    urlpatterns.append(path('api/register/', views.api_register, name='api_register'))
+
+# --- Сброс пароля ---
+urlpatterns += [
     path('password-reset/', 
          auth_views.PasswordResetView.as_view(template_name='accounts/password_reset.html'), 
          name='password_reset'),

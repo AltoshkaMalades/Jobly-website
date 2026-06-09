@@ -1,19 +1,16 @@
 import os
-import sys
 from pathlib import Path
-from celery.schedules import crontab
 import dj_database_url  
 
 # Базовые директории
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- БЕЗОПАСНОСТЬ ---
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-very-secret-key-here')
+SECRET_KEY = 'django-insecure-your-very-secret-key-here' 
 
-# Автоматическое переключение DEBUG в зависимости от окружения
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+DEBUG = True 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'jobly.kz', '.onrender.com'] if not DEBUG else ['*']
+ALLOWED_HOSTS = ['*']
 
 # --- ПРИЛОЖЕНИЯ ---
 INSTALLED_APPS = [
@@ -23,36 +20,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'embed_video',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'django_recaptcha',  # reCAPTCHA
     'accounts',
     'learning',
 ]
 
-SITE_ID = 1
-
+# 1. КАСТОМНОЕ ХЕШИРОВАНИЕ (Argon2 вместо стандартного PBKDF2)
+# Не забудь выполнить: pip install argon2-cffi
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'accounts.middleware.EndpointRateLimitMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middleware.SecurityHeadersMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls' 
@@ -86,30 +76,26 @@ DATABASES = {
     }
 }
 
-# --- КЭШ И REDIS ---
-REDIS_BASE_URL = os.environ.get('REDIS_URL', 'redis://redis:6379')
-REDIS_CELERY_URL = os.environ.get('CELERY_BROKER_URL', f'{REDIS_BASE_URL}/0')
-REDIS_CACHE_URL = os.environ.get('REDIS_CACHE_URL', f'{REDIS_BASE_URL}/1')
+REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
+REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
-IS_TESTING = os.environ.get('DJANGO_TESTING') == '1' or any(
-    'pytest' in arg or 'test' in arg for arg in sys.argv
-)
-
-if IS_TESTING or not os.environ.get('REDIS_URL'):
+# Default to in-memory cache for local test runs unless explicitly forcing Redis.
+if os.environ.get('FORCE_REDIS') == '1':
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': REDIS_URL,
         }
     }
 else:
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': REDIS_CACHE_URL,
-            'KEY_PREFIX': 'django-cache',
-            'TIMEOUT': 300,
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-simulator-cache',
         }
     }
+
 
 # --- ВАЛИДАЦИЯ ПАРОЛЕЙ ---
 AUTH_PASSWORD_VALIDATORS = [
@@ -128,63 +114,26 @@ USE_TZ = True
 # --- СТАТИКА ---
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Хранилище статических файлов для продакшена
-STORAGES = {
-    'default': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
-    },
-    'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
-    },
-}
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# --- БЕЗОПАСНОСТЬ (HTTPS И CSRF) ---
+# 2. НАСТРОЙКИ HTTPS И ЗАЩИТЫ (Пункт 3 задания)
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    
-    # HSTS (HTTP Strict Transport Security)
-    SECURE_HSTS_SECONDS = 31536000  # 1 год
+    SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    
-    # Content Security & Click Jacking Protection
+    SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_BROWSER_XSS_FILTER = True
-    X_FRAME_OPTIONS = 'DENY'
-    
-    # Referrer Policy
-    SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
-    
-    # Доверенные домены для Django 5.x CSRF на проде
-    CSRF_TRUSTED_ORIGINS = [
-        "https://jobly.kz",
-        "https://*.onrender.com"
-    ]
-else:
-    # Настройки для бесперебойного тестирования OAuth локально без HTTPS
-    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://localhost:8000"]
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
-    SECURE_BROWSER_XSS_FILTER = True
-    X_FRAME_OPTIONS = 'DENY'
 
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
-SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
-
-# --- ЛОГИРОВАНИЕ ---
+# 3. ЛОГИРОВАНИЕ ДЕЙСТВИЙ (Пункт 4 задания)
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
             'style': '{',
         },
     },
@@ -192,7 +141,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'debug.log',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
             'formatter': 'verbose',
         },
     },
@@ -205,58 +154,19 @@ LOGGING = {
     },
 }
 
-# --- CELERY ---
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_CELERY_URL)
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', REDIS_CELERY_URL)
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', CELERY_BROKER_URL)
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
-CELERY_TASK_ALWAYS_EAGER = IS_TESTING
-CELERY_TASK_EAGER_PROPAGATES = IS_TESTING
-CELERY_BEAT_SCHEDULE = {
-    'daily-job-digest-at-midnight': {
-        'task': 'accounts.tasks.daily_job_digest_task',
-        'schedule': crontab(hour=0, minute=0),
-    },
-    'cleanup-old-sessions-every-15-minutes': {
-        'task': 'accounts.tasks.cleanup_old_sessions_task',
-        'schedule': 15 * 60,
-    },
-}
-
-# --- РЕДИРЕКТЫ И АВТОРIЗАЦИЯ ---
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
-# УДАЛЕН конфликтный блок 'APP' внутри SOCIALACCOUNT_PROVIDERS.
-# Теперь конфигурация берется строго из Базы Данных (Django Admin -> Social Applications)
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-    }
-}
-
-# --- ALLAUTH ОПТИМИЗАЦИЯ ДЛЯ SIGN IN ---
-SOCIALACCOUNT_LOGIN_ON_GET = True
-SOCIALACCOUNT_AUTO_SIGNUP = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
-
-# --- RECAPTCHA ---
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe')
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
-
-# --- SECRET SCANNING ---
-SECRETS_LOCATION = BASE_DIR.parent
+# Run tasks synchronously in the Django process for tests/local runs
+# Set FORCE_CELERY=1 in env to use real broker.
+if os.environ.get('FORCE_CELERY') == '1':
+    CELERY_TASK_ALWAYS_EAGER = False
+else:
+    CELERY_TASK_ALWAYS_EAGER = True
+    CELERY_TASK_EAGER_PROPAGATES = True
+# --- ВАЖНОЕ ДОПОЛНЕНИЕ ---
+# Указываем Django, куда перенаправлять неавторизованных пользователей
+LOGIN_URL = 'login'  # Это имя URL, который должен быть определен в urls.py для страницы входа

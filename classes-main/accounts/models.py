@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.validators import RegexValidator
 
 # Константы ролей
 ROLE_CHOICES = (
@@ -29,7 +28,6 @@ class Job(models.Model):
         indexes = [
             models.Index(fields=['category']),
             models.Index(fields=['created_at']),
-            models.Index(fields=['company']),
         ]
 
     def __str__(self):
@@ -48,26 +46,20 @@ class Profile(models.Model):
     
     # Поля для работодателя
     company_name = models.CharField(max_length=200, blank=True)
-    # Контактный телефон (опционально). Используем простую валидацию.
-    phone_validator = RegexValidator(regex=r'^\+?[0-9\s\-]{7,20}$', message='Enter a valid phone number.')
-    phone = models.CharField(max_length=20, blank=True, validators=[phone_validator], db_index=True)
     
     # Общие поля
     bio = models.TextField(blank=True)
-
-    # SEC-002: Google OAuth
+    # Телефон пользователя (используется регистрационной формой)
+    phone = models.CharField(max_length=20, blank=True)
+    # OAuth fields (added via migrations)
     google_id = models.CharField(max_length=255, blank=True, null=True, unique=True, db_index=True)
-    is_oauth_user = models.BooleanField(default=False, help_text="Вход через Google OAuth")
+    is_oauth_user = models.BooleanField(default=False, help_text='Вход через Google OAuth')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
-        indexes = [
-            models.Index(fields=['role']),
-            models.Index(fields=['phone']),
-        ]
 
     def __str__(self):
         return f"Профиль: {self.user.username} ({self.get_role_display()})"
@@ -103,10 +95,6 @@ class Favorite(models.Model):
         unique_together = ('user', 'job')
         verbose_name = "Избранное"
         verbose_name_plural = "Избранное"
-        indexes = [
-            models.Index(fields=['user']),
-            models.Index(fields=['job']),
-        ]
 
 # --- СИГНАЛЫ (Исправленные) ---
 

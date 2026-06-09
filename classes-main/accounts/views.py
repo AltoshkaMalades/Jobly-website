@@ -1,5 +1,4 @@
 import logging
-import time
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
@@ -7,6 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import cache_page
@@ -20,25 +20,12 @@ from .utils import generate_cv_pdf
 from .ai_assistant import get_ai_response
 from learning.models import Course
 
-# SEC-002: Google OAuth
-import requests
-import json
-
-# SEC-004: reCAPTCHA
-import os
-
-# SEC-005: Security utilities
-from .security import log_security_event, get_client_ip, owner_required
-
 CACHE_TTL = 60 * 5
 
 logger = logging.getLogger('django')
 
 # --- ДЕКОРАТОРЫ ---
 def role_required(allowed_roles=[]):
-    """
-    SEC-003: RBAC decorator ensuring proper 403 Forbidden for unauthorized access
-    """
     def decorator(view_func):
         def _wrapped_view(request, *args, **kwargs):
             if not request.user.is_authenticated:
@@ -46,93 +33,38 @@ def role_required(allowed_roles=[]):
             profile, _ = Profile.objects.get_or_create(user=request.user)
             if profile.role in allowed_roles or request.user.is_superuser:
                 return view_func(request, *args, **kwargs)
-            
-            # SEC-003: Log unauthorized access attempt
-            ip_address = get_client_ip(request)
-            log_security_event(
-                'UNAUTHORIZED_ACCESS',
-                request.user,
-                f'Attempted to access {view_func.__name__} with role {profile.role}. Required: {allowed_roles}',
-                ip_address
-            )
-            raise PermissionDenied("403: Access Denied - Insufficient Permissions")
+            logger.warning(f"Доступ запрещен: {request.user.username}")
+            raise PermissionDenied 
         return _wrapped_view
     return decorator
-
-def admin_required(view_func):
-    """
-    SEC-003: Decorator requiring admin role
-    """
-    def _wrapped_view(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        if not request.user.is_superuser and not (hasattr(request.user, 'profile') and request.user.profile.role == 'admin'):
-            ip_address = get_client_ip(request)
-            log_security_event(
-                'ADMIN_ACCESS_DENIED',
-                request.user,
-                f'Attempted admin access to {view_func.__name__}',
-                ip_address
-            )
-            raise PermissionDenied("403: Admin Access Required")
-        return view_func(request, *args, **kwargs)
-    return _wrapped_view
 
 # --- ГЛАВНЫЕ СТРАНИЦЫ ---
 def home_page(request):
     cache_key = 'home_page_html'
     cached_html = cache.get(cache_key)
     if cached_html:
-        print('[REDIS] Данные успешно взяты из кэша!')
         return HttpResponse(cached_html)
 
-    print('[DB] Запрос идет в базу данных...')
-    time.sleep(0.3)
     jobs = Job.objects.select_related('employer').order_by('-created_at')[:6]
     courses = Course.objects.all().order_by('-created_at')[:3]
     response = render(request, 'accounts/index.html', {'jobs': jobs, 'courses': courses})
-    cache.set(cache_key, response.content, 60)
-    print('[DB] Результат сохранен в кэше на 60 секунд.')
+    cache.set(cache_key, response.content, CACHE_TTL)
     return response
 
 @cache_page(CACHE_TTL)
 def search(request):
-    """
-    Поиск работ с кэшированием.
-    CACHE_TTL: 5 минут
-    Категории кэшируются отдельно (60 минут)
-    """
     query = request.GET.get('query', '')
     category = request.GET.get('category', '')
-    
-    # Cache categories separately
-    categories_cache_key = 'accounts:job_categories_all'
-    categories = cache.get(categories_cache_key)
-    if categories is None:
-        categories = list(Job.objects.values_list('category', flat=True).distinct())
-        cache.set(categories_cache_key, categories, 60 * 60)  # Cache for 60 minutes
-    
     jobs = Job.objects.select_related('employer').order_by('-created_at')
     if query:
         jobs = jobs.filter(title__icontains=query)
     if category:
         jobs = jobs.filter(category=category)
-    
+    categories = Job.objects.values_list('category', flat=True).distinct()
     return render(request, 'accounts/search.html', {'jobs': jobs, 'query': query, 'categories': categories})
 
 def job_detail(request, pk):
-    """
-    Детальная страница вакансии с кэшированием.
-    Кэшируется сама работа, но проверки is_favorite/has_applied выполняются для каждого пользователя.
-    """
-    cache_key = f'accounts:job_detail:{pk}'
-    job = cache.get(cache_key)
-    
-    if job is None:
-        job = get_object_or_404(Job.objects.select_related('employer'), pk=pk)
-        cache.set(cache_key, job, 60 * 30)  # Cache for 30 minutes
-    
-    # These checks are user-specific, so we don't cache them
+    job = get_object_or_404(Job.objects.select_related('employer'), pk=pk)
     has_applied = False
     is_favorite = False
     if request.user.is_authenticated:
@@ -144,67 +76,32 @@ def job_detail(request, pk):
 
 # --- РЕГИСТРАЦИЯ И ВХОД ---
 def register(request):
-    """
-    User registration with SEC-004: Google reCAPTCHA v3
-    SEC-005: Log security events
-    """
     # По умолчанию берем из GET (если пришли по ссылке), но если в форме выбрали другое — приоритет форме
     role = request.POST.get('role', request.GET.get('role', 'student'))
     captcha_error = None
     
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        user_captcha = request.POST.get('captcha_input')
+        expected_captcha = request.POST.get('captcha_expected')
+
+        if user_captcha != expected_captcha:
+            captcha_error = "Неверный код безопасности."
         
-        # SEC-004: Verify reCAPTCHA token
-        recaptcha_token = request.POST.get('recaptcha_token')
-        recaptcha_private_key = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
-        
-        recaptcha_valid = False
-        if recaptcha_token and recaptcha_private_key:
-            try:
-                response = requests.post(
-                    'https://www.google.com/recaptcha/api/siteverify',
-                    data={
-                        'secret': recaptcha_private_key,
-                        'response': recaptcha_token
-                    }
-                )
-                result = response.json()
-                recaptcha_valid = result.get('success', False) and result.get('score', 0) > 0.5
-            except Exception as e:
-                logger.warning(f"[SEC-004] reCAPTCHA verification failed: {e}")
-                captcha_error = "Ошибка проверки reCAPTCHA. Попробуйте позже."
-        else:
-            # Fallback to simple captcha if reCAPTCHA not configured
-            user_captcha = request.POST.get('captcha_input')
-            expected_captcha = request.POST.get('captcha_expected')
-            if user_captcha != expected_captcha:
-                captcha_error = "Неверный код безопасности."
-        
-        if form.is_valid() and (recaptcha_valid or not recaptcha_private_key) and not captcha_error:
+        if form.is_valid() and not captcha_error:
             user = form.save()
             # Вот здесь мы сохраняем выбранную роль в профиль
             profile, _ = Profile.objects.get_or_create(user=user)
             profile.role = role
             profile.save()
-            
-            # Send welcome email asynchronously; protect registration flow
-            try:
+
+            if getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False):
+                logger.info('Skip welcome email task dispatch in local/test mode.')
+            else:
                 send_welcome_email_task.delay(user.username, user.email)
-            except Exception as exc:
-                logger.warning('[WARNING] Redis недоступен, таска выполнена синхронно: %s', exc)
-                send_welcome_email_task.apply(args=[user.username, user.email])
 
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            ip_address = get_client_ip(request)
-            log_security_event('USER_REGISTERED', user, f'Role: {role}', ip_address)
-            messages.success(request, f"Добро пожаловать, {user.username}!")
             return redirect('home')
-        elif not captcha_error:
-            # SEC-005: Log failed registration attempt
-            ip_address = get_client_ip(request)
-            log_security_event('REGISTER_FAILED', request.user if request.user.is_authenticated else None, 
-                              f'Errors: {form.errors}', ip_address)
     else:
         form = UserRegisterForm()
     
@@ -215,45 +112,17 @@ def register(request):
     })
 
 def login_view(request):
-    """
-    Login view with SEC-005: Security logging
-    """
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            # SEC-005: Log successful login
-            ip_address = get_client_ip(request)
-            log_security_event('LOGIN_SUCCESS', user, '', ip_address)
-            messages.success(request, "Успешный вход!")
+            login(request, form.get_user())
             return redirect('home')
-        else:
-            # SEC-005: Log failed login attempt
-            username = request.POST.get('username', 'unknown')
-            ip_address = get_client_ip(request)
-            log_security_event('LOGIN_FAILED', None, f'Username: {username}', ip_address)
     else:
         form = AuthenticationForm()
-    
-    context = {
-        'form': form,
-        'google_oauth_key': os.environ.get('GOOGLE_OAUTH2_KEY', '')
-    }
-    return render(request, 'accounts/login.html', context)
-
+    return render(request, 'accounts/login.html', {'form': form})
 
 def logout_view(request):
-    """
-    Logout view with SEC-005: Security logging
-    """
-    # SEC-005: Log logout
-    if request.user.is_authenticated:
-        ip_address = get_client_ip(request)
-        log_security_event('LOGOUT', request.user, '', ip_address)
-    
     logout(request)
-    messages.success(request, "Вы успешно вышли из системы.")
     return redirect('home')
 
 def verify_email(request):
@@ -263,39 +132,13 @@ def verify_email(request):
 # --- ПРОФИЛЬ ---
 @login_required
 def profile_view(request):
-    """
-    Профиль пользователя с кэшированием персональных данных.
-    Каждый пользователь имеет собственный кэш профиля (60 минут).
-    """
     profile, _ = Profile.objects.get_or_create(user=request.user)
-    
     context = {'profile': profile}
-    
     if profile.role == 'employer':
-        # Cache employer's jobs for 30 minutes
-        cache_key = f'accounts:profile_jobs_user_{request.user.id}'
-        my_jobs = cache.get(cache_key)
-        if my_jobs is None:
-            my_jobs = list(Job.objects.filter(employer=request.user).select_related('employer'))
-            cache.set(cache_key, my_jobs, 60 * 30)
-        context['my_jobs'] = my_jobs
+        context['my_jobs'] = Job.objects.filter(employer=request.user).select_related('employer')
     else:
-        # Cache student's applications for 15 minutes
-        cache_key_apps = f'accounts:profile_applications_user_{request.user.id}'
-        my_applications = cache.get(cache_key_apps)
-        if my_applications is None:
-            my_applications = list(Application.objects.filter(student=request.user).select_related('job', 'job__employer'))
-            cache.set(cache_key_apps, my_applications, 60 * 15)
-        context['my_applications'] = my_applications
-        
-        # Cache student's favorites for 15 minutes
-        cache_key_fav = f'accounts:profile_favorites_user_{request.user.id}'
-        my_favorites = cache.get(cache_key_fav)
-        if my_favorites is None:
-            my_favorites = list(Favorite.objects.filter(user=request.user).select_related('job', 'job__employer'))
-            cache.set(cache_key_fav, my_favorites, 60 * 15)
-        context['my_favorites'] = my_favorites
-    
+        context['my_applications'] = Application.objects.filter(student=request.user).select_related('job', 'job__employer')
+        context['my_favorites'] = Favorite.objects.filter(user=request.user).select_related('job', 'job__employer')
     return render(request, 'accounts/profile.html', context)
 
 @login_required
@@ -313,21 +156,11 @@ def download_cv_pdf(request):
 
 @login_required
 def edit_profile(request):
-    """
-    Редактирование профиля пользователя.
-    Инвалидирует: все кэши профиля (jobs, applications, favorites)
-    """
     profile, _ = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            
-            # Invalidate all profile-related caches
-            cache.delete(f'accounts:profile_jobs_user_{request.user.id}')
-            cache.delete(f'accounts:profile_applications_user_{request.user.id}')
-            cache.delete(f'accounts:profile_favorites_user_{request.user.id}')
-            
             messages.success(request, "Профиль обновлен.")
             return redirect('profile')
     else:
@@ -338,22 +171,12 @@ def edit_profile(request):
 @login_required
 @role_required(allowed_roles=['employer'])
 def create_job(request):
-    """
-    Создание новой вакансии.
-    Инвалидирует: кэш категорий и кэш профиля работодателя
-    """
     if request.method == 'POST':
         form = JobCreateForm(request.POST)
         if form.is_valid():
             job = form.save(commit=False)
             job.employer = request.user
             job.save()
-            
-            # Invalidate relevant caches
-            cache.delete('accounts:job_categories_all')  # Clear categories cache
-            cache.delete(f'accounts:profile_jobs_user_{request.user.id}')  # Clear user's jobs cache
-            
-            messages.success(request, "Вакансия создана успешно!")
             return redirect('profile')
     else:
         form = JobCreateForm()
@@ -362,10 +185,6 @@ def create_job(request):
 @login_required
 @role_required(allowed_roles=['student'])
 def apply_job(request, pk):
-    """
-    Подача отклика на вакансию.
-    Инвалидирует: кэш профиля студента (мои отклики)
-    """
     job = get_object_or_404(Job, pk=pk)
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
@@ -374,12 +193,6 @@ def apply_job(request, pk):
             app.job = job
             app.student = request.user
             app.save()
-            
-            # Invalidate profile cache
-            cache.delete(f'accounts:profile_applications_user_{request.user.id}')
-            # Also invalidate job detail cache (applicant count may have changed)
-            cache.delete(f'accounts:job_detail:{pk}')
-            
             messages.success(request, "Отклик отправлен!")
             return redirect('job_detail', pk=pk)
     return render(request, 'accounts/apply_job.html', {'job': job})
@@ -393,37 +206,20 @@ def view_applications(request, job_id):
 
 @login_required
 def update_app_status(request, app_id, status):
-    """
-    Обновление статуса отклика (Принято/Отказ/Просмотрено).
-    Инвалидирует: кэш профиля работодателя
-    """
+    """Обновление статуса отклика (Принято/Отказ)"""
     application = get_object_or_404(Application, id=app_id, job__employer=request.user)
     if status in ['accepted', 'rejected', 'viewed']:
         application.status = status
         application.save()
-        
-        # Invalidate profile cache
-        cache.delete(f'accounts:profile_jobs_user_{request.user.id}')
-        
         messages.success(request, f"Статус обновлен: {application.get_status_display()}")
     return redirect('view_applications', job_id=application.job.id)
 
 @login_required
 def toggle_favorite(request, job_id):
-    """
-    Добавление/удаление вакансии в избранные.
-    Инвалидирует: кэш профиля студента (мои избранные)
-    """
     job = get_object_or_404(Job, id=job_id)
     fav, created = Favorite.objects.get_or_create(user=request.user, job=job)
     if not created:
         fav.delete()
-    
-    # Invalidate profile cache
-    cache.delete(f'accounts:profile_favorites_user_{request.user.id}')
-    # Also invalidate job detail cache
-    cache.delete(f'accounts:job_detail:{job_id}')
-    
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 @csrf_exempt
@@ -435,148 +231,3 @@ def ai_chat(request):
     
     ai_response = get_ai_response(user_message)
     return JsonResponse({'response': ai_response})
-
-# --- API ENDPOINTS FOR SECURITY DEMONSTRATION ---
-@login_required
-@role_required(allowed_roles=['employer'])
-def api_admin_jobs(request):
-    """
-    SEC-003: Admin API endpoint - only employers can access
-    Returns 403 Forbidden if unauthorized
-    """
-    profile = get_object_or_404(Profile, user=request.user)
-    jobs = Job.objects.filter(employer=request.user).values('id', 'title', 'company', 'created_at')
-    return JsonResponse({
-        'status': 'success',
-        'user': request.user.username,
-        'role': profile.role,
-        'jobs_count': jobs.count(),
-        'jobs': list(jobs)
-    })
-
-@login_required
-@role_required(allowed_roles=['student'])
-def api_student_profile(request):
-    """
-    SEC-003 & SEC-005: Student API endpoint - verify owner access
-    Returns 403 Forbidden if non-student tries to access
-    """
-    profile, _ = Profile.objects.get_or_create(user=request.user)
-    applications = Application.objects.filter(student=request.user).values(
-        'id', 'job__title', 'status', 'created_at'
-    ).count()
-    favorites = Favorite.objects.filter(user=request.user).count()
-    
-    return JsonResponse({
-        'status': 'success',
-        'user': request.user.username,
-        'role': profile.role,
-        'applications_count': applications,
-        'favorites_count': favorites
-    })
-
-@login_required
-def api_user_data(request, user_id):
-    """
-    SEC-005: User data endpoint - verify owner access with 403 on mismatch
-    Only owner or superuser can access their own data
-    """
-    target_user = get_object_or_404(User, id=user_id)
-    
-    # SEC-005: Check if requester is owner or admin
-    if request.user.id != target_user.id and not request.user.is_superuser:
-        ip_address = get_client_ip(request)
-        log_security_event(
-            'UNAUTHORIZED_DATA_ACCESS',
-            request.user,
-            f'Attempted to access user {user_id} data',
-            ip_address
-        )
-        return JsonResponse(
-            {'error': 'Forbidden: Cannot access other users data'},
-            status=403
-        )
-    
-    profile = get_object_or_404(Profile, user=target_user)
-    return JsonResponse({
-        'status': 'success',
-        'user_id': target_user.id,
-        'username': target_user.username,
-        'email': target_user.email,
-        'role': profile.role,
-        'bio': profile.bio
-    })
-
-@require_POST
-def api_register(request):
-    """
-    SEC-006: API Registration endpoint with proper password validation
-    Returns 400/422 status with error details for weak passwords
-    """
-    try:
-        username = request.POST.get('username', '').strip()
-        email = request.POST.get('email', '').strip()
-        password1 = request.POST.get('password1', '')
-        password2 = request.POST.get('password2', '')
-        role = request.POST.get('role', 'student')
-        
-        # Check for empty fields
-        if not all([username, email, password1, password2]):
-            return JsonResponse({
-                'status': 'error',
-                'message': 'All fields are required',
-                'errors': {'detail': 'Missing required fields'}
-            }, status=400)
-        
-        # Check password match
-        if password1 != password2:
-            return JsonResponse({
-                'status': 'error',
-                'message': 'Passwords do not match',
-                'errors': {'password': ['Passwords do not match']}
-            }, status=400)
-        
-        # Create form to validate
-        form = UserRegisterForm(data={
-            'username': username,
-            'email': email,
-            'password1': password1,
-            'password2': password2
-        })
-        
-        if not form.is_valid():
-            # SEC-006: Return 422 for validation errors (bad input)
-            errors = {}
-            for field, field_errors in form.errors.items():
-                errors[field] = list(field_errors)
-            
-            return JsonResponse({
-                'status': 'error',
-                'message': 'Password validation failed',
-                'errors': errors
-            }, status=422)
-        
-        # All validations passed
-        user = form.save()
-        profile, _ = Profile.objects.get_or_create(user=user)
-        profile.role = role
-        profile.save()
-        
-        # Log event
-        ip_address = get_client_ip(request)
-        log_security_event('USER_API_REGISTERED', user, f'Role: {role}', ip_address)
-        
-        return JsonResponse({
-            'status': 'success',
-            'message': 'Registration successful',
-            'user_id': user.id,
-            'username': user.username
-        }, status=201)
-        
-    except Exception as e:
-        logger.exception('API registration error')
-        return JsonResponse({
-            'status': 'error',
-            'message': 'Registration failed',
-            'detail': str(e)
-        }, status=500)

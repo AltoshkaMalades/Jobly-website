@@ -1,9 +1,6 @@
-import logging
 import re
 from django.core.cache import cache
 from django.http import HttpResponse
-
-logger = logging.getLogger(__name__)
 
 RATE_LIMIT_KEY_PREFIX = 'rl'
 RATE_LIMIT_MAX_ATTEMPTS = 5
@@ -40,14 +37,7 @@ class EndpointRateLimitMiddleware:
         if request.method == 'POST' and self._is_protected_path(request.path):
             client_ip = get_client_ip(request)
             cache_key = self._build_cache_key(request.path, client_ip)
-            try:
-                attempts = cache.get(cache_key, 0)
-            except Exception as exc:
-                logger.warning(
-                    'Rate limit cache unavailable, bypassing cache check: %s',
-                    exc,
-                )
-                return self.get_response(request)
+            attempts = cache.get(cache_key, 0)
 
             if attempts >= RATE_LIMIT_MAX_ATTEMPTS:
                 return HttpResponse(
@@ -57,16 +47,10 @@ class EndpointRateLimitMiddleware:
 
             response = self.get_response(request)
 
-            try:
-                if response.status_code == 302:
-                    cache.delete(cache_key)
-                else:
-                    cache.set(cache_key, attempts + 1, RATE_LIMIT_WINDOW_SECONDS)
-            except Exception as exc:
-                logger.warning(
-                    'Failed to update rate limit cache; continuing without cache: %s',
-                    exc,
-                )
+            if response.status_code == 302:
+                cache.delete(cache_key)
+            else:
+                cache.set(cache_key, attempts + 1, RATE_LIMIT_WINDOW_SECONDS)
 
             return response
 
