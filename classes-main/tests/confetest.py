@@ -1,6 +1,12 @@
 import pytest
+import os
+import django
 from django.contrib.auth.models import User
 from django.test import Client
+
+# Configure SQLite for testing (before Django setup)
+# This overrides DATABASE_URL from .env if it points to PostgreSQL
+os.environ.setdefault('DATABASE_URL', 'sqlite:///:memory:')
 
 from accounts.models import Job, Profile
 
