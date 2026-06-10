@@ -96,6 +96,14 @@
                 <label class="block text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">Security Verification (SEC-004)</label>
                 {% if form.captcha %}
                     <div class="bg-neutral-50 rounded-xl p-4 border border-neutral-200">
+                        <!-- reCAPTCHA v3 badge will appear here automatically -->
+                        <div class="flex items-center justify-center min-h-[60px] bg-white rounded-lg border border-neutral-200">
+                            <div class="text-center">
+                                <p class="text-xs text-neutral-500 mb-2">This site is protected by reCAPTCHA v3</p>
+                                <p class="text-[10px] text-neutral-400">Automatic verification - no user action needed</p>
+                            </div>
+                        </div>
+                        <!-- Render form.captcha (includes API script and hidden field) -->
                         {{ form.captcha }}
                     </div>
                     {% if form.captcha.errors %}
