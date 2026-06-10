@@ -29,13 +29,8 @@ urlpatterns = [
     path('learning/', include('learning.urls')),
 ]
 
-# Подключаем allauth только если он в INSTALLED_APPS (и не в режиме тестирования)
-if 'allauth' in settings.INSTALLED_APPS:
-    try:
-        urlpatterns += [
-            path('accounts/', include('allauth.urls')),
-        ]
-    except Exception:
-        # Если что-то пошло не так с allauth, просто пропускаем
-        pass
+# Note: allauth URLs are NOT included here because:
+# 1. Custom accounts app handles all authentication at the root level
+# 2. Profile is at /profile/, not /accounts/profile/
+# 3. Custom views are used instead of allauth's default views
     
