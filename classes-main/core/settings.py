@@ -1,6 +1,15 @@
 import os
 from pathlib import Path
-import dj_database_url  
+import dj_database_url
+
+# Загрузка переменных окружения из .env файла
+try:
+    from dotenv import load_dotenv
+    env_file = Path(__file__).resolve().parent.parent / '.env'
+    load_dotenv(env_file)
+except ImportError:
+    # dotenv не установлена, используем переменные окружения системы
+    pass
 
 # Базовые директории
 BASE_DIR = Path(__file__).resolve().parent.parent
