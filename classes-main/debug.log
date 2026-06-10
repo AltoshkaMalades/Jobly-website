@@ -5059,3 +5059,9 @@ Traceback (most recent call last):
   File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
     raise PermissionDenied
 django.core.exceptions.PermissionDenied
+INFO 2026-06-10 14:55:47,638 autoreload 26812 88204 Watching for file changes with StatReloader
+ERROR 2026-06-10 14:55:48,329 basehttp 26812 70204 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-10 14:55:48,561 basehttp 26812 85188 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-10 14:55:48,642 basehttp 26812 67712 You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-06-10 14:55:48,873 basehttp 26812 85908 You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-06-10 14:56:39,030 autoreload 26100 56080 Watching for file changes with StatReloader

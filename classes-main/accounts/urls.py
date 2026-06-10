@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # --- Главные страницы ---
-    path('', views.home_page, name='home'),
+    # Home page is now handled in core/urls.py at root level
     path('search/', views.search, name='search'),
     
     # --- Авторизация и Регистрация ---

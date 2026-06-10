@@ -18,24 +18,23 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from .views import health_check
+from accounts.views import home_page
 
 urlpatterns = [
-    # 1. Админка
+    # 1. Root home page
+    path('', home_page, name='home'),
+    
+    # 2. Админка
     path('admin/', admin.site.urls),
     path('health/', health_check, name='health'),
     
-    # 2. Подключаем все пути твоего приложения accounts под /accounts/
+    # 3. All accounts routes (login, register, profile, jobs, etc.) under /accounts/ prefix
     path('accounts/', include('accounts.urls')),
+    
+    # 4. Allauth for Google OAuth
+    path('accounts/', include('allauth.urls')),
+    
+    # 5. Learning routes
     path('learning/', include('learning.urls')),
 ]
-
-# Подключаем allauth для Google OAuth и других социальных аутентификаций
-if 'allauth' in settings.INSTALLED_APPS:
-    try:
-        urlpatterns += [
-            path('accounts/', include('allauth.urls')),
-        ]
-    except Exception:
-        # Если что-то пошло не так с allauth, просто пропускаем
-        pass
     

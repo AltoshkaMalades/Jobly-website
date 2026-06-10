@@ -219,9 +219,12 @@ else:
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Can be 'optional', 'mandatory', or 'none'
+ACCOUNT_LOGIN_REDIRECT_URL = '/accounts/profile/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/profile/'
 SOCIALACCOUNT_AUTO_SIGNUP = True
 # Use custom adapter that handles MultipleObjectsReturned gracefully
 SOCIALACCOUNT_ADAPTER = 'accounts.adapters.CustomSocialAccountAdapter'
+SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
