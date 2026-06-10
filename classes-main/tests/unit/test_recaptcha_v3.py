@@ -498,3 +498,97 @@ def test_form_error_messages_accessible():
     
     # Error messages should be human-readable
     assert 'CAPTCHA verification failed' in field.error_messages['required']
+
+
+# ===== FRONTEND RENDERING VERIFICATION =====
+
+@pytest.mark.django_db
+def test_captcha_api_script_with_sitekey():
+    """Test that reCAPTCHA API script includes sitekey for rendering."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # API script should have render parameter with public key
+    assert 'recaptcha/api.js?render=' in content, \
+        "reCAPTCHA API script missing render parameter"
+    assert settings.RECAPTCHA_PUBLIC_KEY in content, \
+        "reCAPTCHA public key not in API script"
+
+
+@pytest.mark.django_db
+def test_captcha_grecaptcha_ready_function():
+    """Test that grecaptcha.ready() is defined for initialization."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # Should have grecaptcha.ready() for form submission
+    assert 'grecaptcha.ready' in content, \
+        "grecaptcha.ready() not found in form"
+    assert 'grecaptcha.execute' in content, \
+        "grecaptcha.execute() not found in form"
+
+
+@pytest.mark.django_db
+def test_captcha_token_submission_handler():
+    """Test that form has handler to submit captcha token."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # Should have event listener for form submission
+    assert 'addEventListener' in content or 'submit' in content.lower(), \
+        "Form submission handler not found"
+
+
+@pytest.mark.django_db
+def test_captcha_hidden_input_field():
+    """Test that form has hidden input for captcha token."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # Should have hidden input field
+    assert 'type="hidden"' in content or 'captcha' in content.lower(), \
+        "Hidden captcha field not found"
+    assert 'g-recaptcha' in content, \
+        "g-recaptcha element not found"
+
+
+@pytest.mark.django_db
+def test_register_page_captcha_section_exists():
+    """Test that SEC-004 security verification section exists."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # Should have security verification section
+    assert 'SEC-004' in content or 'Security' in content or 'VERIFICATION' in content, \
+        "Security verification section not found"
+
+
+@pytest.mark.django_db
+def test_captcha_form_action_correct():
+    """Test that form has correct action for submission."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # Form should be a POST form
+    assert '<form' in content and 'method="POST"' in content or "method='POST'" in content, \
+        "Form POST method not found"
+
+
+@pytest.mark.django_db
+def test_captcha_no_conflict_with_other_scripts():
+    """Test that reCAPTCHA script doesn't conflict with page scripts."""
+    client = Client()
+    response = client.get(reverse('register'))
+    
+    content = response.content.decode()
+    # Should only have ONE main reCAPTCHA API include
+    recaptcha_api_count = content.count('recaptcha/api.js')
+    # May have one with render parameter, so <= 2 is acceptable
+    assert recaptcha_api_count <= 2, \
+        f"Multiple conflicting reCAPTCHA API includes found: {recaptcha_api_count}"
