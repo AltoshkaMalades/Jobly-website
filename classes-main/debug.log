@@ -5018,24 +5018,3 @@ INFO 2026-06-09 12:04:56,505 views 58252 68952 Skip welcome email task dispatch 
 INFO 2026-06-09 12:04:56,719 views 58252 68952 Skip welcome email task dispatch in local/test mode.
 WARNING 2026-06-09 12:04:57,880 log 58252 68952 Too Many Requests: /login/
 INFO 2026-06-09 12:04:58,005 views 58252 68952 Skip welcome email task dispatch in local/test mode.
-INFO 2026-06-09 12:11:53,762 autoreload 74148 58964 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
-INFO 2026-06-09 12:11:53,768 autoreload 75168 74760 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
-INFO 2026-06-09 12:11:54,135 autoreload 75492 74072 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
-INFO 2026-06-09 12:11:56,565 autoreload 73732 74628 Watching for file changes with StatReloader
-INFO 2026-06-09 12:11:56,568 autoreload 54328 67312 Watching for file changes with StatReloader
-INFO 2026-06-09 12:11:56,883 autoreload 75844 77716 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:21,937 autoreload 73732 74628 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\signals.py changed, reloading.
-INFO 2026-06-09 12:12:21,951 autoreload 75844 77716 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\signals.py changed, reloading.
-INFO 2026-06-09 12:12:24,779 autoreload 77676 75244 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:24,814 autoreload 74000 63700 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:24,814 autoreload 48924 75848 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:33,024 autoreload 74000 63700 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
-INFO 2026-06-09 12:12:33,044 autoreload 48924 75848 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
-INFO 2026-06-09 12:12:33,992 autoreload 77676 75244 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\settings.py changed, reloading.
-INFO 2026-06-09 12:12:35,879 autoreload 55048 76372 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:35,889 autoreload 75896 10272 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:36,753 autoreload 76772 75684 Watching for file changes with StatReloader
-INFO 2026-06-09 12:12:47,229 views 11432 30996 Skip welcome email task dispatch in local/test mode.
-INFO 2026-06-09 12:12:47,463 views 11432 30996 Skip welcome email task dispatch in local/test mode.
-WARNING 2026-06-09 12:12:48,588 log 11432 30996 Too Many Requests: /login/
-INFO 2026-06-09 12:12:48,708 views 11432 30996 Skip welcome email task dispatch in local/test mode.

@@ -1,7 +1,6 @@
 """
 Signal handlers for accounts app.
 Ensures SocialApp duplicates are removed and properly configured.
-Handles user profile creation for OAuth signups.
 """
 import logging
 from django.db.models.signals import post_migrate
@@ -59,43 +58,3 @@ def cleanup_socialapps_after_migrate(sender, **kwargs):
             logger.info(f"Ensured Google SocialApp {keep_app.id} is linked to site {current_site}")
         except Exception as e:
             logger.error(f"Error linking SocialApp to site: {e}")
-
-
-# Handle OAuth user signup to ensure profile is created
-def _setup_allauth_signals():
-    """Setup allauth signal handlers for OAuth signup."""
-    try:
-        from allauth.socialaccount.signals import pre_social_login, social_account_added
-        
-        @receiver(pre_social_login)
-        def pre_social_login_handler(sender, request, sociallogin, **kwargs):
-            """Ensure profile exists before OAuth login completes."""
-            try:
-                if sociallogin.is_new or sociallogin.user.id is None:
-                    logger.info(f"New OAuth user detected: {sociallogin.user.email}")
-            except Exception as e:
-                logger.debug(f"Error in pre_social_login handler: {e}")
-        
-        @receiver(social_account_added)
-        def social_account_added_handler(sender, request, sociallogin, **kwargs):
-            """Create profile when OAuth account is added."""
-            try:
-                from accounts.models import Profile
-                user = sociallogin.user
-                profile, created = Profile.objects.get_or_create(user=user)
-                if created:
-                    logger.info(f"Created profile for OAuth user: {user.id} ({user.email})")
-                else:
-                    logger.debug(f"Profile already exists for OAuth user: {user.id}")
-            except Exception as e:
-                logger.error(f"Error in social_account_added_handler: {e}", exc_info=True)
-        
-        logger.info("Setup allauth signal handlers for OAuth signup")
-    except ImportError:
-        logger.debug("allauth signals not available")
-    except Exception as e:
-        logger.warning(f"Error setting up allauth signals: {e}")
-
-
-_setup_allauth_signals()
-
