@@ -19,10 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from .views import health_check
 from accounts.views import home_page
+from django.urls import include
 
 urlpatterns = [
     # 1. Root home page
     path('', home_page, name='home'),
+    # Expose accounts routes at root (tests expect endpoints like /register/, /login/ etc.)
+    path('', include('accounts.urls')),
     
     # 2. Админка
     path('admin/', admin.site.urls),
