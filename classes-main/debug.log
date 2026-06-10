@@ -5018,3 +5018,44 @@ INFO 2026-06-09 12:04:56,505 views 58252 68952 Skip welcome email task dispatch 
 INFO 2026-06-09 12:04:56,719 views 58252 68952 Skip welcome email task dispatch in local/test mode.
 WARNING 2026-06-09 12:04:57,880 log 58252 68952 Too Many Requests: /login/
 INFO 2026-06-09 12:04:58,005 views 58252 68952 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-10 14:34:06,010 log 43664 51536 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-10 14:34:44,786 log 81676 74656 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-10 14:35:58,480 log 66092 51656 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-10 14:35:59,047 views 66092 51656 Доступ запрещен: oauth_test_user
+WARNING 2026-06-10 14:35:59,048 log 66092 51656 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+WARNING 2026-06-10 14:36:43,992 log 62396 8556 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-10 14:36:44,399 views 62396 8556 Доступ запрещен: oauth_test_user
+WARNING 2026-06-10 14:36:44,400 log 62396 8556 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+WARNING 2026-06-10 14:38:48,957 log 88500 85104 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-10 14:38:49,370 views 88500 85104 Доступ запрещен: oauth_test_user
+WARNING 2026-06-10 14:38:49,370 log 88500 85104 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied

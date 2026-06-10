@@ -32,7 +32,8 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
                     if request:
                         current_site = Site.objects.get_current()
                     else:
-                        current_site = Site.objects.get_default()
+                        # For None request, use first site or get_current()
+                        current_site = Site.objects.get_current()
                     
                     # Get the first app for this provider that's linked to current site
                     app = (
