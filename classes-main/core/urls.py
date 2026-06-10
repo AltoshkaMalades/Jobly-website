@@ -24,13 +24,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('health/', health_check, name='health'),
     
-    # 2. Подключаем все пути твоего приложения accounts
-    path('', include('accounts.urls')),
+    # 2. Подключаем все пути твоего приложения accounts под /accounts/
+    path('accounts/', include('accounts.urls')),
     path('learning/', include('learning.urls')),
 ]
 
-# Note: allauth URLs are NOT included here because:
-# 1. Custom accounts app handles all authentication at the root level
-# 2. Profile is at /profile/, not /accounts/profile/
-# 3. Custom views are used instead of allauth's default views
+# Подключаем allauth для Google OAuth и других социальных аутентификаций
+if 'allauth' in settings.INSTALLED_APPS:
+    try:
+        urlpatterns += [
+            path('accounts/', include('allauth.urls')),
+        ]
+    except Exception:
+        # Если что-то пошло не так с allauth, просто пропускаем
+        pass
     
