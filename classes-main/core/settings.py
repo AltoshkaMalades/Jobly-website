@@ -153,3 +153,5 @@ CELERY_TIMEZONE = TIME_ZONE
 # --- ВАЖНОЕ ДОПОЛНЕНИЕ ---
 # Указываем Django, куда перенаправлять неавторизованных пользователей
 LOGIN_URL = 'login'
+# Перенаправление после успешной аутентификации (включая Google OAuth)
+LOGIN_REDIRECT_URL = 'profile'
