@@ -105,13 +105,6 @@ class UserRegisterForm(UserCreationForm):
         'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',
         'placeholder': '+7 701 000 0000'
     }))
-    
-    # SEC-004: Add reCAPTCHA v3 field
-    if HAS_RECAPTCHA:
-        captcha = ReCaptchaField(
-            widget=ReCaptchaV3(attrs={'required_score': 0.5}),
-            error_messages={'required': 'CAPTCHA verification failed'}
-        )
 
     class Meta:
         model = User
@@ -123,6 +116,13 @@ class UserRegisterForm(UserCreationForm):
             'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',
             'placeholder': 'Придумайте логин'
         })
+        
+        # SEC-004: Add reCAPTCHA v3 field dynamically
+        if HAS_RECAPTCHA:
+            self.fields['captcha'] = ReCaptchaField(
+                widget=ReCaptchaV3(attrs={'required_score': 0.5}),
+                error_messages={'required': 'CAPTCHA verification failed'}
+            )
 
     def save(self, commit=True):
         user = super().save(commit=commit)
