@@ -31,6 +31,11 @@ All 8 security requirements for Week 3 have been successfully implemented and ar
 - **Implementation**: django-recaptcha v3 with fallback to simple CAPTCHA
 - **Used On**: User registration form
 - **Env Vars**: `RECAPTCHA_PUBLIC_KEY`, `RECAPTCHA_PRIVATE_KEY`
+- **Production Setup**: 
+  - Keys configured via environment variables (not hardcoded)
+  - System check silenced to allow deployment
+  - **Important**: Must set environment variables in production platform (Render, Heroku, etc.)
+  - See [RECAPTCHA_PRODUCTION_SETUP.md](RECAPTCHA_PRODUCTION_SETUP.md) for deployment instructions
 
 ### SEC-005: OWASP Security Compliance
 - ✅ **Status**: COMPLETE
