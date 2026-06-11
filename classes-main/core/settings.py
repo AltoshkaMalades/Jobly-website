@@ -199,22 +199,19 @@ SITE_ID = 1
 
 # --- RECAPTCHA (django-recaptcha) ---
 # Google reCAPTCHA v3 keys - get yours from https://www.google.com/recaptcha/admin
-# Default to production-like keys when env vars are not provided so tests that assert
-# production keys pass. In real deployments, set RECAPTCHA_PUBLIC_KEY and
-# RECAPTCHA_PRIVATE_KEY via environment variables.
+# For development/testing, use Google's official test keys:
+# Public: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+# Secret: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+# These test keys will always pass validation.
+# In production, set RECAPTCHA_PUBLIC_KEY and RECAPTCHA_PRIVATE_KEY via environment variables.
 RECAPTCHA_PUBLIC_KEY = os.environ.get(
     'RECAPTCHA_PUBLIC_KEY',
-    '6Ld1ProdKeyExample000000000000000000000000'
+    '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'  # Google test key - always passes
 )
 RECAPTCHA_PRIVATE_KEY = os.environ.get(
     'RECAPTCHA_PRIVATE_KEY',
-    '6Ld1ProdSecretExample00000000000000000000'
+    '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'  # Google test key - always passes
 )
-
-# If the keys are not provided via environment variables, do not treat them as test keys.
-if os.environ.get('RECAPTCHA_PUBLIC_KEY') is None:
-    # Keep system checks enabled by default in CI/test runs
-    SILENCED_SYSTEM_CHECKS = []
 
 # --- ALLAUTH (django-allauth) ---
 AUTHENTICATION_BACKENDS = [
