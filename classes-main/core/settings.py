@@ -53,6 +53,7 @@ PASSWORD_HASHERS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'core.middleware.SecurityHeadersMiddleware',
     'accounts.middleware.EndpointRateLimitMiddleware',
     'accounts.oauth_middleware.SocialAppDuplicateHandlerMiddleware',  # Handle MultipleObjectsReturned errors
     'django.middleware.common.CommonMiddleware',

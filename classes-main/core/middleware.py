@@ -27,5 +27,10 @@ class SecurityHeadersMiddleware:
         # Permissions-Policy: ограничивает доступ браузера к API
         # Запрещаем: камеру, микрофон, геолокацию
         response['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()'
+
+        # Strict-Transport-Security (HSTS): рекомендовано для HTTPS-сайтов
+        # Браузеры игнорируют этот заголовок при соединениях по HTTP,
+        # поэтому установка безопасна для разработки и обязательна для продакшна.
+        response.setdefault('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
         
         return response
