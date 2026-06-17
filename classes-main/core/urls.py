@@ -39,5 +39,8 @@ urlpatterns = [
     
     # 5. Learning routes
     path('learning/', include('learning.urls')),
+    
+    # 6. Payment routes
+    path('', include('payments.urls')),
 ]
     

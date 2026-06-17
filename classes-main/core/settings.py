@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'embed_video',
     'accounts',
     'learning',
+    'payments',
     # OAuth (django-allauth) - optional
     'allauth',
     'allauth.account',
@@ -199,20 +200,10 @@ SITE_ID = 1
 
 # --- RECAPTCHA (django-recaptcha) ---
 # Google reCAPTCHA v3 keys - get yours from https://www.google.com/recaptcha/admin
-# IMPORTANT: In production, you MUST set RECAPTCHA_PUBLIC_KEY and RECAPTCHA_PRIVATE_KEY via environment variables.
-# Using Google's test keys (6LeIxAcT...) is NOT allowed in production.
-# 
-# For local development, you can use Google's official test keys:
-# Public: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
-# Secret: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
-# These test keys will always pass validation.
-#
-# To deploy to production (Render, Heroku, etc):
-# 1. Get your own reCAPTCHA keys from https://www.google.com/recaptcha/admin
-# 2. Set RECAPTCHA_PUBLIC_KEY and RECAPTCHA_PRIVATE_KEY as environment variables in your platform
-# 3. For Render: Go to Environment → Add environment variables
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
+# For local development: using Google's official test keys (always pass validation)
+# For production: set via environment variables
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe')
 
 # Silence django-recaptcha system check warnings if keys are not properly set
 # This allows deployment to proceed even if environment variables aren't set

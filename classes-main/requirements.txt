@@ -35,3 +35,4 @@ PyJWT==2.8.0
 python-decouple==3.8
 python-dotenv==1.2.2
 django-allauth==0.60.0
+posthog==3.0.2
