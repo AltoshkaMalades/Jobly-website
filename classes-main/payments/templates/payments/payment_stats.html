@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Payment Statistics" %} - JobAggregator{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">📊 {% trans "Payment Statistics" %}</h1>
+            <p class="text-gray-300">{% trans "Your payment activity overview" %}</p>
+        </div>
+
+        <!-- Main Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Spent -->
+            <div class="bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg p-6">
+                <div class="text-purple-100 text-sm font-semibold mb-2">💰 {% trans "Total Spent" %}</div>
+                <div class="text-4xl font-bold text-white">${{ total_spent|floatformat:2 }}</div>
+                <div class="text-purple-100 text-xs mt-3">{{ total_paid_orders }} {% trans "successful orders" %}</div>
+            </div>
+
+            <!-- Last 30 Days -->
+            <div class="bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-lg p-6">
+                <div class="text-indigo-100 text-sm font-semibold mb-2">📅 {% trans "Last 30 Days" %}</div>
+                <div class="text-4xl font-bold text-white">${{ month_spent|floatformat:2 }}</div>
+                <div class="text-indigo-100 text-xs mt-3">{{ month_orders }} {% trans "orders" %}</div>
+            </div>
+
+            <!-- Average Order -->
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg p-6">
+                <div class="text-blue-100 text-sm font-semibold mb-2">📈 {% trans "Average Order" %}</div>
+                <div class="text-4xl font-bold text-white">${{ avg_order_value|floatformat:2 }}</div>
+                <div class="text-blue-100 text-xs mt-3">{% trans "per transaction" %}</div>
+            </div>
+
+            <!-- Status Overview -->
+            <div class="bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-lg p-6">
+                <div class="text-cyan-100 text-sm font-semibold mb-2">⚡ {% trans "Status" %}</div>
+                <div class="text-3xl font-bold text-white">
+                    {{ total_paid_orders }}<span class="text-lg text-cyan-100">/{{ total_pending }}</span>
+                </div>
+                <div class="text-cyan-100 text-xs mt-3">✅ {% trans "Paid" %} / ⏳ {% trans "Pending" %}</div>
+            </div>
+        </div>
+
+        <!-- Order Statistics -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Order Status Breakdown -->
+            <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-6">
+                <h3 class="text-xl font-bold text-white mb-6">📊 {% trans "Order Status" %}</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-300">✅ {% trans "Paid" %}</span>
+                            <span class="text-white font-bold">{{ total_paid_orders }}</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: {% if total_paid_orders %}100{% else %}0{% endif %}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-300">⏳ {% trans "Pending" %}</span>
+                            <span class="text-white font-bold">{{ total_pending }}</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: {% if total_pending %}50{% else %}0{% endif %}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-300">❌ {% trans "Failed" %}</span>
+                            <span class="text-white font-bold">{{ total_failed }}</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: {% if total_failed %}25{% else %}0{% endif %}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-6">
+                <h3 class="text-xl font-bold text-white mb-6">💳 {% trans "Payment Methods" %}</h3>
+                
+                {% if provider_stats %}
+                    <div class="space-y-4">
+                        {% for provider in provider_stats %}
+                        <div class="bg-white/5 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-300 font-semibold">{{ provider.provider|title }}</span>
+                                <span class="text-white font-bold">${{ provider.total|floatformat:2 }}</span>
+                            </div>
+                            <div class="text-gray-400 text-sm">{{ provider.count }} {% trans "transaction" %}{{ provider.count|pluralize }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-8">
+                        <p class="text-gray-400">📭 {% trans "No payment methods used yet" %}</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-6">
+                <h3 class="text-xl font-bold text-white mb-6">⚙️ {% trans "Quick Actions" %}</h3>
+                
+                <div class="space-y-3">
+                    <a href="{% url 'payments:payment_history' %}" class="block w-full px-4 py-3 bg-purple-600 text-white text-center rounded-lg hover:bg-purple-700 transition font-semibold">
+                        📋 {% trans "View History" %}
+                    </a>
+                    
+                    <a href="{% url 'payments:paypal_payment' %}?amount=29.99" class="block w-full px-4 py-3 bg-indigo-600 text-white text-center rounded-lg hover:bg-indigo-700 transition font-semibold">
+                        💳 {% trans "Make Payment" %}
+                    </a>
+                    
+                    <a href="{% url 'accounts:profile' %}" class="block w-full px-4 py-3 bg-white/10 text-gray-300 text-center rounded-lg hover:bg-white/20 transition font-semibold">
+                        👤 {% trans "My Profile" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Notes -->
+        <div class="bg-blue-900/20 backdrop-blur border border-blue-500/20 rounded-lg p-6 text-center">
+            <p class="text-blue-300">
+                💡 {% trans "Data updated in real-time | All amounts in USD | Powered by JobAggregator" %}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

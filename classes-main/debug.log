@@ -5988,3 +5988,5 @@ INFO 2026-06-18 10:42:21,471 autoreload 154128 138364 C:\Users\Altyn\Documents\G
 INFO 2026-06-18 10:42:22,487 autoreload 117000 141964 Watching for file changes with StatReloader
 INFO 2026-06-18 10:43:37,160 autoreload 117000 141964 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\apps.py changed, reloading.
 INFO 2026-06-18 10:43:38,177 autoreload 157836 4508 Watching for file changes with StatReloader
+INFO 2026-06-18 10:44:10,870 autoreload 157836 4508 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\urls.py changed, reloading.
+INFO 2026-06-18 10:44:11,938 autoreload 88988 157476 Watching for file changes with StatReloader

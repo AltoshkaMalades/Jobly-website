@@ -2,7 +2,7 @@
 Payment API URL routes.
 """
 from django.urls import path
-from . import views, kpi
+from . import views, kpi, dashboard_views
 
 app_name = 'payments'
 
@@ -21,6 +21,11 @@ urlpatterns = [
     path('paypal/', views.paypal_payment_page, name='paypal_payment'),
     path('success/', views.payment_success, name='payment_success'),
     path('error/', views.payment_error, name='payment_error'),
+    
+    # Payment dashboard
+    path('history/', dashboard_views.payment_history, name='payment_history'),
+    path('orders/<int:order_id>/', dashboard_views.order_details, name='order_details'),
+    path('stats/', dashboard_views.payment_stats, name='payment_stats'),
     
     # KPI Dashboard endpoints
     path('api/kpi/dashboard/', kpi.kpi_dashboard, name='kpi_dashboard'),

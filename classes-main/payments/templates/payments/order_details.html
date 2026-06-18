@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Order" %} #{{ order.id }} - JobAggregator{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Back Link -->
+        <a href="{% url 'payments:payment_history' %}" class="text-purple-400 hover:text-purple-300 mb-6 inline-block">
+            ← {% trans "Back to Payment History" %}
+        </a>
+
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">{% trans "Order" %} #{{ order.id }}</h1>
+            <p class="text-gray-400">{{ order.created_at|date:"d B Y H:i" }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2">
+                <!-- Order Summary Card -->
+                <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-8 mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">📋 {% trans "Order Summary" %}</h2>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-gray-300">{% trans "Description:" %}</span>
+                            <span class="text-white font-semibold">{{ order.description }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-gray-300">{% trans "Amount:" %}</span>
+                            <span class="text-white font-semibold text-lg">${{ total_amount|floatformat:2 }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-gray-300">{% trans "Currency:" %}</span>
+                            <span class="text-white font-semibold">{{ order.currency }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-gray-300">{% trans "Status:" %}</span>
+                            <span class="px-4 py-2 rounded-full text-sm font-semibold
+                                {% if order.status == 'paid' %}bg-green-900/50 text-green-300
+                                {% elif order.status == 'pending' %}bg-yellow-900/50 text-yellow-300
+                                {% elif order.status == 'failed' %}bg-red-900/50 text-red-300
+                                {% elif order.status == 'refunded' %}bg-blue-900/50 text-blue-300
+                                {% else %}bg-gray-900/50 text-gray-300
+                                {% endif %}">
+                                {{ status_display }}
+                            </span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-gray-300">{% trans "Order ID:" %}</span>
+                            <span class="text-white font-semibold">{{ order.order_id }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">{% trans "Created:" %}</span>
+                            <span class="text-white font-semibold">{{ order.created_at|date:"d.m.Y H:i" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Card -->
+                <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">💳 {% trans "Transaction Details" %}</h2>
+                    
+                    {% if transactions %}
+                        <div class="space-y-4">
+                            {% for transaction in transactions %}
+                            <div class="bg-white/5 rounded-lg p-4 border border-white/10">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div>
+                                        <p class="text-white font-semibold">
+                                            {{ transaction.get_provider_display|title }} - 
+                                            <span class="px-3 py-1 rounded text-xs
+                                                {% if transaction.status == 'completed' %}bg-green-900/50 text-green-300
+                                                {% elif transaction.status == 'pending' %}bg-yellow-900/50 text-yellow-300
+                                                {% elif transaction.status == 'failed' %}bg-red-900/50 text-red-300
+                                                {% else %}bg-gray-900/50 text-gray-300
+                                                {% endif %}">
+                                                {{ transaction.get_status_display }}
+                                            </span>
+                                        </p>
+                                        <p class="text-gray-400 text-sm mt-1">{{ transaction.created_at|date:"d.m.Y H:i" }}</p>
+                                    </div>
+                                    <p class="text-lg font-bold text-white">${{ transaction.amount|add:0|divisibleby:100|yesno:"0,"|add:transaction.amount|divisibleby:100|yesno:","|default:0|floatformat:2 }}</p>
+                                </div>
+                                
+                                <div class="text-sm text-gray-400 mt-3 pt-3 border-t border-white/10">
+                                    <p>{% trans "Transaction ID:" %} <code class="text-purple-400">{{ transaction.transaction_id }}</code></p>
+                                    {% if transaction.completed_at %}
+                                    <p class="mt-1">{% trans "Completed:" %} {{ transaction.completed_at|date:"d.m.Y H:i" }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <p class="text-gray-400">📭 {% trans "No transactions yet" %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Quick Info -->
+                <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-6 mb-6">
+                    <h3 class="text-lg font-bold text-white mb-4">ℹ️ {% trans "Quick Info" %}</h3>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-gray-400 text-sm">{% trans "Total Amount" %}</p>
+                            <p class="text-2xl font-bold text-white">${{ total_amount|floatformat:2 }}</p>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 text-sm">{% trans "Transactions" %}</p>
+                            <p class="text-2xl font-bold text-white">{{ transactions.count }}</p>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 text-sm">{% trans "Last Updated" %}</p>
+                            <p class="text-white">
+                                {% if transactions %}
+                                    {{ transactions.0.created_at|date:"H:i" }}
+                                {% else %}
+                                    {{ order.created_at|date:"H:i" }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-white mb-4">⚙️ {% trans "Actions" %}</h3>
+                    
+                    <div class="space-y-3">
+                        {% if order.status == 'pending' %}
+                        <a href="{% url 'payments:paypal_payment' %}?amount={{ total_amount }}" class="block w-full px-4 py-2 bg-purple-600 text-white text-center rounded-lg hover:bg-purple-700 transition font-semibold">
+                            💳 {% trans "Retry Payment" %}
+                        </a>
+                        {% endif %}
+                        
+                        <a href="{% url 'payments:payment_history' %}" class="block w-full px-4 py-2 bg-white/10 text-gray-300 text-center rounded-lg hover:bg-white/20 transition font-semibold">
+                            📋 {% trans "Back to History" %}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Support -->
+                <div class="bg-blue-900/20 backdrop-blur border border-blue-500/20 rounded-lg p-6 mt-6">
+                    <p class="text-blue-300 text-sm">
+                        ❓ {% trans "Need help?" %}<br>
+                        <a href="mailto:support@jobaggreator.com" class="text-blue-400 hover:text-blue-300 underline">
+                            {% trans "Contact support" %}
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
