@@ -4,6 +4,7 @@ Payment API endpoints.
 import logging
 import json
 import os
+import uuid
 from datetime import datetime
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET
@@ -20,6 +21,7 @@ from payments.services.paypal import PayPalClient
 logger = logging.getLogger(__name__)
 
 
+@login_required
 @login_required
 @require_POST
 def create_payment(request):
@@ -57,14 +59,17 @@ def create_payment(request):
         if amount <= 0:
             return JsonResponse({'error': 'Amount must be positive'}, status=400)
         
-        currency = data.get('currency', 'KZT')
+        currency = data.get('currency', 'USD')
         description = data.get('description', '')
-        provider = data.get('provider', 'bereke')
+        provider = data.get('provider', 'paypal')
         return_url = data.get('return_url', request.build_absolute_uri('/'))
+        
+        # Generate unique order ID
+        unique_order_id = f"ORD-{request.user.id}-{uuid.uuid4().hex[:8].upper()}"
         
         result = PaymentService.create_payment(
             user=request.user,
-            order_id=f"ORD-{request.user.id}",
+            order_id=unique_order_id,
             amount=amount,
             currency=currency,
             description=description,

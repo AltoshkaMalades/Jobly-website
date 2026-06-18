@@ -5932,3 +5932,9 @@ INFO 2026-06-18 09:40:44,120 basehttp 141552 154216 "GET /accounts/pricing/ HTTP
 INFO 2026-06-18 09:40:56,248 basehttp 141552 154216 "GET /paypal/?amount=9.99&description=Professional+Plan+-+Monthly&currency=USD HTTP/1.1" 302 0
 INFO 2026-06-18 09:40:56,264 basehttp 141552 154216 "GET /accounts/login/?next=/paypal/%3Famount%3D9.99%26description%3DProfessional%2BPlan%2B-%2BMonthly%26currency%3DUSD HTTP/1.1" 200 14989
 INFO 2026-06-18 09:41:02,045 basehttp 141552 154216 "GET /accounts/pricing/ HTTP/1.1" 200 24834
+INFO 2026-06-18 09:54:09,408 autoreload 141552 117360 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
+INFO 2026-06-18 09:54:12,101 autoreload 123864 154388 Watching for file changes with StatReloader
+INFO 2026-06-18 09:54:18,170 autoreload 123864 154388 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
+INFO 2026-06-18 09:54:20,861 autoreload 154688 89496 Watching for file changes with StatReloader
+INFO 2026-06-18 09:54:23,576 autoreload 154688 89496 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
+INFO 2026-06-18 09:54:26,210 autoreload 154960 154392 Watching for file changes with StatReloader
