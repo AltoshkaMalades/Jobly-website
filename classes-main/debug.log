@@ -5940,3 +5940,29 @@ INFO 2026-06-18 09:54:23,576 autoreload 154688 89496 C:\Users\Altyn\Documents\Gi
 INFO 2026-06-18 09:54:26,210 autoreload 154960 154392 Watching for file changes with StatReloader
 WARNING 2026-06-18 09:59:04,787 log 143280 154092 Bad Request: /api/payments/create/
 WARNING 2026-06-18 09:59:05,441 log 143280 154092 Not Found: /api/payments/orders/1/
+INFO 2026-06-18 10:01:36,956 basehttp 154960 73860 "GET /paypal/?amount=9.99&description=Professional+Plan+-+Monthly&currency=USD HTTP/1.1" 302 0
+INFO 2026-06-18 10:01:36,990 basehttp 154960 73860 "GET /accounts/login/?next=/paypal/%3Famount%3D9.99%26description%3DProfessional%2BPlan%2B-%2BMonthly%26currency%3DUSD HTTP/1.1" 200 14989
+INFO 2026-06-18 10:08:14,328 autoreload 4508 135484 Watching for file changes with StatReloader
+WARNING 2026-06-18 10:10:07,960 log 154960 58352 Not Found: /payments/paypal/
+WARNING 2026-06-18 10:10:07,961 basehttp 154960 58352 "GET /payments/paypal/?amount=29.99&description=Premium+Plan+-+Monthly&currency=USD HTTP/1.1" 404 12187
+WARNING 2026-06-18 10:10:08,315 log 154960 58352 Not Found: /favicon.ico
+WARNING 2026-06-18 10:10:08,315 basehttp 154960 58352 "GET /favicon.ico HTTP/1.1" 404 12103
+INFO 2026-06-18 10:10:31,737 basehttp 154960 58352 "GET /accounts/login/ HTTP/1.1" 200 14989
+INFO 2026-06-18 10:10:36,248 basehttp 154960 58352 "GET /accounts/pricing/ HTTP/1.1" 200 24834
+INFO 2026-06-18 10:11:01,711 basehttp 154960 58352 "GET /paypal/?amount=29.99&description=Premium+Plan+-+Monthly&currency=USD HTTP/1.1" 302 0
+INFO 2026-06-18 10:11:01,725 basehttp 154960 58352 "GET /accounts/login/?next=/paypal/%3Famount%3D29.99%26description%3DPremium%2BPlan%2B-%2BMonthly%26currency%3DUSD HTTP/1.1" 200 14989
+INFO 2026-06-18 10:11:04,645 autoreload 4508 135484 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
+INFO 2026-06-18 10:11:05,327 autoreload 154960 154392 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
+INFO 2026-06-18 10:11:07,629 autoreload 27244 133528 Watching for file changes with StatReloader
+INFO 2026-06-18 10:11:07,951 autoreload 130888 153872 Watching for file changes with StatReloader
+INFO 2026-06-18 10:11:26,640 basehttp 130888 126472 "GET /accounts/register/ HTTP/1.1" 200 17688
+INFO 2026-06-18 10:12:44,325 basehttp 130888 126472 "GET /accounts/login/ HTTP/1.1" 200 14989
+INFO 2026-06-18 10:13:02,301 basehttp 130888 126472 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-06-18 10:13:02,314 basehttp 130888 126472 "GET / HTTP/1.1" 200 14686
+INFO 2026-06-18 10:13:07,657 basehttp 130888 126472 "GET /accounts/pricing/ HTTP/1.1" 200 25584
+INFO 2026-06-18 10:13:11,532 basehttp 130888 126472 "GET /accounts/pricing/ HTTP/1.1" 200 25584
+INFO 2026-06-18 10:13:15,907 basehttp 130888 126472 "GET /paypal/?amount=29.99&description=Premium+Plan+-+Monthly&currency=USD HTTP/1.1" 200 28282
+INFO 2026-06-18 10:13:35,970 autoreload 27244 133528 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\middleware.py changed, reloading.
+INFO 2026-06-18 10:13:36,586 autoreload 130888 153872 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\middleware.py changed, reloading.
+INFO 2026-06-18 10:13:37,507 autoreload 149984 155388 Watching for file changes with StatReloader
+INFO 2026-06-18 10:13:38,003 autoreload 157348 157336 Watching for file changes with StatReloader
