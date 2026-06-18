@@ -5966,3 +5966,6 @@ INFO 2026-06-18 10:13:35,970 autoreload 27244 133528 C:\Users\Altyn\Documents\Gi
 INFO 2026-06-18 10:13:36,586 autoreload 130888 153872 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\middleware.py changed, reloading.
 INFO 2026-06-18 10:13:37,507 autoreload 149984 155388 Watching for file changes with StatReloader
 INFO 2026-06-18 10:13:38,003 autoreload 157348 157336 Watching for file changes with StatReloader
+INFO 2026-06-18 10:13:39,386 basehttp 157348 157564 "GET /accounts/pricing/ HTTP/1.1" 200 25584
+INFO 2026-06-18 10:13:41,165 basehttp 157348 157564 "GET /paypal/?amount=9.99&description=Professional+Plan+-+Monthly&currency=USD HTTP/1.1" 200 28292
+INFO 2026-06-18 10:14:05,991 autoreload 157504 157500 Watching for file changes with StatReloader
