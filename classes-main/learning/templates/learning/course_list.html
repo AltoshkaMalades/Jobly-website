@@ -22,12 +22,22 @@
                 </div>
                 <p class="text-neutral-600 leading-relaxed">{{ course.desc|default:'Описание курса отсутствует.' }}</p>
 
-                <div class="mt-8 flex flex-wrap gap-3">
+                <div class="mt-8 flex flex-wrap gap-3 mb-6">
                     {% for lesson in course.lessons.all|slice:':3' %}
                         <a href="{% url 'lesson_detail' lesson.pk %}" class="rounded-full border border-neutral-200 px-4 py-2 text-sm font-bold text-neutral-900 hover:bg-neutral-100 transition">{{ lesson.title }}</a>
                     {% empty %}
                         <div class="rounded-3xl bg-neutral-50 p-4 text-sm text-neutral-500">Пока нет уроков</div>
                     {% endfor %}
+                </div>
+
+                <div class="flex gap-3">
+                    <a href="{% url 'lesson_detail' course.lessons.first.pk %}" class="flex-1 py-2 px-4 bg-neutral-900 text-white font-bold rounded-xl hover:bg-neutral-800 transition-colors text-center">
+                        Начать курс
+                    </a>
+                    <a href="{% url 'payments:paypal_payment' %}?amount=49.99&description=Course:+{{ course.title|urlencode }}&currency=USD" 
+                       class="flex-1 py-2 px-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors text-center">
+                        💳 Купить доступ
+                    </a>
                 </div>
             </article>
         {% empty %}

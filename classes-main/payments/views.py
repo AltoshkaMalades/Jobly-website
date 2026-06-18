@@ -3,12 +3,14 @@ Payment API endpoints.
 """
 import logging
 import json
+import os
 from datetime import datetime
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
+from django.conf import settings
 
 from payments.models import Order, Transaction
 from payments.services.service import PaymentService
@@ -365,3 +367,119 @@ def webhook_paypal(request):
     except Exception as e:
         logger.error(f"PayPal webhook error: {str(e)}")
         return JsonResponse({'status': 'ok'})
+
+
+# ==================== PAYMENT PAGES ====================
+
+@login_required
+def paypal_payment_page(request):
+    """
+    Display PayPal payment page.
+    
+    GET /payments/paypal/
+    Query params:
+        - amount: Payment amount in USD (default: 10)
+        - description: Order description (default: "Service Payment")
+        - currency: Currency code (default: USD)
+    """
+    
+    try:
+        # Get PayPal Client ID from environment
+        paypal_client_id = os.environ.get('PAYPAL_CLIENT_ID', '')
+        
+        if not paypal_client_id:
+            logger.error("PAYPAL_CLIENT_ID not configured")
+            return render(request, 'payments/error.html', {
+                'error': 'PayPal not configured. Please contact support.'
+            }, status=500)
+        
+        # Get payment parameters from query string
+        amount = request.GET.get('amount', '10')
+        description = request.GET.get('description', 'Service Payment')
+        currency = request.GET.get('currency', 'USD')
+        
+        # Validate amount
+        try:
+            amount_float = float(amount)
+            if amount_float <= 0 or amount_float > 999999:
+                return render(request, 'payments/error.html', {
+                    'error': 'Invalid payment amount. Please enter a value between 0.01 and 999999.'
+                }, status=400)
+        except ValueError:
+            return render(request, 'payments/error.html', {
+                'error': 'Invalid payment amount format.'
+            }, status=400)
+        
+        # Convert to cents for backend (if needed)
+        amount_cents = int(amount_float * 100)
+        
+        context = {
+            'paypal_client_id': paypal_client_id,
+            'amount': amount,
+            'amount_cents': amount_cents,
+            'currency': currency,
+            'order_description': description,
+            'user': request.user,
+        }
+        
+        return render(request, 'payments/paypal_payment.html', context)
+    
+    except Exception as e:
+        logger.error(f"Error displaying PayPal payment page: {str(e)}")
+        return render(request, 'payments/error.html', {
+            'error': 'An error occurred. Please try again later.'
+        }, status=500)
+
+
+@login_required
+def payment_success(request):
+    """
+    Payment success page.
+    
+    GET /payments/success/
+    Query params:
+        - order_id: Order ID (optional)
+        - transaction_id: Transaction ID (optional)
+    """
+    
+    order_id = request.GET.get('order_id')
+    transaction_id = request.GET.get('transaction_id')
+    
+    context = {
+        'order_id': order_id,
+        'transaction_id': transaction_id,
+    }
+    
+    # Try to fetch order details if order_id provided
+    if order_id:
+        try:
+            order = get_object_or_404(Order, id=order_id, user=request.user)
+            transactions = order.transactions.all()
+            context['order'] = order
+            context['transactions'] = transactions
+        except Exception as e:
+            logger.error(f"Error fetching order {order_id}: {str(e)}")
+    
+    return render(request, 'payments/success.html', context)
+
+
+@login_required
+def payment_error(request):
+    """
+    Payment error page.
+    
+    GET /payments/error/
+    Query params:
+        - error_code: Error code (optional)
+        - error_message: Error message (optional)
+    """
+    
+    error_code = request.GET.get('error_code', 'UNKNOWN_ERROR')
+    error_message = request.GET.get('error_message', 'An unexpected error occurred')
+    
+    context = {
+        'error_code': error_code,
+        'error_message': error_message,
+    }
+    
+    return render(request, 'payments/error.html', context)

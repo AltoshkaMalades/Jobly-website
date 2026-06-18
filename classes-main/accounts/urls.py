@@ -12,6 +12,7 @@ urlpatterns = [
     path('verify-email/', views.verify_email, name='verify_email'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('pricing/', views.pricing_view, name='pricing'),
 
     # --- Личный кабинет ---
     path('profile/', views.profile_view, name='profile'),

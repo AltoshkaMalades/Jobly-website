@@ -151,6 +151,12 @@ def verify_email(request):
     """Страница подтверждения почты (заглушка)"""
     return render(request, 'accounts/verify_email.html')
 
+
+def pricing_view(request):
+    """Страница с тарифами и подписками"""
+    return render(request, 'accounts/pricing.html')
+
+
 # --- ПРОФИЛЬ ---
 @login_required
 def profile_view(request):

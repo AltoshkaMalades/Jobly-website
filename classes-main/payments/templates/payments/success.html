@@ -1,0 +1,139 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}Платеж прошел успешно - JobAggregator{% endblock %}
+
+{% block content %}
+<main class="flex-1 bg-gradient-to-b from-green-50 to-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto">
+            <!-- Success Animation -->
+            <div class="text-center mb-12">
+                <div class="inline-block mb-6">
+                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center animate-bounce">
+                        <span class="text-6xl">✅</span>
+                    </div>
+                </div>
+                
+                <h1 class="text-4xl font-black text-green-900 mb-4">Платеж прошел успешно!</h1>
+                <p class="text-xl text-green-700 mb-8">
+                    Спасибо за вашу оплату. Транзакция успешно обработана.
+                </p>
+            </div>
+
+            <!-- Order Details Card -->
+            <div class="bg-white border-2 border-green-200 rounded-2xl p-8 mb-8 shadow-lg">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">📋 Детали платежа</h2>
+                
+                <div class="space-y-4">
+                    {% if order %}
+                        <div class="flex justify-between items-center py-3 border-b border-neutral-200">
+                            <span class="text-neutral-600 font-semibold">ID Заказа:</span>
+                            <span class="text-neutral-900 font-mono text-lg">#{{ order.id }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3 border-b border-neutral-200">
+                            <span class="text-neutral-600 font-semibold">Статус Заказа:</span>
+                            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 font-bold rounded-lg">
+                                {{ order.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3 border-b border-neutral-200">
+                            <span class="text-neutral-600 font-semibold">Сумма:</span>
+                            <span class="text-2xl font-black text-green-600">
+                                {{ order.currency }} {{ order.amount|floatformat:2 }}
+                            </span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3">
+                            <span class="text-neutral-600 font-semibold">Дата:</span>
+                            <span class="text-neutral-900">{{ order.created_at|date:"d.m.Y H:i" }}</span>
+                        </div>
+                    {% endif %}
+                    
+                    {% if transaction_id %}
+                        <div class="flex justify-between items-center py-3 bg-neutral-50 rounded-lg px-4 mt-4">
+                            <span class="text-neutral-600 font-semibold">ID Транзакции:</span>
+                            <span class="text-neutral-900 font-mono text-sm break-all">{{ transaction_id }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Transactions List -->
+            {% if transactions %}
+            <div class="bg-white border-2 border-neutral-200 rounded-2xl p-8 mb-8">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">💳 Транзакции</h2>
+                
+                <div class="space-y-4">
+                    {% for transaction in transactions %}
+                    <div class="border border-neutral-200 rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="font-semibold text-neutral-900">{{ transaction.get_provider_display }}</p>
+                                <p class="text-sm text-neutral-500">{{ transaction.transaction_id }}</p>
+                            </div>
+                            <span class="
+                                px-3 py-1 rounded-lg font-bold text-sm
+                                {% if transaction.status == 'completed' %}
+                                    bg-green-100 text-green-800
+                                {% elif transaction.status == 'pending' %}
+                                    bg-yellow-100 text-yellow-800
+                                {% elif transaction.status == 'failed' %}
+                                    bg-red-100 text-red-800
+                                {% else %}
+                                    bg-neutral-100 text-neutral-800
+                                {% endif %}
+                            ">
+                                {{ transaction.get_status_display }}
+                            </span>
+                        </div>
+                        <p class="text-xs text-neutral-500">
+                            Завершено: {{ transaction.completed_at|date:"d.m.Y H:i" }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Email Confirmation -->
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <span class="text-3xl">📧</span>
+                    <div>
+                        <h3 class="font-bold text-blue-900 mb-2">Квитанция отправлена</h3>
+                        <p class="text-blue-800 text-sm">
+                            Подробная квитанция и информация о платеже отправлены на ваш email.
+                            Если вы не получили письмо, проверьте папку "Спам".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <a href="{% url 'profile' %}" class="block p-6 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-2xl hover:shadow-lg transition-all text-center">
+                    <span class="text-3xl mb-2 block">👤</span>
+                    <h3 class="font-bold mb-2">Мой профиль</h3>
+                    <p class="text-sm opacity-80">Просмотреть все заказы и платежи</p>
+                </a>
+                
+                <a href="{% url 'search' %}" class="block p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl hover:shadow-lg transition-all text-center">
+                    <span class="text-3xl mb-2 block">🔍</span>
+                    <h3 class="font-bold mb-2">Продолжить поиск</h3>
+                    <p class="text-sm opacity-80">Найти новые вакансии и услуги</p>
+                </a>
+            </div>
+
+            <!-- Support -->
+            <div class="text-center">
+                <p class="text-neutral-600 mb-4">Возникли проблемы?</p>
+                <a href="mailto:support@jobaggregator.com" class="text-blue-600 font-bold hover:text-blue-800 transition-colors">
+                    Свяжитесь с поддержкой
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

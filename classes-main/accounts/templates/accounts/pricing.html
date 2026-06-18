@@ -1,0 +1,237 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Подписка и тарифы - JobAggregator{% endblock %}
+
+{% block content %}
+<main class="bg-white">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-neutral-50 to-white py-16 border-b border-neutral-100">
+        <div class="container mx-auto px-4 text-center">
+            <span class="text-sm uppercase tracking-[0.35em] text-neutral-400 font-black">💎 Подписка</span>
+            <h1 class="mt-5 text-5xl font-black text-neutral-900">Выберите идеальный план</h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-neutral-500">Получите доступ к премиум-функциям и раскройте свой потенциал</p>
+        </div>
+    </section>
+
+    <!-- Pricing Plans Section -->
+    <section class="py-16 border-b border-neutral-100">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Free Plan -->
+                <div class="rounded-3xl border-2 border-neutral-200 p-8 bg-white hover:shadow-lg transition-all">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-neutral-900">🎯 Стартер</h3>
+                        <div class="mt-4">
+                            <span class="text-4xl font-black text-neutral-900">Бесплатно</span>
+                            <p class="text-sm text-neutral-500 mt-1">Всегда свободен</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Просмотр вакансий</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">10 откликов в месяц</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Базовый профиль</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Email поддержка</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-neutral-300 font-bold text-lg mt-0.5">✗</span>
+                            <span class="text-neutral-400">Расширенная статистика</span>
+                        </li>
+                    </ul>
+
+                    <a href="{% url 'profile' %}" class="w-full py-3 px-4 bg-neutral-100 text-neutral-900 font-bold rounded-2xl hover:bg-neutral-200 transition-colors text-center block">
+                        Текущий план
+                    </a>
+                </div>
+
+                <!-- Pro Plan (POPULAR) -->
+                <div class="rounded-3xl border-2 border-blue-600 p-8 bg-gradient-to-b from-blue-50 to-white shadow-xl relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider">
+                        Популярно
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-neutral-900">🚀 Профессионал</h3>
+                        <div class="mt-4">
+                            <span class="text-4xl font-black text-blue-600">$9.99</span>
+                            <p class="text-sm text-neutral-500 mt-1">/месяц</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Всё из Стартера</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Бесплатные отклики</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Конструктор резюме</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Сохранённые вакансии</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Расширенная статистика</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Приоритетная поддержка</span>
+                        </li>
+                    </ul>
+
+                    <a href="{% url 'payments:paypal_payment' %}?amount=9.99&description=Professional+Plan+-+Monthly&currency=USD" 
+                       class="w-full py-3 px-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-colors text-center block">
+                        💳 Подписаться сейчас
+                    </a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="rounded-3xl border-2 border-neutral-200 p-8 bg-white hover:shadow-lg transition-all">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-neutral-900">⭐ Премиум</h3>
+                        <div class="mt-4">
+                            <span class="text-4xl font-black text-neutral-900">$29.99</span>
+                            <p class="text-sm text-neutral-500 mt-1">/месяц</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Всё из Профессионала</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Карьерный коучинг</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Макетирование интервью</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Инсайты компаний</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">Личный менеджер</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold text-lg mt-0.5">✓</span>
+                            <span class="text-neutral-700">24/7 поддержка</span>
+                        </li>
+                    </ul>
+
+                    <a href="{% url 'payments:paypal_payment' %}?amount=29.99&description=Premium+Plan+-+Monthly&currency=USD" 
+                       class="w-full py-3 px-4 bg-neutral-900 text-white font-bold rounded-2xl hover:bg-neutral-800 transition-colors text-center block">
+                        💳 Подписаться сейчас
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Annual Discount Banner -->
+    <section class="bg-gradient-to-r from-green-50 to-emerald-50 py-12 border-b border-neutral-100">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold text-neutral-900 mb-4">💰 Сэкономьте 20% с годовой подпиской</h3>
+            <p class="text-neutral-600 mb-6">Выберите годовой план и получите выгоду на 2+ месяца</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="{% url 'payments:paypal_payment' %}?amount=95.88&description=Professional+Plan+-+Annual&currency=USD" 
+                   class="px-6 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
+                    <span>💳</span>
+                    <span>Pro годовая - $95.88</span>
+                </a>
+                <a href="{% url 'payments:paypal_payment' %}?amount=287.88&description=Premium+Plan+-+Annual&currency=USD" 
+                   class="px-6 py-3 bg-neutral-900 text-white font-bold rounded-2xl hover:bg-neutral-800 transition-colors inline-flex items-center justify-center gap-2">
+                    <span>💳</span>
+                    <span>Premium годовая - $287.88</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl font-bold text-neutral-900 mb-10 text-center">❓ Частые вопросы</h2>
+
+            <div class="space-y-4">
+                <details class="group border-2 border-neutral-200 rounded-2xl p-6 cursor-pointer hover:border-blue-400 transition-colors">
+                    <summary class="flex justify-between items-center font-bold text-neutral-900 select-none">
+                        <span>Как отменить подписку?</span>
+                        <span class="text-xl group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-neutral-600 mt-4">Вы можете отменить подписку в любой момент. Просто перейдите в раздел "Подписка" в профиле и нажмите "Отменить". Доступ остаётся активным до конца текущего периода.</p>
+                </details>
+
+                <details class="group border-2 border-neutral-200 rounded-2xl p-6 cursor-pointer hover:border-blue-400 transition-colors">
+                    <summary class="flex justify-between items-center font-bold text-neutral-900 select-none">
+                        <span>Есть ли возврат средств?</span>
+                        <span class="text-xl group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-neutral-600 mt-4">Да, мы предлагаем 7-дневную гарантию возврата денег. Если вы не удовлетворены, свяжитесь с нашей поддержкой, и мы вернём 100% вашего платежа.</p>
+                </details>
+
+                <details class="group border-2 border-neutral-200 rounded-2xl p-6 cursor-pointer hover:border-blue-400 transition-colors">
+                    <summary class="flex justify-between items-center font-bold text-neutral-900 select-none">
+                        <span>Есть ли скрытые платежи?</span>
+                        <span class="text-xl group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-neutral-600 mt-4">Нет. Тарифы полностью прозрачны. Вы будете видеть точную сумму перед подтверждением платежа. Никаких скрытых платежей.</p>
+                </details>
+
+                <details class="group border-2 border-neutral-200 rounded-2xl p-6 cursor-pointer hover:border-blue-400 transition-colors">
+                    <summary class="flex justify-between items-center font-bold text-neutral-900 select-none">
+                        <span>Как изменить план?</span>
+                        <span class="text-xl group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-neutral-600 mt-4">Вы можете обновить или понизить подписку в любой момент. Изменения вступят в силу со следующего периода выставления счета.</p>
+                </details>
+
+                <details class="group border-2 border-neutral-200 rounded-2xl p-6 cursor-pointer hover:border-blue-400 transition-colors">
+                    <summary class="flex justify-between items-center font-bold text-neutral-900 select-none">
+                        <span>Какие способы оплаты вы принимаете?</span>
+                        <span class="text-xl group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-neutral-600 mt-4">Мы принимаем платежи через PayPal и Bereke Bank. Оба метода полностью безопасны и поддерживают различные способы оплаты.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-600 py-16">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h2 class="text-3xl font-bold mb-4">Готовы начать?</h2>
+            <p class="text-lg mb-8 opacity-90">Выберите план, который подходит вам, и откройте новые возможности</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#pricing" class="px-8 py-4 bg-white text-blue-600 font-bold rounded-2xl hover:bg-neutral-100 transition-colors">
+                    Посмотреть планы
+                </a>
+                <a href="{% url 'profile' %}" class="px-8 py-4 bg-white/20 border-2 border-white text-white font-bold rounded-2xl hover:bg-white/30 transition-colors">
+                    Мой профиль
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

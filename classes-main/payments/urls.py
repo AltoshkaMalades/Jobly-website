@@ -17,6 +17,11 @@ urlpatterns = [
     path('api/payments/webhook/bereke', views.webhook_bereke, name='webhook_bereke'),
     path('api/payments/webhook/paypal', views.webhook_paypal, name='webhook_paypal'),
     
+    # Payment pages
+    path('paypal/', views.paypal_payment_page, name='paypal_payment'),
+    path('success/', views.payment_success, name='payment_success'),
+    path('error/', views.payment_error, name='payment_error'),
+    
     # KPI Dashboard endpoints
     path('api/kpi/dashboard/', kpi.kpi_dashboard, name='kpi_dashboard'),
     path('api/kpi/revenue-by-date/', kpi.revenue_by_date, name='revenue_by_date'),

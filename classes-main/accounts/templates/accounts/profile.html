@@ -96,6 +96,76 @@
         </div>
     </div>
 
+    <!-- Upgrade Section -->
+    <div class="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[3rem] border-2 border-blue-200 p-12">
+        <div class="max-w-3xl">
+            <div class="flex items-start gap-6">
+                <div class="text-5xl">💎</div>
+                <div class="flex-1">
+                    <h2 class="text-3xl font-black text-neutral-900 mb-3">Обновите подписку</h2>
+                    <p class="text-neutral-600 mb-6">Получите доступ к премиум-функциям и раскройте свой потенциал на рынке труда</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white rounded-2xl p-6 border-2 border-blue-200">
+                            <h3 class="font-bold text-neutral-900 mb-3 text-lg">🚀 Профессионал</h3>
+                            <p class="text-sm text-neutral-600 mb-4">Идеально для активного поиска работы</p>
+                            <ul class="space-y-2 mb-6 text-sm">
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-600">✓</span>
+                                    <span>Бесплатные отклики</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-600">✓</span>
+                                    <span>Конструктор резюме</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-600">✓</span>
+                                    <span>Аналитика профиля</span>
+                                </li>
+                            </ul>
+                            <div class="text-2xl font-black text-blue-600 mb-4">$9.99<span class="text-sm">/мес</span></div>
+                            <a href="{% url 'payments:paypal_payment' %}?amount=9.99&description=Professional+Plan&currency=USD" 
+                               class="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors text-center block">
+                                💳 Подписаться
+                            </a>
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-6 border-2 border-neutral-900 relative">
+                            <div class="absolute -top-3 left-4 bg-neutral-900 text-white px-3 py-1 rounded-full text-[10px] font-black">ЛУЧШИЙ ВЫБОР</div>
+                            <h3 class="font-bold text-neutral-900 mb-3 text-lg">⭐ Премиум</h3>
+                            <p class="text-sm text-neutral-600 mb-4">Для максимальной конкурентоспособности</p>
+                            <ul class="space-y-2 mb-6 text-sm">
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-600">✓</span>
+                                    <span>Всё из Профессионала</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-600">✓</span>
+                                    <span>Карьерный коучинг</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-600">✓</span>
+                                    <span>Приоритетная поддержка</span>
+                                </li>
+                            </ul>
+                            <div class="text-2xl font-black text-neutral-900 mb-4">$29.99<span class="text-sm">/мес</span></div>
+                            <a href="{% url 'payments:paypal_payment' %}?amount=29.99&description=Premium+Plan&currency=USD" 
+                               class="w-full py-2 px-4 bg-neutral-900 text-white font-bold rounded-xl hover:bg-neutral-800 transition-colors text-center block">
+                                💳 Подписаться
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-sm text-neutral-600">
+                        <a href="{% url 'pricing' %}" class="text-blue-600 font-bold hover:underline">
+                            Посмотреть все планы и сравнить →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="mt-16">
         {% if profile.role == 'employer' %}
             <div class="flex items-center justify-between mb-8">
