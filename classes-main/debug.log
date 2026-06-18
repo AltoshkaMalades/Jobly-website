@@ -5938,3 +5938,5 @@ INFO 2026-06-18 09:54:18,170 autoreload 123864 154388 C:\Users\Altyn\Documents\G
 INFO 2026-06-18 09:54:20,861 autoreload 154688 89496 Watching for file changes with StatReloader
 INFO 2026-06-18 09:54:23,576 autoreload 154688 89496 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
 INFO 2026-06-18 09:54:26,210 autoreload 154960 154392 Watching for file changes with StatReloader
+WARNING 2026-06-18 09:59:04,787 log 143280 154092 Bad Request: /api/payments/create/
+WARNING 2026-06-18 09:59:05,441 log 143280 154092 Not Found: /api/payments/orders/1/
