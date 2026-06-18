@@ -5978,3 +5978,11 @@ INFO 2026-06-18 10:19:38,693 basehttp 134764 156284 "GET /accounts/pricing/ HTTP
 WARNING 2026-06-18 10:20:11,871 log 147180 150076 Bad Request: /api/payments/create/
 WARNING 2026-06-18 10:20:12,252 log 147180 150076 Not Found: /api/payments/orders/1/
 INFO 2026-06-18 10:27:03,373 basehttp 134764 126632 "GET /paypal/?amount=9.99&description=Professional+Plan+-+Monthly&currency=USD HTTP/1.1" 200 28292
+INFO 2026-06-18 10:41:47,892 autoreload 134764 59308 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\services\paypal.py changed, reloading.
+INFO 2026-06-18 10:41:49,339 autoreload 158140 33744 Watching for file changes with StatReloader
+INFO 2026-06-18 10:42:01,397 autoreload 158140 33744 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\services\paypal.py changed, reloading.
+INFO 2026-06-18 10:42:02,420 autoreload 6888 158436 Watching for file changes with StatReloader
+INFO 2026-06-18 10:42:13,537 autoreload 6888 158436 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\services\paypal.py changed, reloading.
+INFO 2026-06-18 10:42:14,625 autoreload 154128 138364 Watching for file changes with StatReloader
+INFO 2026-06-18 10:42:21,471 autoreload 154128 138364 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\views.py changed, reloading.
+INFO 2026-06-18 10:42:22,487 autoreload 117000 141964 Watching for file changes with StatReloader

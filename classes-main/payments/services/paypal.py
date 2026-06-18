@@ -63,8 +63,12 @@ class PayPalClient(PaymentClient):
             # Convert minor units to major units (cents to dollars, tiyn to tenge)
             amount_major = amount / 100
             
+            logger.info(f"[PAYPAL] Creating payment | Order: {order_id} | Amount: {amount_major} {currency} | Sandbox: {self.sandbox}")
+            logger.debug(f"[PAYPAL] Client ID configured: {bool(self.client_id)} | Client Secret configured: {bool(self.client_secret)}")
+            
             if not self.client_id or not self.client_secret:
-                logger.info(f"[PAYPAL] Mock payment request | Order: {order_id} | Amount: {amount_major} {currency}")
+                error_msg = "[PAYPAL] ⚠️ CREDENTIALS NOT SET - Using mock payment mode"
+                logger.warning(f"{error_msg} | Order: {order_id}")
                 return {
                     'payment_url': f'https://sandbox.paypal.com/checkoutnow?token={transaction_id}',
                     'transaction_id': transaction_id,
@@ -79,6 +83,8 @@ class PayPalClient(PaymentClient):
                 }
             
             # Real API call
+            logger.info(f"[PAYPAL] Using live API: {self.api_url}")
+            
             payload = {
                 'intent': 'CAPTURE',
                 'purchase_units': [
@@ -95,20 +101,33 @@ class PayPalClient(PaymentClient):
                     'return_url': return_url,
                     'cancel_url': return_url,
                     'locale': 'en-US',
-                    'brand_name': 'Payment',
+                    'brand_name': 'JobAggregator',
+                    'user_action': 'PAY_NOW',
                 },
             }
             
-            headers = self._get_auth_headers()
+            logger.debug(f"[PAYPAL] Payload: {payload}")
             
+            headers = self._get_auth_headers()
+            logger.debug(f"[PAYPAL] Headers prepared: Authorization={bool(headers.get('Authorization'))}")
+            
+            logger.info(f"[PAYPAL] Sending POST to {self.api_url}/v2/checkout/orders")
             response = self.session.post(
                 f'{self.api_url}/v2/checkout/orders',
                 json=payload,
-                headers=headers
+                headers=headers,
+                timeout=10
             )
-            response.raise_for_status()
+            
+            logger.info(f"[PAYPAL] Response status: {response.status_code}")
+            
+            if response.status_code != 201:
+                error_msg = f"PayPal API returned {response.status_code}: {response.text}"
+                logger.error(f"[PAYPAL] {error_msg}")
+                response.raise_for_status()
             
             data = response.json()
+            logger.info(f"[PAYPAL] Response data: {data}")
             
             # Get approval link
             approval_url = next(
@@ -116,7 +135,10 @@ class PayPalClient(PaymentClient):
                 ''
             )
             
-            logger.info(f"[PAYPAL] Payment created | Order: {order_id} | PayPal Order: {data.get('id')}")
+            if not approval_url:
+                logger.warning(f"[PAYPAL] No approval link in response | Links: {data.get('links', [])}")
+            
+            logger.info(f"[PAYPAL] ✓ Payment created | Order: {order_id} | PayPal Order: {data.get('id')} | Approval: {bool(approval_url)}")
             
             return {
                 'payment_url': approval_url,
@@ -130,15 +152,22 @@ class PayPalClient(PaymentClient):
         
         except requests.RequestException as e:
             error_msg = f"PayPal API error: {str(e)}"
-            logger.error(error_msg)
+            logger.error(f"[PAYPAL] ✗ {error_msg}")
+            logger.debug(f"[PAYPAL] Exception details: {e.__class__.__name__}: {str(e)}")
+            raise PaymentClientError(error_msg) from e
+        except Exception as e:
+            error_msg = f"Unexpected error in create_payment_request: {str(e)}"
+            logger.error(f"[PAYPAL] ✗ {error_msg}")
             raise PaymentClientError(error_msg) from e
     
     def get_transaction_status(self, transaction_id: str) -> Dict[str, Any]:
         """Check PayPal order status."""
         
         try:
+            logger.info(f"[PAYPAL] Checking transaction status | ID: {transaction_id}")
+            
             if not self.client_id or not self.client_secret:
-                logger.info(f"[PAYPAL] Mock status check | Transaction: {transaction_id}")
+                logger.warning(f"[PAYPAL] Mock status check (credentials not set) | Transaction: {transaction_id}")
                 return {
                     'transaction_id': transaction_id,
                     'status': 'pending',
@@ -147,17 +176,27 @@ class PayPalClient(PaymentClient):
             
             headers = self._get_auth_headers()
             
+            logger.debug(f"[PAYPAL] Fetching from {self.api_url}/v2/checkout/orders/{transaction_id}")
             response = self.session.get(
                 f'{self.api_url}/v2/checkout/orders/{transaction_id}',
-                headers=headers
+                headers=headers,
+                timeout=10
             )
-            response.raise_for_status()
+            
+            logger.info(f"[PAYPAL] Status check response: {response.status_code}")
+            
+            if response.status_code != 200:
+                logger.error(f"[PAYPAL] ✗ Status check failed: {response.status_code} {response.text}")
+                response.raise_for_status()
             
             data = response.json()
+            status = self._normalize_status(data.get('status', 'UNKNOWN'))
+            
+            logger.info(f"[PAYPAL] ✓ Transaction status: {data.get('status')} (normalized: {status})")
             
             return {
                 'transaction_id': transaction_id,
-                'status': self._normalize_status(data.get('status', 'UNKNOWN')),
+                'status': status,
                 'metadata': {
                     'paypal_status': data.get('status'),
                     'purchase_units': data.get('purchase_units', []),
@@ -166,7 +205,11 @@ class PayPalClient(PaymentClient):
         
         except requests.RequestException as e:
             error_msg = f"PayPal status check failed: {str(e)}"
-            logger.error(error_msg)
+            logger.error(f"[PAYPAL] ✗ {error_msg}")
+            raise PaymentClientError(error_msg) from e
+        except Exception as e:
+            error_msg = f"Unexpected error in get_transaction_status: {str(e)}"
+            logger.error(f"[PAYPAL] ✗ {error_msg}")
             raise PaymentClientError(error_msg) from e
     
     def refund_transaction(

@@ -389,13 +389,20 @@ def paypal_payment_page(request):
     """
     
     try:
+        logger.info(f'[PAYMENT PAGE] Rendering for user: {request.user.username if request.user.is_authenticated else "anonymous"}')
+        
         # Get PayPal Client ID from environment
         paypal_client_id = os.environ.get('PAYPAL_CLIENT_ID', '')
+        paypal_sandbox = os.environ.get('PAYPAL_SANDBOX', 'true').lower() == 'true'
+        
+        logger.info(f'[PAYMENT PAGE] Config: sandbox={paypal_sandbox}, client_id_set={bool(paypal_client_id)}')
         
         if not paypal_client_id:
-            logger.error("PAYPAL_CLIENT_ID not configured")
+            error_msg = 'PayPal not configured - PAYPAL_CLIENT_ID environment variable missing'
+            logger.error(f'[PAYMENT PAGE] ✗ {error_msg}')
             return render(request, 'payments/error.html', {
-                'error': 'PayPal not configured. Please contact support.'
+                'error': error_msg,
+                'details': 'Contact support to enable PayPal payments.'
             }, status=500)
         
         # Get payment parameters from query string
