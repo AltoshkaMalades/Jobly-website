@@ -5,3 +5,7 @@ class PaymentsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'payments'
     verbose_name = 'Payment Management'
+    
+    def ready(self):
+        """Register signals when app is ready."""
+        import payments.signals  # noqa

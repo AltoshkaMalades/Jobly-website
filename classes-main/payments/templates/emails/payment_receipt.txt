@@ -1,0 +1,34 @@
+{% load i18n %}{% trans "Dear" %} {{ user.first_name|default:user.username }},
+
+{% trans "Thank you for your payment! Your transaction has been completed successfully." %}
+
+==========================================
+{% trans "ORDER DETAILS" %}
+==========================================
+
+{% trans "Order ID:" %} {{ order.order_id }}
+{% trans "Date:" %} {{ order.created_at|date:"d.m.Y H:i" }}
+{% trans "Description:" %} {{ order.description }}
+{% trans "Provider:" %} {{ provider|title }}
+
+==========================================
+{% trans "TOTAL AMOUNT PAID:" %} ${{ amount }}
+==========================================
+
+{% if transaction_id %}
+{% trans "Transaction ID:" %} {{ transaction_id }}
+{% endif %}
+
+🔒 {% trans "SECURITY NOTICE:" %}
+{{ user.first_name|default:user.username }}, this email contains sensitive payment information. Please keep it secure. JobAggregator will never ask for your payment details via email.
+
+{% trans "WHAT'S NEXT?" %}
+• {% trans "Your subscription/purchase is now active" %}
+• {% trans "You can manage your subscription in your profile settings" %}
+• {% trans "For support, contact our team: support@jobaggreator.com" %}
+
+{% trans "View your profile:" %} {{ site_url }}/accounts/profile/
+
+==========================================
+© 2026 JobAggregator. {% trans "All rights reserved." %}
+{% trans "This is an automated email. Please do not reply to this message." %}
