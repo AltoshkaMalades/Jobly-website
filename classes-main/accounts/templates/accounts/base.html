@@ -15,6 +15,21 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         html { scroll-behavior: smooth; }
     </style>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQLY0R426T"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-YQLY0R426T');
+        
+        // Track user ID if authenticated
+        {% if user.is_authenticated %}
+        gtag('set', {'user_id': '{{ user.id }}'});
+        {% endif %}
+    </script>
+    
     <!-- Form media (includes reCAPTCHA scripts if needed) -->
     {% block extra_head %}{% endblock %}
 </head>
@@ -163,53 +178,128 @@
     </div>
 
     <script>
+        // GA4 Event Tracking Helper
+        function trackGA4Event(eventName, eventParams = {}) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, eventParams);
+            }
+        }
+        
+        // Track page views with custom parameters
         document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/register')) {
+                trackGA4Event('page_view', {'page_path': '/register', 'page_title': 'Registration'});
+            } else if (currentPath.includes('/login')) {
+                trackGA4Event('page_view', {'page_path': '/login', 'page_title': 'Login'});
+            } else if (currentPath.includes('/search')) {
+                trackGA4Event('page_view', {'page_path': '/search', 'page_title': 'Job Search'});
+            } else if (currentPath.includes('/pricing')) {
+                trackGA4Event('page_view', {'page_path': '/pricing', 'page_title': 'Pricing'});
+            } else if (currentPath.includes('/courses')) {
+                trackGA4Event('page_view', {'page_path': '/courses', 'page_title': 'Courses'});
+            }
+            
+            // Track registration completion
+            const registerForm = document.querySelector('form[action*="register"]');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function() {
+                    trackGA4Event('sign_up', {
+                        'method': 'email',
+                        'page_path': window.location.pathname
+                    });
+                });
+            }
+            
+            // Track job clicks
+            const jobLinks = document.querySelectorAll('a[href*="/job/"]');
+            jobLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    trackGA4Event('view_job', {
+                        'job_id': this.href.split('/').pop(),
+                        'page_path': window.location.pathname
+                    });
+                });
+            });
+            
+            // Track search queries
+            const searchForm = document.querySelector('form[action*="search"]');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    const searchInput = this.querySelector('input[name*="q"], input[name*="search"]');
+                    if (searchInput && searchInput.value) {
+                        trackGA4Event('search', {
+                            'search_term': searchInput.value,
+                            'page_path': window.location.pathname
+                        });
+                    }
+                });
+            }
+            
+            // AI Chat Widget
             const chatButton = document.getElementById('chat-button');
             const chatWindow = document.getElementById('chat-window');
             const chatForm = document.getElementById('chat-form');
             const chatInput = document.getElementById('chat-input');
             const chatMessages = document.getElementById('chat-messages');
 
-            chatButton.addEventListener('click', function() {
-                chatWindow.classList.toggle('hidden');
-            });
-
-            chatForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const message = chatInput.value.trim();
-                if (!message) return;
-
-                // Add user message
-                addMessage('user', message);
-                chatInput.value = '';
-
-                // Send to server
-                try {
-                    const response = await fetch('/ai-chat/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                        },
-                        body: new URLSearchParams({ message: message })
-                    });
-                    const data = await response.json();
-                    if (data.response) {
-                        addMessage('ai', data.response);
-                    } else if (data.error) {
-                        addMessage('ai', 'Error: ' + data.error);
+            if (chatButton) {
+                chatButton.addEventListener('click', function() {
+                    chatWindow.classList.toggle('hidden');
+                    if (!chatWindow.classList.contains('hidden')) {
+                        trackGA4Event('ai_chat_opened', {
+                            'page_path': window.location.pathname
+                        });
                     }
-                } catch (error) {
-                    addMessage('ai', 'Network error. Please try again.');
-                }
-            });
+                });
+            }
+
+            if (chatForm) {
+                chatForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const message = chatInput.value.trim();
+                    if (!message) return;
+
+                    // Track AI chat interaction
+                    trackGA4Event('ai_chat_message', {
+                        'message_length': message.length,
+                        'page_path': window.location.pathname
+                    });
+
+                    // Add user message
+                    addMessage('user', message);
+                    chatInput.value = '';
+
+                    // Send to server
+                    try {
+                        const response = await fetch('/ai-chat/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                            },
+                            body: new URLSearchParams({ message: message })
+                        });
+                        const data = await response.json();
+                        if (data.response) {
+                            addMessage('ai', data.response);
+                        } else if (data.error) {
+                            addMessage('ai', 'Error: ' + data.error);
+                        }
+                    } catch (error) {
+                        addMessage('ai', 'Network error. Please try again.');
+                    }
+                });
+            }
 
             function addMessage(sender, text) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `p-3 rounded-lg max-w-xs ${sender === 'user' ? 'bg-neutral-900 text-white ml-auto' : 'bg-neutral-100 text-neutral-900'}`;
                 messageDiv.textContent = text;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                if (chatMessages) {
+                    chatMessages.appendChild(messageDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
             }
         });
     </script>

@@ -136,4 +136,26 @@
         </div>
     </div>
 </main>
+
+<!-- GA4 Purchase Event Tracking -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof gtag !== 'undefined') {
+            // Track purchase event with order details
+            gtag('event', 'purchase', {
+                'currency': '{{ order.currency|default:"USD" }}',
+                'value': {{ order.amount|default:0 }},
+                'transaction_id': '{{ transaction_id|default:"" }}',
+                'order_id': '{{ order.id|default:"" }}',
+                'coupon': '{{ order.description|default:"" }}',
+                'items': [{
+                    'item_id': '{{ order.id|default:"" }}',
+                    'item_name': 'Payment',
+                    'quantity': 1,
+                    'price': {{ order.amount|default:0 }}
+                }]
+            });
+        }
+    });
+</script>
 {% endblock %}

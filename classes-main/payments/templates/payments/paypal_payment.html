@@ -224,6 +224,37 @@
 </main>
 
 <script>
+    // GA4 Event Tracking Helper
+    function trackGA4Event(eventName, eventParams = {}) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, eventParams);
+        }
+    }
+    
+    // Track checkout page view on load
+    document.addEventListener('DOMContentLoaded', function() {
+        trackGA4Event('begin_checkout', {
+            'currency': '{{ currency }}',
+            'value': {{ amount }},
+            'items': [{
+                'item_name': '{{ order_description }}',
+                'quantity': 1,
+                'price': {{ amount }}
+            }]
+        });
+    });
+    
+    // Track payment method selection
+    document.querySelectorAll('input[name="provider"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            trackGA4Event('select_payment_method', {
+                'payment_method': this.value,
+                'currency': '{{ currency }}',
+                'value': {{ amount }}
+            });
+        });
+    });
+
     // Получение CSRF токена
     function getCookie(name) {
         let cookieValue = null;
@@ -287,6 +318,13 @@
         onApprove: (data, actions) => {
             showMessage('⏳ Обработка платежа...', 'info');
             
+            // Track add payment info event
+            trackGA4Event('add_payment_info', {
+                'payment_method': 'paypal',
+                'currency': '{{ currency }}',
+                'value': {{ amount }}
+            });
+            
             return actions.order.capture().then((orderData) => {
                 console.log('PayPal Order Data:', orderData);
                 
@@ -319,6 +357,19 @@
                     console.log('Response data:', data);
                     if (status === 200 && data.success) {
                         showMessage('✅ Платеж прошел успешно!', 'success');
+                        
+                        // Track purchase event with order details
+                        trackGA4Event('purchase', {
+                            'currency': '{{ currency }}',
+                            'value': {{ amount }},
+                            'transaction_id': data.transaction_id || '',
+                            'items': [{
+                                'item_name': '{{ order_description }}',
+                                'quantity': 1,
+                                'price': {{ amount }}
+                            }]
+                        });
+                        
                         document.getElementById('payment-status').innerHTML = `
                             <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
                                 <div class="flex items-center gap-3 mb-4">

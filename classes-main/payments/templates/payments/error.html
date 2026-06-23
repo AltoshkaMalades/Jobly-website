@@ -129,4 +129,19 @@
         </div>
     </div>
 </main>
+
+<!-- GA4 Payment Failed Event Tracking -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof gtag !== 'undefined') {
+            // Track payment failure event
+            gtag('event', 'purchase_failed', {
+                'error_code': '{{ error_code|default:"unknown" }}',
+                'error_message': '{{ error_message|default:"Payment processing failed" }}',
+                'page_path': window.location.pathname,
+                'referrer': document.referrer
+            });
+        }
+    });
+</script>
 {% endblock %}

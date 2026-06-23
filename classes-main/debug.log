@@ -5990,3 +5990,67 @@ INFO 2026-06-18 10:43:37,160 autoreload 117000 141964 C:\Users\Altyn\Documents\G
 INFO 2026-06-18 10:43:38,177 autoreload 157836 4508 Watching for file changes with StatReloader
 INFO 2026-06-18 10:44:10,870 autoreload 157836 4508 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\urls.py changed, reloading.
 INFO 2026-06-18 10:44:11,938 autoreload 88988 157476 Watching for file changes with StatReloader
+INFO 2026-06-18 10:46:32,614 autoreload 88988 157476 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\payments\dashboard_views.py changed, reloading.
+INFO 2026-06-18 10:46:33,574 autoreload 126920 45860 Watching for file changes with StatReloader
+INFO 2026-06-18 10:54:22,316 autoreload 126920 45860 C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\core\middleware.py changed, reloading.
+INFO 2026-06-18 10:54:24,168 autoreload 160936 158636 Watching for file changes with StatReloader
+WARNING 2026-06-23 09:09:22,793 log 148784 185724 Bad Request: /api/payments/create/
+WARNING 2026-06-23 09:09:23,253 log 148784 185724 Not Found: /api/payments/orders/1/
+INFO 2026-06-23 09:09:27,902 views 148784 185724 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:09:27,967 views 148784 185724 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:09:29,037 log 148784 185724 Too Many Requests: /login/
+WARNING 2026-06-23 09:09:29,076 log 148784 185724 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-23 09:09:29,983 views 148784 185724 Доступ запрещен: oauth_test_user
+WARNING 2026-06-23 09:09:29,985 log 148784 185724 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+INFO 2026-06-23 09:09:32,325 views 148784 185724 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:09:35,557 views 148784 185724 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:13:42,579 log 182228 207336 Bad Request: /api/payments/create/
+WARNING 2026-06-23 09:13:43,030 log 182228 207336 Not Found: /api/payments/orders/1/
+INFO 2026-06-23 09:13:46,554 views 182228 207336 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:13:46,628 views 182228 207336 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:13:47,501 log 182228 207336 Too Many Requests: /login/
+WARNING 2026-06-23 09:13:47,519 log 182228 207336 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-23 09:13:48,229 views 182228 207336 Доступ запрещен: oauth_test_user
+WARNING 2026-06-23 09:13:48,230 log 182228 207336 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+INFO 2026-06-23 09:13:49,713 views 182228 207336 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:13:51,902 views 182228 207336 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:18:47,868 log 245652 226032 Bad Request: /api/payments/create/
+WARNING 2026-06-23 09:18:48,547 log 245652 226032 Not Found: /api/payments/orders/1/
+INFO 2026-06-23 09:18:53,124 views 245652 226032 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:18:53,241 views 245652 226032 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:18:54,282 log 245652 226032 Too Many Requests: /login/
+WARNING 2026-06-23 09:18:54,294 log 245652 226032 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-23 09:18:55,041 views 245652 226032 Доступ запрещен: oauth_test_user
+WARNING 2026-06-23 09:18:55,042 log 245652 226032 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+INFO 2026-06-23 09:18:56,740 views 245652 226032 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:18:58,931 views 245652 226032 Skip welcome email task dispatch in local/test mode.

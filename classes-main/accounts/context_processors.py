@@ -2,6 +2,8 @@
 Context processor to provide safe social account provider information to all templates.
 Handles MultipleObjectsReturned errors gracefully.
 """
+import os
+from core.analytics import is_ga4_enabled, get_ga4_measurement_id
 
 
 def social_providers(request):
@@ -40,3 +42,13 @@ def social_providers(request):
         pass
     
     return context
+
+
+def ga4_context(request):
+    """
+    Add Google Analytics 4 configuration to template context.
+    """
+    return {
+        'GA4_ENABLED': is_ga4_enabled(),
+        'GA4_MEASUREMENT_ID': get_ga4_measurement_id(),
+    }
