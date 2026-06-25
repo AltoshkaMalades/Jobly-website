@@ -209,10 +209,33 @@ def payment_stats(request):
 @require_GET
 def saas_metrics(request):
     """Show SaaS KPI metrics from subscription and payment history."""
+    # Call each metric query separately and continue rendering even if one fails.
+    errors = []
+    conversion = []
+    mrr = {}
+    churn = {}
+
     try:
-        conversion = conversion_rate_over_time()
-        mrr = current_active_mrr()
-        churn = rolling_30_day_churn()
+        try:
+            conversion = conversion_rate_over_time()
+        except Exception as e:
+            logger.exception("[DASHBOARD] conversion_rate_over_time() failed")
+            errors.append(f"conversion: {str(e)}")
+            conversion = []
+
+        try:
+            mrr = current_active_mrr()
+        except Exception as e:
+            logger.exception("[DASHBOARD] current_active_mrr() failed")
+            errors.append(f"mrr: {str(e)}")
+            mrr = {}
+
+        try:
+            churn = rolling_30_day_churn()
+        except Exception as e:
+            logger.exception("[DASHBOARD] rolling_30_day_churn() failed")
+            errors.append(f"churn: {str(e)}")
+            churn = {}
 
         revenue_at_start = float((churn.get('revenue_at_start_minor_units') or 0)) / 100.0
         churned_revenue = float((churn.get('churned_revenue_minor_units') or 0)) / 100.0
@@ -228,12 +251,13 @@ def saas_metrics(request):
             'churned_customer_count': churn.get('churned_customer_count') or 0,
             'start_customer_count': churn.get('start_customer_count') or 0,
             'end_customer_count': churn.get('end_customer_count') or 0,
+            'errors': errors,
         }
 
         return render(request, 'payments/saas_metrics.html', context)
 
     except Exception as e:
-        logger.error(f"[DASHBOARD] Error loading SaaS metrics: {str(e)}")
+        logger.exception(f"[DASHBOARD] Unexpected error loading SaaS metrics: {str(e)}")
         return render(request, 'payments/error.html', {
             'error': 'Failed to load SaaS metrics',
             'details': str(e)
