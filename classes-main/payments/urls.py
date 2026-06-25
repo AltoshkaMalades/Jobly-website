@@ -26,6 +26,7 @@ urlpatterns = [
     path('history/', dashboard_views.payment_history, name='payment_history'),
     path('orders/<int:order_id>/', dashboard_views.order_details, name='order_details'),
     path('stats/', dashboard_views.payment_stats, name='payment_stats'),
+    path('metrics/', dashboard_views.saas_metrics, name='saas_metrics'),
     
     # KPI Dashboard endpoints
     path('api/kpi/dashboard/', kpi.kpi_dashboard, name='kpi_dashboard'),

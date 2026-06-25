@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "SaaS Metrics" %} - JobAggregator{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">📈 {% trans "SaaS Business Metrics" %}</h1>
+            <p class="text-gray-300">{% trans "Conversion, MRR and churn insights from payment history." %}</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                <h2 class="text-lg font-semibold text-white mb-4">{% trans "Conversion Rate" %}</h2>
+                <p class="text-gray-300 mb-5">{% trans "Signups converting to paid subscribers within 30 days." %}</p>
+                <div class="space-y-3">
+                    {% for row in conversion_rate %}
+                    <div class="bg-slate-900/80 border border-slate-700 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-300">{{ row.signup_month }}</span>
+                            <span class="text-white font-bold">{{ row.conversion_rate_pct }}%</span>
+                        </div>
+                        <div class="text-sm text-slate-400">{{ row.paid_within_30_days }} / {{ row.signup_count }} {% trans "paid" %}</div>
+                    </div>
+                    {% empty %}
+                    <div class="text-gray-400">{% trans "No conversion data available yet." %}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                <h2 class="text-lg font-semibold text-white mb-4">{% trans "Monthly Recurring Revenue" %}</h2>
+                <div class="text-white text-5xl font-bold mb-3">${{ current_active_mrr|floatformat:2 }}</div>
+                <div class="text-slate-400">{{ active_subscribers }} {% trans "active subscribers" %}</div>
+            </div>
+
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                <h2 class="text-lg font-semibold text-white mb-4">{% trans "Rolling 30-Day Churn" %}</h2>
+                <div class="space-y-4">
+                    <div class="rounded-lg bg-slate-900/80 p-4">
+                        <div class="text-sm text-slate-400">{% trans "User churn" %}</div>
+                        <div class="text-white text-4xl font-bold">{{ user_churn_pct }}%</div>
+                    </div>
+                    <div class="rounded-lg bg-slate-900/80 p-4">
+                        <div class="text-sm text-slate-400">{% trans "Revenue churn" %}</div>
+                        <div class="text-white text-4xl font-bold">{{ revenue_churn_pct }}%</div>
+                    </div>
+                    <div class="text-slate-400 text-sm">{% trans "Churned" %} {{ churned_customer_count }} / {{ start_customer_count }} {% trans "prior customers" %}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                <h3 class="text-white text-xl font-semibold mb-4">{% trans "MRR & churn details" %}</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="rounded-lg bg-slate-900/80 p-4">
+                        <div class="text-slate-400 text-xs uppercase tracking-wide">{% trans "Start revenue" %}</div>
+                        <div class="text-white text-2xl font-bold">${{ revenue_at_start|floatformat:2 }}</div>
+                    </div>
+                    <div class="rounded-lg bg-slate-900/80 p-4">
+                        <div class="text-slate-400 text-xs uppercase tracking-wide">{% trans "Churned revenue" %}</div>
+                        <div class="text-white text-2xl font-bold">${{ churned_revenue|floatformat:2 }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                <h3 class="text-white text-xl font-semibold mb-4">{% trans "Actions" %}</h3>
+                <div class="space-y-3">
+                    <a href="{% url 'payments:payment_history' %}" class="block w-full rounded-lg bg-purple-600 px-4 py-3 text-center text-white font-semibold hover:bg-purple-700">{% trans "View Payment History" %}</a>
+                    <a href="{% url 'payments:payment_stats' %}" class="block w-full rounded-lg bg-slate-800 px-4 py-3 text-center text-slate-100 hover:bg-slate-700">{% trans "Back to Payment Stats" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

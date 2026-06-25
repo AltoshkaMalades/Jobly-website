@@ -11,6 +11,11 @@ from datetime import timedelta
 from django.utils import timezone
 
 from payments.models import Order, Transaction
+from payments.saas_metrics import (
+    conversion_rate_over_time,
+    current_active_mrr,
+    rolling_30_day_churn,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -196,5 +201,40 @@ def payment_stats(request):
         logger.error(f"[DASHBOARD] Error loading payment stats: {str(e)}")
         return render(request, 'payments/error.html', {
             'error': 'Error loading statistics',
+            'details': str(e)
+        }, status=500)
+
+
+@login_required
+@require_GET
+def saas_metrics(request):
+    """Show SaaS KPI metrics from subscription and payment history."""
+    try:
+        conversion = conversion_rate_over_time()
+        mrr = current_active_mrr()
+        churn = rolling_30_day_churn()
+
+        revenue_at_start = float((churn.get('revenue_at_start_minor_units') or 0)) / 100.0
+        churned_revenue = float((churn.get('churned_revenue_minor_units') or 0)) / 100.0
+
+        context = {
+            'conversion_rate': conversion,
+            'active_subscribers': mrr.get('active_subscribers', 0) or 0,
+            'current_active_mrr': float(mrr.get('current_active_mrr_major_units') or 0),
+            'user_churn_pct': churn.get('user_churn_pct') or 0,
+            'revenue_churn_pct': churn.get('revenue_churn_pct') or 0,
+            'revenue_at_start': revenue_at_start,
+            'churned_revenue': churned_revenue,
+            'churned_customer_count': churn.get('churned_customer_count') or 0,
+            'start_customer_count': churn.get('start_customer_count') or 0,
+            'end_customer_count': churn.get('end_customer_count') or 0,
+        }
+
+        return render(request, 'payments/saas_metrics.html', context)
+
+    except Exception as e:
+        logger.error(f"[DASHBOARD] Error loading SaaS metrics: {str(e)}")
+        return render(request, 'payments/error.html', {
+            'error': 'Failed to load SaaS metrics',
             'details': str(e)
         }, status=500)
