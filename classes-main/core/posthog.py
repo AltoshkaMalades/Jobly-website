@@ -32,11 +32,20 @@ def get_posthog_client():
         api_url = os.environ.get('POSTHOG_API_URL', 'https://app.posthog.com')
         
         if api_key:
-            _posthog_client = Posthog(
-                api_key=api_key,
-                host=api_url,
-                debug=os.environ.get('DEBUG', 'False').lower() == 'true',
-            )
+            try:
+                # Try modern constructor signature
+                _posthog_client = Posthog(
+                    api_key=api_key,
+                    host=api_url,
+                    debug=os.environ.get('DEBUG', 'False').lower() == 'true',
+                )
+            except TypeError:
+                try:
+                    # Fallback: older signature Posthog(api_key, host=...)
+                    _posthog_client = Posthog(api_key, host=api_url)
+                except Exception:
+                    # Last resort: try positional arguments
+                    _posthog_client = Posthog(api_key, api_url)
             logger.info("PostHog client initialized")
         else:
             logger.warning("POSTHOG_API_KEY not configured - analytics disabled")

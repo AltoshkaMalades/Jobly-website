@@ -19,7 +19,6 @@ from django.urls import path, include
 from django.conf import settings
 from .views import health_check
 from accounts.views import home_page
-from django.urls import include
 
 urlpatterns = [
     # 1. Root home page
@@ -30,6 +29,7 @@ urlpatterns = [
     # 2. Админка
     path('admin/', admin.site.urls),
     path('health/', health_check, name='health'),
+    path('metrics/', include('core.urls_metrics')),
     
     # 3. All accounts routes (login, register, profile, jobs, etc.) under /accounts/ prefix
     path('accounts/', include('accounts.urls')),

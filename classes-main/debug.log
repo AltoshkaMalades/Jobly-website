@@ -6054,3 +6054,32 @@ Traceback (most recent call last):
 django.core.exceptions.PermissionDenied
 INFO 2026-06-23 09:18:56,740 views 245652 226032 Skip welcome email task dispatch in local/test mode.
 INFO 2026-06-23 09:18:58,931 views 245652 226032 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:28:41,558 log 231944 245888 Bad Request: /api/payments/create/
+WARNING 2026-06-23 09:28:41,996 log 231944 245888 Not Found: /api/payments/orders/1/
+INFO 2026-06-23 09:28:46,006 views 231944 245888 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:28:46,090 views 231944 245888 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-06-23 09:28:47,053 log 231944 245888 Too Many Requests: /login/
+WARNING 2026-06-23 09:28:47,098 log 231944 245888 Not Found: /accounts/accounts/google/login/
+WARNING 2026-06-23 09:28:48,268 views 231944 245888 Доступ запрещен: oauth_test_user
+WARNING 2026-06-23 09:28:48,269 log 231944 245888 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+INFO 2026-06-23 09:28:49,910 views 231944 245888 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-23 09:28:53,262 views 231944 245888 Skip welcome email task dispatch in local/test mode.
+INFO 2026-06-29 22:34:22,430 adapters 303632 285392 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-06-29 22:34:22,431 adapters 303632 285392 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-06-29 22:34:22,432 adapters 303632 285392 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-06-29 22:37:59,675 adapters 308164 297288 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-06-29 22:37:59,677 adapters 308164 297288 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-06-29 22:37:59,677 adapters 308164 297288 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-06-29 22:38:50,739 adapters 304736 299512 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-06-29 22:38:50,740 adapters 304736 299512 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-06-29 22:38:50,740 adapters 304736 299512 [ORM Patch] Applied patch to QuerySet.get()

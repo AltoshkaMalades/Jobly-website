@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'core.middleware.SecurityHeadersMiddleware',
+    'core.logging.RequestContextMiddleware',
+    'core.middleware_metrics.PrometheusMetricsMiddleware',
     'accounts.middleware.EndpointRateLimitMiddleware',
     'accounts.oauth_middleware.SocialAppDuplicateHandlerMiddleware',  # Handle MultipleObjectsReturned errors
     'django.middleware.common.CommonMiddleware',
@@ -156,10 +158,18 @@ if not DEBUG:
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'filters': {
+        'request_context': {
+            '()': 'core.logging.RequestContextFilter',
+        },
+    },
     'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
             'style': '{',
+        },
+        'json': {
+            '()': 'core.logging.JsonFormatter',
         },
     },
     'handlers': {
@@ -169,10 +179,22 @@ LOGGING = {
             'filename': os.path.join(BASE_DIR, 'debug.log'),
             'formatter': 'verbose',
         },
+        'json_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.json.log'),
+            'formatter': 'json',
+            'filters': ['request_context'],
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'json_file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        '': {
+            'handlers': ['file', 'json_file'],
             'level': 'INFO',
             'propagate': True,
         },
