@@ -113,7 +113,7 @@ services:
   # GRAFANA (dashboard and alerts)
   # ============================================================================
   grafana:
-    image: grafana/grafana:10.5.0
+    image: grafana/grafana:latest
     container_name: simulator-grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
