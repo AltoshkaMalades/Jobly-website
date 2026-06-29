@@ -6,7 +6,7 @@ from django.views.decorators.http import require_GET
 from django.http import JsonResponse
 from django.conf import settings
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,6 +23,7 @@ def monitoring_dashboard(request):
         'grafana_url': settings.GRAFANA_URL,
         'prometheus_url': settings.PROMETHEUS_URL,
         'locust_url': settings.LOCUST_URL,
+        'raw_metrics_url': '/metrics/raw/',
     }
     return render(request, 'monitoring_dashboard.html', context)
 
@@ -33,10 +34,8 @@ def api_metrics_summary(request):
     API endpoint для получения сводки метрик в JSON
     """
     try:
-        from prometheus_client import CollectorRegistry, generate_latest
         from core.metrics import REQUEST_COUNT, REQUEST_DURATION_SECONDS, REQUEST_EXCEPTIONS
         
-        # Собрать текущие значения метрик
         metrics_data = {
             'timestamp': datetime.now().isoformat(),
             'services': {
@@ -179,12 +178,23 @@ def get_counter_value(counter):
 def get_histogram_average(histogram):
     """Получить среднее значение из гистограммы"""
     try:
-        # Примерный расчет среднего
         sum_value = histogram._sum.get()
-        count = histogram._created.get() or 1
+        count = histogram._count.get()
         return sum_value / count if count > 0 else 0
     except Exception:
-        return 0
+        try:
+            # Fallback from collected samples if internals change
+            total = 0
+            count = 0
+            for metric in histogram.collect():
+                for sample in metric.samples:
+                    if sample.name.endswith('_sum'):
+                        total = sample.value
+                    elif sample.name.endswith('_count'):
+                        count = sample.value
+            return total / count if count > 0 else 0
+        except Exception:
+            return 0
 
 
 def get_endpoint_metrics():

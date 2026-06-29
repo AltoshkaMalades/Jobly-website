@@ -116,3 +116,29 @@ def test_request_context_filter_and_json_formatter():
 
     core_logging.clear_request_context()
     assert core_logging.get_request_context() == {}
+
+
+def test_monitoring_dashboard_page_renders(client):
+    response = client.get(reverse('monitoring-dashboard'))
+
+    assert response.status_code == 200
+    assert b'Monitoring Dashboard' in response.content
+    assert b'Quick Links' in response.content
+
+
+def test_monitoring_dashboard_api_endpoints_return_json(client):
+    response_metrics = client.get(reverse('api-metrics'))
+    response_health = client.get(reverse('api-health'))
+    response_logs = client.get(reverse('api-logs'))
+
+    assert response_metrics.status_code == 200
+    assert response_metrics['Content-Type'].startswith('application/json')
+    assert 'metrics' in response_metrics.json()
+
+    assert response_health.status_code == 200
+    assert response_health['Content-Type'].startswith('application/json')
+    assert 'services' in response_health.json()
+
+    assert response_logs.status_code == 200
+    assert response_logs['Content-Type'].startswith('application/json')
+    assert 'logs' in response_logs.json()

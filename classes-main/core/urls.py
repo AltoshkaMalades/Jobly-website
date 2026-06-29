@@ -29,8 +29,8 @@ urlpatterns = [
     # 2. Админка
     path('admin/', admin.site.urls),
     path('health/', health_check, name='health'),
-    path('metrics/', include('core.urls_metrics')),
-    path('api/monitoring/', include('core.urls_monitoring_dashboard')),
+    path('metrics/raw/', include('core.urls_metrics')),
+    path('metrics/', include('core.urls_monitoring_dashboard')),
     
     # 3. All accounts routes (login, register, profile, jobs, etc.) under /accounts/ prefix
     path('accounts/', include('accounts.urls')),

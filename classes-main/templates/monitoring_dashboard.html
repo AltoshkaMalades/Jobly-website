@@ -447,7 +447,7 @@
                 {% if locust_url %}
                     <a href="{{ locust_url }}" target="_blank" class="link-button">⚡ Locust Load Test</a>
                 {% endif %}
-                <a href="/metrics/" target="_blank" class="link-button">📡 Raw Metrics</a>
+                <a href="{{ raw_metrics_url }}" target="_blank" class="link-button">📡 Raw Metrics</a>
             </div>
             {% if not grafana_url and not prometheus_url and not locust_url %}
             <p style="color: #7f8c8d; margin-top: 10px;">Monitoring service URLs not configured. Set GRAFANA_URL, PROMETHEUS_URL, or LOCUST_URL.</p>
@@ -468,7 +468,7 @@
             <p>Simulator Backend Monitoring Dashboard • Auto-refresh every 30 seconds</p>
             <p style="font-size: 0.8em; margin-top: 10px;">
                 Documentation: 
-                <a href="/api/monitoring/" style="color: rgba(255,255,255,0.9); text-decoration: underline;">API Endpoints</a>
+                <a href="api/metrics/" style="color: rgba(255,255,255,0.9); text-decoration: underline;">API Endpoints</a>
             </p>
         </footer>
     </div>
@@ -476,6 +476,7 @@
     <script>
         // Auto-refresh interval
         const REFRESH_INTERVAL = 30000; // 30 seconds
+        const DASHBOARD_BASE = window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/';
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -500,7 +501,7 @@
         // Fetch and display metrics
         async function refreshMetrics() {
             try {
-                const response = await fetch('/api/monitoring/metrics/');
+                const response = await fetch(`${DASHBOARD_BASE}api/metrics/`);
                 const data = await response.json();
 
                 // Update request rate
@@ -527,7 +528,7 @@
         // Fetch and display health
         async function refreshHealth() {
             try {
-                const response = await fetch('/api/monitoring/health/');
+                const response = await fetch(`${DASHBOARD_BASE}api/health/`);
                 const data = await response.json();
 
                 // Update overall status
@@ -556,12 +557,12 @@
         }
 
         // Fetch and display logs
-        async function refreshLogs() {
+        async function fetchRecentLogs() {
             const logsList = document.getElementById('logs-list');
             logsList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
 
             try {
-                const response = await fetch('/api/monitoring/logs/');
+                const response = await fetch(`${DASHBOARD_BASE}api/logs/`);
                 const data = await response.json();
 
                 if (data.logs && data.logs.length > 0) {
@@ -613,33 +614,7 @@
             const logsList = document.getElementById('logs-list');
             logsList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
 
-            fetch('/api/monitoring/logs/')
-                .then(r => r.json())
-                .then(data => {
-                    if (data.logs && data.logs.length > 0) {
-                        const logsHtml = data.logs
-                            .slice(0, 20)
-                            .map(log => `
-                                <div class="log-entry">
-                                    <div class="log-timestamp">${log.timestamp || '--'}</div>
-                                    <div>
-                                        <span class="log-level ${log.level || 'INFO'}">${log.level || 'INFO'}</span>
-                                        <span style="color: #2a5298; font-weight: 600;">${log.logger || 'system'}</span>
-                                    </div>
-                                    <div class="log-message">${log.message || ''}</div>
-                                    ${log.request_id ? `<div class="log-context">
-                                        Request ID: ${log.request_id} | User: ${log.user || 'N/A'} | Path: ${log.path || 'N/A'} | Method: ${log.method || 'N/A'}
-                                    </div>` : ''}
-                                </div>
-                            `)
-                            .join('');
-                        logsList.innerHTML = logsHtml;
-                    }
-                    updateTimestamp();
-                })
-                .catch(() => {
-                    logsList.innerHTML = '<div class="log-entry" style="border-left-color: #e74c3c;">Error loading logs</div>';
-                });
+            fetchRecentLogs();
         }
     </script>
 </body>
