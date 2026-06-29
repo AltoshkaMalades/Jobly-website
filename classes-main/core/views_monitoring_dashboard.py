@@ -4,6 +4,7 @@ Monitoring Dashboard - единая страница со всеми метри�
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
 from django.http import JsonResponse
+from django.conf import settings
 import json
 from datetime import datetime, timedelta
 import logging
@@ -19,6 +20,9 @@ def monitoring_dashboard(request):
     context = {
         'title': 'Monitoring Dashboard',
         'current_time': datetime.now().isoformat(),
+        'grafana_url': settings.GRAFANA_URL,
+        'prometheus_url': settings.PROMETHEUS_URL,
+        'locust_url': settings.LOCUST_URL,
     }
     return render(request, 'monitoring_dashboard.html', context)
 
@@ -71,16 +75,16 @@ def api_health_status(request):
         'url': 'http://localhost:8000',
     }
     
-    # Проверить Prometheus (если в Docker)
+    # Проверить Prometheus
     health['services']['prometheus'] = {
-        'status': check_service_status('http://localhost:9090/-/healthy'),
-        'url': 'http://localhost:9090',
+        'status': check_service_status(settings.PROMETHEUS_HEALTH_URL),
+        'url': settings.PROMETHEUS_URL,
     }
     
-    # Проверить Grafana (если в Docker)
+    # Проверить Grafana
     health['services']['grafana'] = {
-        'status': check_service_status('http://localhost:3000/api/health'),
-        'url': 'http://localhost:3000',
+        'status': check_service_status(settings.GRAFANA_HEALTH_URL),
+        'url': settings.GRAFANA_URL,
     }
     
     # Определить общий статус
