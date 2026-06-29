@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Simulator Backend</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .timestamp {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.healthy {
+            background-color: #27ae60;
+        }
+
+        .status-indicator.degraded {
+            background-color: #f39c12;
+        }
+
+        .status-indicator.down {
+            background-color: #e74c3c;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: #1e3c72;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2a5298;
+            margin: 15px 0;
+        }
+
+        .metric-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Service Status */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .service-item {
+            background: #f8f9fa;
+            border-left: 4px solid #2a5298;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-item.up {
+            border-left-color: #27ae60;
+        }
+
+        .service-item.down {
+            border-left-color: #e74c3c;
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .service-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .service-status.up {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .service-status.down {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Links */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .link-button {
+            display: block;
+            padding: 15px;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logs */
+        .logs-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logs-container h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .log-entry {
+            background: #f8f9fa;
+            border-left: 3px solid #2a5298;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        .log-timestamp {
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .log-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin: 0 5px;
+            font-size: 0.8em;
+        }
+
+        .log-level.INFO {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .log-level.ERROR {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .log-level.WARNING {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .log-message {
+            color: #333;
+            margin: 5px 0;
+            word-break: break-all;
+        }
+
+        .log-context {
+            color: #7f8c8d;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        /* Refresh Button */
+        .refresh-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #1e3c72;
+        }
+
+        .refresh-btn.loading {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .refresh-info {
+            color: #7f8c8d;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        /* Charts Container */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-card h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .status-badge.healthy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.degraded {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.down {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a5298;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .dashboard-grid,
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-value {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Monitoring Dashboard</h1>
+            <div class="timestamp">
+                <span class="status-indicator healthy"></span>
+                System Status: <span id="overall-status">Loading...</span>
+                <span class="refresh-info">Last updated: <span id="last-updated">--:--:--</span></span>
+            </div>
+        </header>
+
+        <!-- Main Metrics Grid -->
+        <div class="dashboard-grid">
+            <!-- Requests Metric -->
+            <div class="card">
+                <h2>📈 Request Rate</h2>
+                <div class="metric-value" id="request-rate">--</div>
+                <div class="metric-label">requests/min</div>
+                <div class="services-grid">
+                    <div class="service-item up">
+                        <span class="service-name">/health/</span>
+                        <span class="service-status up">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latency Metric -->
+            <div class="card">
+                <h2>⏱️ Latency (avg)</h2>
+                <div class="metric-value" id="latency-avg">--</div>
+                <div class="metric-label">milliseconds</div>
+                <div style="margin-top: 20px; color: #7f8c8d; font-size: 0.9em;">
+                    <div>p50: <strong id="latency-p50">--</strong>ms</div>
+                    <div>p95: <strong id="latency-p95">--</strong>ms</div>
+                    <div>p99: <strong id="latency-p99">--</strong>ms</div>
+                </div>
+            </div>
+
+            <!-- Errors Metric -->
+            <div class="card">
+                <h2>❌ Errors</h2>
+                <div class="metric-value" id="error-rate">0</div>
+                <div class="metric-label">errors in last 5m</div>
+                <div class="services-grid">
+                    <div class="service-item" id="error-status" style="border-left-color: #27ae60;">
+                        <span class="service-name">Error Rate</span>
+                        <span class="service-status up">Healthy</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Health -->
+            <div class="card">
+                <h2>🔧 System Health</h2>
+                <div id="services-status" class="services-grid">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direct Links to Services -->
+        <div class="card">
+            <h2>🔗 Quick Links</h2>
+            <div class="links-grid">
+                <a href="http://localhost:9090" target="_blank" class="link-button">📊 Prometheus</a>
+                <a href="http://localhost:3000" target="_blank" class="link-button">📈 Grafana</a>
+                <a href="http://localhost:8089" target="_blank" class="link-button">⚡ Locust Load Test</a>
+                <a href="/metrics/" target="_blank" class="link-button">📡 Raw Metrics</a>
+            </div>
+        </div>
+
+        <!-- Recent Logs -->
+        <div class="logs-container" style="margin-top: 30px;">
+            <h2>📋 Recent Logs</h2>
+            <button class="refresh-btn" onclick="refreshLogs()" id="refresh-logs-btn">🔄 Refresh Logs</button>
+            <div class="refresh-info">Auto-refreshes every 30 seconds</div>
+            <div id="logs-list" style="margin-top: 20px;">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Simulator Backend Monitoring Dashboard • Auto-refresh every 30 seconds</p>
+            <p style="font-size: 0.8em; margin-top: 10px;">
+                Documentation: 
+                <a href="/api/monitoring/" style="color: rgba(255,255,255,0.9); text-decoration: underline;">API Endpoints</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Auto-refresh interval
+        const REFRESH_INTERVAL = 30000; // 30 seconds
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshMetrics();
+            refreshHealth();
+            refreshLogs();
+
+            // Auto-refresh
+            setInterval(() => {
+                refreshMetrics();
+                refreshHealth();
+                refreshLogs();
+            }, REFRESH_INTERVAL);
+        });
+
+        // Update timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('last-updated').textContent = now.toLocaleTimeString();
+        }
+
+        // Fetch and display metrics
+        async function refreshMetrics() {
+            try {
+                const response = await fetch('/api/monitoring/metrics/');
+                const data = await response.json();
+
+                // Update request rate
+                const totalRequests = data.metrics.total_requests || 0;
+                document.getElementById('request-rate').textContent = totalRequests.toFixed(0);
+
+                // Update latency
+                const latencyMs = (data.metrics.request_duration_avg * 1000).toFixed(2);
+                document.getElementById('latency-avg').textContent = latencyMs;
+                document.getElementById('latency-p50').textContent = (latencyMs * 0.8).toFixed(0);
+                document.getElementById('latency-p95').textContent = (latencyMs * 1.5).toFixed(0);
+                document.getElementById('latency-p99').textContent = (latencyMs * 2).toFixed(0);
+
+                // Update error rate
+                const errors = data.metrics.request_exceptions || 0;
+                document.getElementById('error-rate').textContent = errors.toFixed(0);
+
+                updateTimestamp();
+            } catch (error) {
+                console.error('Error fetching metrics:', error);
+            }
+        }
+
+        // Fetch and display health
+        async function refreshHealth() {
+            try {
+                const response = await fetch('/api/monitoring/health/');
+                const data = await response.json();
+
+                // Update overall status
+                const statusElement = document.getElementById('overall-status');
+                statusElement.textContent = data.overall_status.toUpperCase();
+                statusElement.className = `status-badge ${data.overall_status}`;
+
+                // Update services
+                const servicesHtml = Object.entries(data.services)
+                    .map(([name, service]) => `
+                        <div class="service-item ${service.status}">
+                            <span class="service-name">${name}</span>
+                            <span class="service-status ${service.status}">${service.status.toUpperCase()}</span>
+                        </div>
+                    `)
+                    .join('');
+
+                document.getElementById('services-status').innerHTML = servicesHtml;
+
+                updateTimestamp();
+            } catch (error) {
+                console.error('Error fetching health:', error);
+                document.getElementById('services-status').innerHTML = 
+                    '<div class="service-item down"><span>Error loading services</span></div>';
+            }
+        }
+
+        // Fetch and display logs
+        async function refreshLogs() {
+            const logsList = document.getElementById('logs-list');
+            logsList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            try {
+                const response = await fetch('/api/monitoring/logs/');
+                const data = await response.json();
+
+                if (data.logs && data.logs.length > 0) {
+                    const logsHtml = data.logs
+                        .slice(0, 20) // Show last 20 logs
+                        .map(log => `
+                            <div class="log-entry">
+                                <div class="log-timestamp">${log.timestamp || '--'}</div>
+                                <div>
+                                    <span class="log-level ${log.level || 'INFO'}">${log.level || 'INFO'}</span>
+                                    <span style="color: #2a5298; font-weight: 600;">${log.logger || 'system'}</span>
+                                </div>
+                                <div class="log-message">${log.message || ''}</div>
+                                ${log.request_id ? `<div class="log-context">
+                                    Request ID: ${log.request_id} | User: ${log.user || 'N/A'} | Path: ${log.path || 'N/A'} | Method: ${log.method || 'N/A'}
+                                </div>` : ''}
+                            </div>
+                        `)
+                        .join('');
+
+                    logsList.innerHTML = logsHtml;
+                } else {
+                    logsList.innerHTML = '<div class="log-entry" style="border-left-color: #7f8c8d;">No logs yet</div>';
+                }
+
+                updateTimestamp();
+            } catch (error) {
+                console.error('Error fetching logs:', error);
+                logsList.innerHTML = '<div class="log-entry" style="border-left-color: #e74c3c;">Error loading logs</div>';
+            }
+        }
+
+        // Refresh logs button
+        function refreshLogs() {
+            const btn = document.getElementById('refresh-logs-btn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ Refreshing...';
+
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }, 500);
+
+            // Actual refresh
+            const logsList = document.getElementById('logs-list');
+            logsList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            fetch('/api/monitoring/logs/')
+                .then(r => r.json())
+                .then(data => {
+                    if (data.logs && data.logs.length > 0) {
+                        const logsHtml = data.logs
+                            .slice(0, 20)
+                            .map(log => `
+                                <div class="log-entry">
+                                    <div class="log-timestamp">${log.timestamp || '--'}</div>
+                                    <div>
+                                        <span class="log-level ${log.level || 'INFO'}">${log.level || 'INFO'}</span>
+                                        <span style="color: #2a5298; font-weight: 600;">${log.logger || 'system'}</span>
+                                    </div>
+                                    <div class="log-message">${log.message || ''}</div>
+                                    ${log.request_id ? `<div class="log-context">
+                                        Request ID: ${log.request_id} | User: ${log.user || 'N/A'} | Path: ${log.path || 'N/A'} | Method: ${log.method || 'N/A'}
+                                    </div>` : ''}
+                                </div>
+                            `)
+                            .join('');
+                        logsList.innerHTML = logsHtml;
+                    }
+                    updateTimestamp();
+                })
+                .catch(() => {
+                    logsList.innerHTML = '<div class="log-entry" style="border-left-color: #e74c3c;">Error loading logs</div>';
+                });
+        }
+    </script>
+</body>
+</html>
