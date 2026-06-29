@@ -76,16 +76,28 @@ def api_health_status(request):
     }
     
     # Проверить Prometheus
-    health['services']['prometheus'] = {
-        'status': check_service_status(settings.PROMETHEUS_HEALTH_URL),
-        'url': settings.PROMETHEUS_URL,
-    }
+    if settings.PROMETHEUS_URL:
+        health['services']['prometheus'] = {
+            'status': check_service_status(settings.PROMETHEUS_HEALTH_URL),
+            'url': settings.PROMETHEUS_URL,
+        }
+    else:
+        health['services']['prometheus'] = {
+            'status': 'unknown',
+            'url': '',
+        }
     
     # Проверить Grafana
-    health['services']['grafana'] = {
-        'status': check_service_status(settings.GRAFANA_HEALTH_URL),
-        'url': settings.GRAFANA_URL,
-    }
+    if settings.GRAFANA_URL:
+        health['services']['grafana'] = {
+            'status': check_service_status(settings.GRAFANA_HEALTH_URL),
+            'url': settings.GRAFANA_URL,
+        }
+    else:
+        health['services']['grafana'] = {
+            'status': 'unknown',
+            'url': '',
+        }
     
     # Определить общий статус
     if any(s.get('status') == 'down' for s in health['services'].values()):

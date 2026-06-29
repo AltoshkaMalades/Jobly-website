@@ -438,11 +438,20 @@
         <div class="card">
             <h2>🔗 Quick Links</h2>
             <div class="links-grid">
-                <a href="{{ grafana_url }}" target="_blank" class="link-button">📈 Grafana</a>
-                <a href="{{ prometheus_url }}" target="_blank" class="link-button">📊 Prometheus</a>
-                <a href="{{ locust_url }}" target="_blank" class="link-button">⚡ Locust Load Test</a>
+                {% if grafana_url %}
+                    <a href="{{ grafana_url }}" target="_blank" class="link-button">📈 Grafana</a>
+                {% endif %}
+                {% if prometheus_url %}
+                    <a href="{{ prometheus_url }}" target="_blank" class="link-button">📊 Prometheus</a>
+                {% endif %}
+                {% if locust_url %}
+                    <a href="{{ locust_url }}" target="_blank" class="link-button">⚡ Locust Load Test</a>
+                {% endif %}
                 <a href="/metrics/" target="_blank" class="link-button">📡 Raw Metrics</a>
             </div>
+            {% if not grafana_url and not prometheus_url and not locust_url %}
+            <p style="color: #7f8c8d; margin-top: 10px;">Monitoring service URLs not configured. Set GRAFANA_URL, PROMETHEUS_URL, or LOCUST_URL.</p>
+            {% endif %}
         </div>
 
         <!-- Recent Logs -->

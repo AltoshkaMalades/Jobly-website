@@ -105,11 +105,11 @@ REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
 REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
 # Monitoring service URLs (production / staging)
-GRAFANA_URL = os.environ.get('GRAFANA_URL', 'https://grafana.jobly.kz')
-PROMETHEUS_URL = os.environ.get('PROMETHEUS_URL', 'https://prometheus.jobly.kz')
-LOCUST_URL = os.environ.get('LOCUST_URL', 'https://locust.jobly.kz')
-PROMETHEUS_HEALTH_URL = os.environ.get('PROMETHEUS_HEALTH_URL', f"{PROMETHEUS_URL}/-/healthy")
-GRAFANA_HEALTH_URL = os.environ.get('GRAFANA_HEALTH_URL', f"{GRAFANA_URL}/api/health")
+GRAFANA_URL = os.environ.get('GRAFANA_URL', '')
+PROMETHEUS_URL = os.environ.get('PROMETHEUS_URL', '')
+LOCUST_URL = os.environ.get('LOCUST_URL', '')
+PROMETHEUS_HEALTH_URL = os.environ.get('PROMETHEUS_HEALTH_URL', f"{PROMETHEUS_URL}/-/healthy") if PROMETHEUS_URL else ''
+GRAFANA_HEALTH_URL = os.environ.get('GRAFANA_HEALTH_URL', f"{GRAFANA_URL}/api/health") if GRAFANA_URL else ''
 
 # Default to in-memory cache for local test runs unless explicitly forcing Redis.
 if os.environ.get('FORCE_REDIS') == '1':
