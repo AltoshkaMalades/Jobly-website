@@ -142,3 +142,19 @@ def test_monitoring_dashboard_api_endpoints_return_json(client):
     assert response_logs.status_code == 200
     assert response_logs['Content-Type'].startswith('application/json')
     assert 'logs' in response_logs.json()
+
+
+def test_monitoring_health_returns_unknown_when_urls_not_configured(settings, client):
+    settings.PROMETHEUS_URL = ''
+    settings.GRAFANA_URL = ''
+    settings.PROMETHEUS_HEALTH_URL = ''
+    settings.GRAFANA_HEALTH_URL = ''
+
+    response = client.get(reverse('api-health'))
+    data = response.json()
+
+    assert response.status_code == 200
+    assert data['services']['django']['status'] == 'up'
+    assert data['services']['prometheus']['status'] == 'unknown'
+    assert data['services']['grafana']['status'] == 'unknown'
+    assert data['overall_status'] == 'healthy'

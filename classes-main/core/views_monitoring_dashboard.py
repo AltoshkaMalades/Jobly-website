@@ -75,9 +75,14 @@ def api_health_status(request):
     }
     
     # Проверить Prometheus
-    if settings.PROMETHEUS_URL:
+    if settings.PROMETHEUS_URL and settings.PROMETHEUS_HEALTH_URL:
         health['services']['prometheus'] = {
             'status': check_service_status(settings.PROMETHEUS_HEALTH_URL),
+            'url': settings.PROMETHEUS_URL,
+        }
+    elif settings.PROMETHEUS_URL:
+        health['services']['prometheus'] = {
+            'status': 'unknown',
             'url': settings.PROMETHEUS_URL,
         }
     else:
@@ -87,9 +92,14 @@ def api_health_status(request):
         }
     
     # Проверить Grafana
-    if settings.GRAFANA_URL:
+    if settings.GRAFANA_URL and settings.GRAFANA_HEALTH_URL:
         health['services']['grafana'] = {
             'status': check_service_status(settings.GRAFANA_HEALTH_URL),
+            'url': settings.GRAFANA_URL,
+        }
+    elif settings.GRAFANA_URL:
+        health['services']['grafana'] = {
+            'status': 'unknown',
             'url': settings.GRAFANA_URL,
         }
     else:
