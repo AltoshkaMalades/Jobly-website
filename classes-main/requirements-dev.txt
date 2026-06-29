@@ -1,0 +1,19 @@
+# Development dependencies - not needed in production Docker container
+-r requirements.txt
+
+# Load testing
+locust==2.10.2
+
+# Testing utilities
+faker==24.0.0
+factory-boy==3.3.0
+
+# Code quality
+black==24.1.1
+flake8==7.0.0
+isort==5.13.2
+pylint==3.0.3
+
+# Debugging
+django-debug-toolbar==4.2.0
+ipython==8.20.0

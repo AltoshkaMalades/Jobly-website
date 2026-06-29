@@ -37,4 +37,3 @@ python-dotenv==1.2.2
 django-allauth==0.60.0
 posthog==3.0.2
 prometheus-client==0.16.0
-locust==2.10.2
