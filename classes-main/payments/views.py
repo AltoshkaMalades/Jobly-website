@@ -17,6 +17,7 @@ from payments.models import Order, Transaction
 from payments.services.service import PaymentService
 from payments.services.bereke import BereкeBankClient
 from payments.services.paypal import PayPalClient
+from payments.services.base import PaymentClientError
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +85,15 @@ def create_payment(request):
         else:
             return JsonResponse(result, status=400)
     
+    except PaymentClientError as e:
+        logger.error(f"Payment provider error: {str(e)}")
+        error_message = str(e)
+        lowered_error = error_message.lower()
+        if any(keyword in lowered_error for keyword in ['insufficient', 'funds', 'balance', 'declined', 'rejected', 'failed', 'cancelled', 'canceled']):
+            error_message = 'Платеж не прошёл. Проверьте доступный баланс или способ оплаты и повторите попытку.'
+        else:
+            error_message = f'Платеж не прошёл: {error_message}'
+        return JsonResponse({'error': error_message}, status=502)
     except ValueError as e:
         logger.error(f"Payment creation error: {str(e)}")
         return JsonResponse({'error': str(e)}, status=400)

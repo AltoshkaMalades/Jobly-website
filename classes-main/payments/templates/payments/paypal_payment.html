@@ -274,6 +274,17 @@
     const csrftoken = getCookie('csrftoken');
 
     // Функция для отображения сообщений
+    function getFriendlyPaymentError(error) {
+        const errorText = (error || '').toString();
+        const loweredError = errorText.toLowerCase();
+
+        if (['insufficient', 'funds', 'balance', 'declined', 'rejected', 'failed', 'cancelled', 'canceled'].some(keyword => loweredError.includes(keyword))) {
+            return 'Платеж не прошёл. Проверьте доступный баланс или способ оплаты и повторите попытку.';
+        }
+
+        return errorText || 'Неизвестная ошибка';
+    }
+
     function showMessage(message, type = 'info') {
         const messagesDiv = document.getElementById('messages');
         const messageDiv = document.createElement('div');
@@ -392,14 +403,14 @@
                         document.getElementById('payment-status').classList.remove('hidden');
                         document.getElementById('paypal-button-container').style.display = 'none';
                     } else {
-                        const errorMsg = data.error || 'Неизвестная ошибка';
+                        const errorMsg = getFriendlyPaymentError(data.error || 'Неизвестная ошибка');
                         console.error('API Error:', errorMsg);
-                        showMessage('❌ Ошибка: ' + errorMsg, 'error');
+                        showMessage('❌ ' + errorMsg, 'error');
                     }
                 })
                 .catch(error => {
                     console.error('Fetch Error:', error);
-                    showMessage('❌ Ошибка при обработке платежа: ' + error.message, 'error');
+                    showMessage('❌ ' + getFriendlyPaymentError(error.message || 'Ошибка при обработке платежа'), 'error');
                 });
             });
         },
@@ -407,7 +418,7 @@
         // Обработка ошибок
         onError: (err) => {
             console.error('PayPal Error:', err);
-            showMessage('❌ Ошибка PayPal: ' + err.message, 'error');
+            showMessage('❌ ' + getFriendlyPaymentError(err.message || 'Ошибка PayPal'), 'error');
         },
 
         // Обработка отмены

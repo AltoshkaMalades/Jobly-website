@@ -10,6 +10,7 @@ from django.urls import reverse
 
 from accounts.models import Profile
 from payments.models import Order, Transaction
+from payments.services.base import PaymentClientError
 
 
 @pytest.mark.django_db
@@ -70,6 +71,26 @@ class TestPaymentAPI(TestCase):
         assert response.status_code == 400
         data = response.json()
         assert 'error' in data
+
+    @patch('payments.services.service.PaymentService.create_payment')
+    def test_create_payment_returns_provider_error_message(self, mock_create_payment):
+        """PayPal sandbox/provider failures should be surfaced clearly instead of showing a generic internal server error."""
+        mock_create_payment.side_effect = PaymentClientError('PayPal sandbox rejected the payment: insufficient funds')
+
+        response = self.client.post(
+            '/api/payments/create/',
+            data=json.dumps({
+                'amount': 10000,
+                'currency': 'USD',
+                'description': 'Premium subscription',
+                'provider': 'paypal'
+            }),
+            content_type='application/json'
+        )
+
+        assert response.status_code == 502
+        data = response.json()
+        assert 'баланс' in data['error'].lower() or 'способ оплаты' in data['error'].lower()
     
     def test_create_payment_unauthenticated(self):
         """Test payment creation requires authentication."""
