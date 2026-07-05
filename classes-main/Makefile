@@ -54,3 +54,11 @@ migrate:
 makemigrations:
 	@echo "📝 Making database migrations..."
 	@powershell -Command "& .\envir\Scripts\Activate.ps1; python manage.py makemigrations"
+
+backup-db:
+	@echo "💾 Creating database backup..."
+	@powershell -Command "& .\backup.sh"
+
+deploy-check:
+	@echo "🔎 Running deployment checks..."
+	@powershell -Command "& .\envir\Scripts\Activate.ps1; python manage.py check --deploy"

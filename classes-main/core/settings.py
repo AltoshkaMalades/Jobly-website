@@ -15,9 +15,9 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- БЕЗОПАСНОСТЬ ---
-SECRET_KEY = 'django-insecure-your-very-secret-key-here' 
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-very-secret-key-here')
 
-DEBUG = True 
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('1', 'true', 'yes', 'on')
 
 ALLOWED_HOSTS = ['*']
 
@@ -234,10 +234,17 @@ SITE_ID = 1
 
 # --- RECAPTCHA (django-recaptcha) ---
 # Google reCAPTCHA v3 keys - get yours from https://www.google.com/recaptcha/admin
-# For local development: using Google's official test keys (always pass validation)
-# For production: set via environment variables
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe')
+# For local development: use Google's official test keys so forms can validate without extra setup.
+# For production: override via environment variables with real keys.
+DEFAULT_RECAPTCHA_PUBLIC_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+DEFAULT_RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY') or (
+    DEFAULT_RECAPTCHA_PUBLIC_KEY if DEBUG else ''
+)
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY') or (
+    DEFAULT_RECAPTCHA_PRIVATE_KEY if DEBUG else ''
+)
 
 # Silence django-recaptcha system check warnings if keys are not properly set
 # This allows deployment to proceed even if environment variables aren't set

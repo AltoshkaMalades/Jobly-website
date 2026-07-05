@@ -34,13 +34,13 @@ def test_recaptcha_keys_configured():
     if public_key == test_public and private_key == test_private:
         print("\n✓ Using Google's official reCAPTCHA test keys")
         print("  These keys are configured to ALWAYS PASS validation")
-        return True
     else:
         print("\n⚠ Using custom reCAPTCHA keys (not test keys)")
         if 'ProdKeyExample' in public_key or 'ProdSecretExample' in private_key:
             print("  ✗ ERROR: Placeholder keys detected - these will NOT work!")
-            return False
-        return True
+            raise AssertionError("Placeholder keys detected")
+
+    assert public_key and private_key
 
 
 def test_registration_form_with_captcha():
@@ -57,15 +57,14 @@ def test_registration_form_with_captcha():
             print("✓ reCAPTCHA field is in UserRegisterForm")
             print(f"  Widget: {form.fields['captcha'].widget.__class__.__name__}")
             print(f"  Required: {form.fields['captcha'].required}")
-            return True
         else:
             print("✗ reCAPTCHA field NOT found in UserRegisterForm")
             print(f"  Available fields: {list(form.fields.keys())}")
-            return False
+            raise AssertionError("reCAPTCHA field not found")
     else:
         print("✗ django_recaptcha is NOT installed")
         print("  Install with: pip install django-recaptcha")
-        return False
+        raise AssertionError("django_recaptcha is not installed")
 
 
 if __name__ == '__main__':

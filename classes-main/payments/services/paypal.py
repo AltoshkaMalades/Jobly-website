@@ -7,7 +7,7 @@ import logging
 import uuid
 import base64
 from typing import Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import requests
 import hmac
 import hashlib
@@ -78,7 +78,7 @@ class PayPalClient(PaymentClient):
                         'amount': amount,
                         'currency': currency,
                         'provider': 'paypal',
-                        'created_at': datetime.utcnow().isoformat(),
+                        'created_at': datetime.now(timezone.utc).isoformat(),
                     }
                 }
             

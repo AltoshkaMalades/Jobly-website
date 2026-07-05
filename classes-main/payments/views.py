@@ -5,7 +5,7 @@ import logging
 import json
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from django.views.decorators.csrf import csrf_exempt
@@ -184,6 +184,8 @@ def get_transaction_status(request, transaction_id):
 @login_required
 @require_POST
 def refund_payment(request, transaction_id):
+    if not request.user.is_staff:
+        return JsonResponse({'error': 'Forbidden'}, status=403)
     """
     Refund a transaction.
     
@@ -356,7 +358,7 @@ def webhook_paypal(request):
                 
                 transaction.status = 'completed'
                 transaction.metadata.update({'paypal_status': 'COMPLETED'})
-                transaction.completed_at = datetime.utcnow()
+                transaction.completed_at = datetime.now(timezone.utc)
                 transaction.save()
                 
                 transaction.order.transition_to('paid', actor='webhook')

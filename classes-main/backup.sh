@@ -18,6 +18,8 @@ fi
 
 pg_dump "$DB_URL" > "$BACKUP_DIR/backup_$DATE.sql"
 
-echo "✅ Backup created: $BACKUP_DIR/backup_$DATE.sql"
+if [ -f "$BACKUP_DIR/backup_$DATE.sql" ]; then
+  echo "✅ Backup created: $BACKUP_DIR/backup_$DATE.sql"
+fi
 find "$BACKUP_DIR" -name "*.sql" -mtime +$RETENTION_DAYS -delete
 echo "🗑️ Old backups deleted (older than $RETENTION_DAYS days)"

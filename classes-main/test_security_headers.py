@@ -95,7 +95,7 @@ def test_security_headers():
         print("✗ SOME SECURITY HEADERS ARE MISSING")
     print("=" * 70)
     
-    return all_present
+    assert all_present
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ Handles payment processing, status checking, and provider abstraction.
 """
 import logging
 from typing import Dict, Any, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import hashlib
 import hmac
 
@@ -195,7 +195,7 @@ class PaymentService:
                 transaction.metadata.update(status_response.get('metadata', {}))
                 
                 if new_status == 'completed':
-                    transaction.completed_at = datetime.utcnow()
+                    transaction.completed_at = datetime.now(timezone.utc)
                     transaction.order.transition_to('paid', actor='webhook')
                 elif new_status == 'failed':
                     transaction.order.transition_to('failed', actor='webhook')

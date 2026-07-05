@@ -167,8 +167,8 @@ class TestPaymentAPI(TestCase):
             assert data['status'] == 'completed'
     
     @patch('payments.services.service.PaymentService.refund_transaction')
-    def test_refund_payment(self, mock_refund):
-        """Test POST /api/payments/transactions/<transaction_id>/refund"""
+    def test_refund_payment_requires_admin(self, mock_refund):
+        """Test POST /api/payments/transactions/<transaction_id>/refund requires admin access."""
         order = Order.objects.create(
             user=self.user,
             amount=10000,
@@ -199,6 +199,45 @@ class TestPaymentAPI(TestCase):
             content_type='application/json'
         )
         
+        assert response.status_code == 403
+        mock_refund.assert_not_called()
+
+    @patch('payments.services.service.PaymentService.refund_transaction')
+    def test_refund_payment_allows_admin(self, mock_refund):
+        """Test refunds are allowed for staff users."""
+        self.user.is_staff = True
+        self.user.save(update_fields=['is_staff'])
+
+        order = Order.objects.create(
+            user=self.user,
+            amount=10000,
+            currency='KZT',
+            idempotency_key='test_order_005',
+            status='paid'
+        )
+
+        transaction = Transaction.objects.create(
+            order=order,
+            transaction_id='TXN-005',
+            provider='bereke',
+            amount=10000,
+            currency='KZT',
+            idempotency_key='test_txn_004',
+            status='completed'
+        )
+
+        mock_refund.return_value = {
+            'success': True,
+            'refund_id': 'REFUND-002',
+            'amount': 10000
+        }
+
+        response = self.client.post(
+            f'/api/payments/transactions/{transaction.transaction_id}/refund',
+            data=json.dumps({'amount': 10000}),
+            content_type='application/json'
+        )
+
         assert response.status_code == 200
         data = response.json()
         assert data['success'] is True

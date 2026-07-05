@@ -5,7 +5,7 @@ import os
 import logging
 import uuid
 from typing import Dict, Any, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 import requests
 import hmac
 import hashlib
@@ -69,7 +69,7 @@ class BereкeBankClient(PaymentClient):
                         'amount': amount,
                         'currency': currency,
                         'provider': 'bereke',
-                        'created_at': datetime.utcnow().isoformat(),
+                        'created_at': datetime.now(timezone.utc).isoformat(),
                     }
                 }
             
