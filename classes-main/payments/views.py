@@ -63,6 +63,7 @@ def create_payment(request):
         description = data.get('description', '')
         provider = data.get('provider', 'paypal')
         return_url = data.get('return_url', request.build_absolute_uri('/'))
+        is_subscription = bool(data.get('is_subscription', False)) or 'subscription' in description.lower()
         
         # Generate unique order ID
         unique_order_id = f"ORD-{request.user.id}-{uuid.uuid4().hex[:8].upper()}"
@@ -75,6 +76,7 @@ def create_payment(request):
             description=description,
             provider=provider,
             return_url=return_url,
+            is_subscription=is_subscription,
         )
         
         if result['success']:
@@ -292,6 +294,8 @@ def webhook_bereke(request):
                     from django.utils import timezone
                     transaction.completed_at = timezone.now()
                     transaction.order.transition_to('paid', actor='webhook')
+                    if transaction.metadata.get('is_subscription') or 'subscription' in transaction.order.description.lower():
+                        PaymentService.activate_subscription_for_user(transaction.order.user)
                 elif normalized_status == 'failed':
                     transaction.order.transition_to('failed', actor='webhook')
                 
@@ -362,6 +366,8 @@ def webhook_paypal(request):
                 transaction.save()
                 
                 transaction.order.transition_to('paid', actor='webhook')
+                if transaction.metadata.get('is_subscription') or 'subscription' in transaction.order.description.lower():
+                    PaymentService.activate_subscription_for_user(transaction.order.user)
                 
                 logger.info(f"[WEBHOOK] PayPal order completed: {order_id}")
             

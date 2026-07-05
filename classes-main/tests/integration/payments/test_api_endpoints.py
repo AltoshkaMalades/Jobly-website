@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase, Client
 from django.urls import reverse
 
+from accounts.models import Profile
 from payments.models import Order, Transaction
 
 
@@ -130,6 +131,70 @@ class TestPaymentAPI(TestCase):
         response = self.client.get(f'/api/payments/orders/{order.id}/')
         
         assert response.status_code == 404
+
+    def test_completed_subscription_payment_grants_subscription_access(self):
+        """A completed subscription payment should activate the user's purchased subscription status."""
+        profile = self.user.profile
+        profile.subscription_status = 'not_purchased'
+        profile.save(update_fields=['subscription_status'])
+
+        order = Order.objects.create(
+            user=self.user,
+            amount=10000,
+            currency='KZT',
+            idempotency_key='test_order_subscription_001',
+            description='Premium subscription',
+            status='pending'
+        )
+
+        transaction = Transaction.objects.create(
+            order=order,
+            transaction_id='TXN-SUB-001',
+            provider='paypal',
+            amount=10000,
+            currency='KZT',
+            idempotency_key='test_txn_subscription_001',
+            status='pending',
+            metadata={'is_subscription': True}
+        )
+
+        with patch('payments.services.service.get_payment_client') as mock_get_client:
+            mock_client = Mock()
+            mock_client.get_transaction_status.return_value = {
+                'status': 'completed',
+                'metadata': {'is_subscription': True}
+            }
+            mock_get_client.return_value = mock_client
+
+            response = self.client.get(f'/api/payments/transactions/{transaction.transaction_id}/')
+
+        assert response.status_code == 200
+        profile.refresh_from_db()
+        assert profile.subscription_status == 'purchased'
+        assert profile.subscription_purchased_at is not None
+
+    def test_subscription_purchase_is_blocked_when_already_active(self):
+        """Users should not be able to buy a subscription again while their previous one is active."""
+        profile = self.user.profile
+        profile.subscription_status = 'purchased'
+        profile.save(update_fields=['subscription_status'])
+
+        response = self.client.post(
+            '/api/payments/create/',
+            data=json.dumps({
+                'amount': 10000,
+                'currency': 'KZT',
+                'description': 'Premium subscription',
+                'provider': 'paypal',
+                'return_url': 'http://localhost:8000/return',
+                'is_subscription': True,
+            }),
+            content_type='application/json'
+        )
+
+        assert response.status_code == 400
+        data = response.json()
+        assert 'already purchased' in data['error'].lower()
     
     def test_get_transaction_status(self):
         """Test GET /api/payments/transactions/<transaction_id>/"""
@@ -265,13 +330,18 @@ class TestPaymentAPI(TestCase):
         assert response.status_code == 200
     
     def test_webhook_paypal_valid_event(self):
-        """Test PayPal webhook with valid event."""
+        """A completed PayPal webhook should activate the user's subscription status for subscription purchases."""
+        profile = self.user.profile
+        profile.subscription_status = 'not_purchased'
+        profile.save(update_fields=['subscription_status'])
+
         order = Order.objects.create(
             user=self.user,
             amount=10000,
             currency='KZT',
             idempotency_key='test_order_005',
-            status='pending'
+            status='pending',
+            description='Premium subscription'
         )
         
         transaction = Transaction.objects.create(
@@ -282,7 +352,7 @@ class TestPaymentAPI(TestCase):
             currency='KZT',
             idempotency_key='test_txn_004',
             status='pending',
-            metadata={'paypal_order_id': 'PAYPAL-ORDER-001'}
+            metadata={'paypal_order_id': 'PAYPAL-ORDER-001', 'is_subscription': True}
         )
         
         response = self.client.post(
@@ -295,6 +365,9 @@ class TestPaymentAPI(TestCase):
         )
         
         assert response.status_code == 200
+        profile.refresh_from_db()
+        assert profile.subscription_status == 'purchased'
+        assert profile.subscription_purchased_at is not None
 
 
 if __name__ == '__main__':
