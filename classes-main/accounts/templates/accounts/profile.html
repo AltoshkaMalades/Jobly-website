@@ -96,6 +96,62 @@
         </div>
     </div>
 
+    <div class="mt-8 rounded-[2rem] border p-6 shadow-sm
+                {% if profile.subscription_status == 'purchased' %}
+                    bg-green-50 border-green-200
+                {% elif profile.subscription_status == 'refunded' %}
+                    bg-amber-50 border-amber-200
+                {% else %}
+                    bg-blue-50 border-blue-200
+                {% endif %}">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <p class="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-500">Статус подписки</p>
+                <h3 class="text-xl font-black text-neutral-900 mt-2">
+                    {% if profile.subscription_status == 'purchased' %}
+                        ✅ Подписка активна
+                    {% elif profile.subscription_status == 'refunded' %}
+                        ↩️ Подписка возвращена
+                    {% else %}
+                        🔓 Подписка не приобретена
+                    {% endif %}
+                </h3>
+                <p class="text-sm text-neutral-600 mt-2">
+                    {% if profile.subscription_status == 'purchased' %}
+                        У вас есть активный доступ к премиум-функциям.
+                    {% elif profile.subscription_status == 'refunded' %}
+                        Средства по подписке были возвращены. При необходимости можно оформить покупку снова.
+                    {% else %}
+                        Чтобы открыть премиум-функции, оформите подписку.
+                    {% endif %}
+                </p>
+            </div>
+            <div class="flex flex-col items-end gap-3">
+                <div class="text-sm font-semibold px-4 py-2 rounded-full
+                            {% if profile.subscription_status == 'purchased' %}
+                                bg-green-600 text-white
+                            {% elif profile.subscription_status == 'refunded' %}
+                                bg-amber-600 text-white
+                            {% else %}
+                                bg-blue-600 text-white
+                            {% endif %}">
+                    {% if profile.subscription_status == 'purchased' %}
+                        Куплено
+                    {% elif profile.subscription_status == 'refunded' %}
+                        Возвращено
+                    {% else %}
+                        Не куплено
+                    {% endif %}
+                </div>
+                {% if profile.subscription_status == 'purchased' %}
+                <a href="{% url 'pricing' %}" class="px-4 py-2 bg-neutral-900 text-white rounded-full text-sm font-bold hover:bg-neutral-800 transition-colors">
+                    Изменить подписку
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
     <!-- Upgrade Section -->
     <div class="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[3rem] border-2 border-blue-200 p-12">
         <div class="max-w-3xl">
@@ -105,6 +161,15 @@
                     <h2 class="text-3xl font-black text-neutral-900 mb-3">Обновите подписку</h2>
                     <p class="text-neutral-600 mb-6">Получите доступ к премиум-функциям и раскройте свой потенциал на рынке труда</p>
                     
+                    {% if profile.subscription_status == 'purchased' %}
+                    <div class="rounded-2xl border border-green-200 bg-green-50 p-6">
+                        <h3 class="font-bold text-neutral-900 mb-3 text-lg">✅ Подписка активна</h3>
+                        <p class="text-sm text-neutral-600 mb-4">Вы уже пользуетесь премиум-доступом. Можете перейти к другому тарифу или продолжить работу с текущим доступом.</p>
+                        <a href="{% url 'pricing' %}" class="inline-flex px-5 py-3 bg-neutral-900 text-white font-bold rounded-xl hover:bg-neutral-800 transition-colors">
+                            Изменить подписку
+                        </a>
+                    </div>
+                    {% else %}
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="bg-white rounded-2xl p-6 border-2 border-blue-200">
                             <h3 class="font-bold text-neutral-900 mb-3 text-lg">🚀 Профессионал</h3>
@@ -155,6 +220,7 @@
                             </a>
                         </div>
                     </div>
+                    {% endif %}
                     
                     <div class="mt-4 text-sm text-neutral-600">
                         <a href="{% url 'pricing' %}" class="text-blue-600 font-bold hover:underline">
