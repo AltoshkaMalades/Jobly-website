@@ -59,6 +59,13 @@ backup-db:
 	@echo "💾 Creating database backup..."
 	@powershell -Command "& .\backup.sh"
 
+install-backup-task:
+	@echo "🗓️ Installing Windows backup task..."
+	@powershell -File .\scripts\install_backup_task.ps1
+
+show-backup-task:
+	@schtasks /Query /TN SimulatorBackup /FO LIST 2>$nul || echo "Task not found"
+
 deploy-check:
 	@echo "🔎 Running deployment checks..."
 	@powershell -Command "& .\envir\Scripts\Activate.ps1; python manage.py check --deploy"

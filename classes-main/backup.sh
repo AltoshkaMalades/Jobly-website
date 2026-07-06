@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 set -euo pipefail
 
 DATE=$(date +%Y-%m-%d_%H-%M)
