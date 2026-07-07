@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import hmac
 
+from django.utils import timezone
 from payments.models import Order, Transaction
 from payments.services.bereke import BereкeBankClient, PaymentClientError
 from payments.services.paypal import PayPalClient
@@ -42,6 +43,8 @@ class PaymentService:
         description: str = '',
         provider: str = None,
         return_url: str = None,
+        is_subscription: bool = False,
+        **kwargs,
     ) -> Dict[str, Any]:
         """
         Create a payment for an order.
@@ -68,6 +71,14 @@ class PaymentService:
         provider = provider or PaymentService.DEFAULT_PROVIDER
         
         try:
+            is_subscription = bool(is_subscription) or 'subscription' in description.lower()
+            if PaymentService._is_subscription_purchase(user, description, is_subscription):
+                return {
+                    'success': False,
+                    'order_id': order_id,
+                    'error': 'Subscription already purchased. Refund required before buying again.'
+                }
+
             # Create or get Order
             idempotency_key = PaymentService._generate_idempotency_key(
                 user.id, order_id, amount
@@ -123,6 +134,9 @@ class PaymentService:
                 description=description,
             )
             
+            metadata = payment_response.get('metadata', {})
+            metadata['is_subscription'] = is_subscription or 'subscription' in description.lower()
+
             # Create Transaction record
             transaction = Transaction.objects.create(
                 order=order,
@@ -132,7 +146,7 @@ class PaymentService:
                 currency=currency,
                 idempotency_key=idempotency_key,
                 status='pending',
-                metadata=payment_response.get('metadata', {}),
+                metadata=metadata,
             )
             
             logger.info(
@@ -174,6 +188,37 @@ class PaymentService:
             }
     
     @staticmethod
+    def _is_subscription_purchase(user, description: str, is_subscription: bool) -> bool:
+        if not is_subscription:
+            return False
+        try:
+            profile = user.profile
+        except Exception:
+            return False
+        return profile.subscription_status == 'purchased'
+
+    @staticmethod
+    def activate_subscription_for_user(user) -> None:
+        try:
+            profile = user.profile
+        except Exception:
+            return
+        profile.subscription_status = 'purchased'
+        profile.subscription_purchased_at = timezone.now()
+        profile.subscription_refunded_at = None
+        profile.save(update_fields=['subscription_status', 'subscription_purchased_at', 'subscription_refunded_at'])
+
+    @staticmethod
+    def refund_subscription_for_user(user) -> None:
+        try:
+            profile = user.profile
+        except Exception:
+            return
+        profile.subscription_status = 'refunded'
+        profile.subscription_refunded_at = timezone.now()
+        profile.save(update_fields=['subscription_status', 'subscription_refunded_at'])
+
+    @staticmethod
     def check_transaction_status(transaction_id: str) -> Dict[str, Any]:
         """Check and update transaction status from provider."""
         
@@ -195,8 +240,10 @@ class PaymentService:
                 transaction.metadata.update(status_response.get('metadata', {}))
                 
                 if new_status == 'completed':
-                    transaction.completed_at = datetime.now(timezone.utc)
+                    transaction.completed_at = timezone.now()
                     transaction.order.transition_to('paid', actor='webhook')
+                    if transaction.metadata.get('is_subscription') or 'subscription' in transaction.order.description.lower():
+                        PaymentService.activate_subscription_for_user(transaction.order.user)
                 elif new_status == 'failed':
                     transaction.order.transition_to('failed', actor='webhook')
                 
@@ -274,6 +321,8 @@ class PaymentService:
                 
                 # Update order
                 transaction.order.transition_to('refunded', actor=actor)
+                if transaction.metadata.get('is_subscription') or 'subscription' in transaction.order.description.lower():
+                    PaymentService.refund_subscription_for_user(transaction.order.user)
                 
                 logger.info(
                     f"[REFUND] Completed | Transaction: {transaction_id} | "

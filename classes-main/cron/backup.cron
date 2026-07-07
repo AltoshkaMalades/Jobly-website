@@ -1,0 +1,5 @@
+# Example cron entry for Linux/macOS
+# Replace the path below with the absolute path to this project.
+# Run: crontab cron/backup.cron
+
+0 2 * * * /bin/bash /absolute/path/to/classes-main/backup.sh >> /absolute/path/to/classes-main/backups/backup_cron.log 2>&1

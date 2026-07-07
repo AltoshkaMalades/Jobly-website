@@ -72,6 +72,38 @@ class TestPaymentAPI(TestCase):
         data = response.json()
         assert 'error' in data
 
+    @patch('payments.services.service.get_payment_client')
+    @patch('payments.services.service.PaymentService._is_subscription_purchase')
+    def test_create_payment_accepts_subscription_flag(self, mock_is_subscription, mock_get_client):
+        """Subscription checkout should not crash when is_subscription=True is passed."""
+        mock_is_subscription.return_value = False
+        mock_client = Mock()
+        mock_client.create_payment_request.return_value = {
+            'payment_url': 'http://example.com/pay',
+            'transaction_id': 'TXN-SUB-001',
+            'status': 'pending',
+            'metadata': {}
+        }
+        mock_get_client.return_value = mock_client
+
+        response = self.client.post(
+            '/api/payments/create/',
+            data=json.dumps({
+                'amount': 10000,
+                'currency': 'USD',
+                'description': 'Premium subscription',
+                'provider': 'paypal',
+                'return_url': 'http://localhost:8000/return',
+                'is_subscription': True,
+            }),
+            content_type='application/json'
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data['success'] is True
+        assert data['transaction_id'] == 'TXN-SUB-001'
+
     @patch('payments.services.service.PaymentService.create_payment')
     def test_create_payment_returns_provider_error_message(self, mock_create_payment):
         """PayPal sandbox/provider failures should be surfaced clearly instead of showing a generic internal server error."""

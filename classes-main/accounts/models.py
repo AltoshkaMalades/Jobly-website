@@ -36,6 +36,21 @@ class Job(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student', db_index=True)
+
+    SUBSCRIPTION_STATUS_CHOICES = (
+        ('not_purchased', 'Not purchased'),
+        ('purchased', 'Purchased'),
+        ('refunded', 'Refunded'),
+    )
+    subscription_status = models.CharField(
+        max_length=20,
+        choices=SUBSCRIPTION_STATUS_CHOICES,
+        default='not_purchased',
+        db_index=True,
+        help_text='Purchased subscription access state'
+    )
+    subscription_purchased_at = models.DateTimeField(null=True, blank=True)
+    subscription_refunded_at = models.DateTimeField(null=True, blank=True)
     
     # Поля для студента
     university = models.CharField(max_length=200, blank=True)

@@ -152,7 +152,7 @@ services:
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:
       - web
-    command: locust -f /app/locustfile.py --host=http://web:8000
+    command: python -m locust -f /app/locustfile.py --host=http://web:8000 --web-host=0.0.0.0
     ports:
       - "8089:8089"
     networks:

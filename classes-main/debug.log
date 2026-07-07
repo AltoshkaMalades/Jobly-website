@@ -678,3 +678,807 @@ WARNING 2026-07-05 19:46:24,440 adapters 410800 394740 [PATCHED] Multiple Social
 INFO 2026-07-05 19:46:24,441 adapters 410800 394740 [PATCHED] Using SocialApp 1 for provider google
 INFO 2026-07-05 19:46:24,595 views 410800 394740 Skip welcome email task dispatch in local/test mode.
 INFO 2026-07-05 19:46:24,595 views 410800 394740 Skip welcome email task dispatch in local/test mode.
+INFO 2026-07-05 20:10:07,825 adapters 414600 410128 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:10:07,826 adapters 414600 410128 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:10:07,827 adapters 414600 410128 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:10:09,227 posthog 414600 410128 PostHog not installed - analytics will be disabled
+ERROR 2026-07-05 20:10:09,730 service 414600 410128 Status check failed: module 'django.utils.timezone' has no attribute 'utc'
+WARNING 2026-07-05 20:10:09,731 log 414600 410128 Bad Request: /api/payments/transactions/TXN-SUB-001/
+WARNING 2026-07-05 20:10:09,731 log 414600 410128 Bad Request: /api/payments/transactions/TXN-SUB-001/
+ERROR 2026-07-05 20:10:09,984 views 414600 410128 Unexpected error in create_payment: PaymentService.create_payment() got an unexpected keyword argument 'is_subscription'
+ERROR 2026-07-05 20:10:09,984 log 414600 410128 Internal Server Error: /api/payments/create/
+ERROR 2026-07-05 20:10:09,984 log 414600 410128 Internal Server Error: /api/payments/create/
+WARNING 2026-07-05 20:10:10,103 log 414600 410128 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:10:10,103 log 414600 410128 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:10:10,480 views 414600 410128 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:10:10,480 log 414600 410128 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:10:10,480 log 414600 410128 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:10:10,670 signals 414600 410128 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:10:10,670 emails 414600 410128 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:10:10,873 signals 414600 410128 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:10:10,873 emails 414600 410128 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:10:10,882 log 414600 410128 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:10:10,882 log 414600 410128 Forbidden: /api/payments/transactions/TXN-004/refund
+ERROR 2026-07-05 20:10:10,976 views 414600 410128 Unexpected error in create_payment: PaymentService.create_payment() got an unexpected keyword argument 'is_subscription'
+ERROR 2026-07-05 20:10:10,976 log 414600 410128 Internal Server Error: /api/payments/create/
+ERROR 2026-07-05 20:10:10,976 log 414600 410128 Internal Server Error: /api/payments/create/
+WARNING 2026-07-05 20:10:11,075 bereke 414600 410128 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:10:11,075 bereke 414600 410128 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:10:11,075 views 414600 410128 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:10:11,167 bereke 414600 410128 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:10:11,167 bereke 414600 410128 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:10:11,168 views 414600 410128 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:10:11,265 paypal 414600 410128 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:10:11,265 paypal 414600 410128 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:10:11,267 signals 414600 410128 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:10:11,268 emails 414600 410128 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:10:11,285 views 414600 410128 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:11:00,101 adapters 410344 413480 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:11:00,103 adapters 410344 413480 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:11:00,103 adapters 410344 413480 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:11:01,503 posthog 410344 413480 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:11:01,907 signals 410344 413480 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:01,907 emails 410344 413480 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:11:02,091 service 410344 413480 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:11:02,200 log 410344 413480 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:11:02,200 log 410344 413480 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:11:02,586 views 410344 413480 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:11:02,587 log 410344 413480 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:11:02,587 log 410344 413480 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:11:02,805 signals 410344 413480 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:02,805 emails 410344 413480 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:11:02,925 signals 410344 413480 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:02,926 emails 410344 413480 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:11:02,934 log 410344 413480 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:11:02,934 log 410344 413480 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:11:03,041 paypal 410344 413480 PayPal credentials not configured - using mock mode
+INFO 2026-07-05 20:11:03,041 paypal 410344 413480 [PAYPAL] Creating payment | Order: 1 | Amount: 100.0 KZT | Sandbox: True
+INFO 2026-07-05 20:11:03,044 service 410344 413480 [PAYMENT] Created | Order: 1 | User: 1 | Provider: paypal | Amount: 10000 KZT
+WARNING 2026-07-05 20:11:03,295 bereke 410344 413480 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:11:03,295 bereke 410344 413480 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:11:03,295 views 410344 413480 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:11:03,394 bereke 410344 413480 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:11:03,394 bereke 410344 413480 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:11:03,395 views 410344 413480 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:11:03,495 paypal 410344 413480 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:11:03,496 paypal 410344 413480 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:11:03,497 signals 410344 413480 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:03,498 emails 410344 413480 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:11:03,509 views 410344 413480 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:11:19,209 adapters 405000 414592 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:11:19,211 adapters 405000 414592 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:11:19,211 adapters 405000 414592 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:11:20,560 posthog 405000 414592 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:11:20,880 signals 405000 414592 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:20,881 emails 405000 414592 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:11:21,037 service 405000 414592 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:11:21,135 log 405000 414592 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:11:21,135 log 405000 414592 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:11:21,482 views 405000 414592 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:11:21,483 log 405000 414592 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:11:21,483 log 405000 414592 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:11:21,673 signals 405000 414592 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:21,673 emails 405000 414592 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:11:21,779 signals 405000 414592 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:21,779 emails 405000 414592 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:11:21,788 log 405000 414592 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:11:21,788 log 405000 414592 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:11:21,882 log 405000 414592 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:11:21,882 log 405000 414592 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:11:21,975 bereke 405000 414592 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:11:21,976 bereke 405000 414592 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:11:21,976 views 405000 414592 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:11:22,070 bereke 405000 414592 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:11:22,071 bereke 405000 414592 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:11:22,071 views 405000 414592 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:11:22,169 paypal 405000 414592 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:11:22,169 paypal 405000 414592 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:11:22,171 signals 405000 414592 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:11:22,172 emails 405000 414592 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:11:22,183 views 405000 414592 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:11:40,095 adapters 414012 405928 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:11:40,095 adapters 414012 405928 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:11:40,095 adapters 414012 405928 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:11:40,272 posthog 414012 405928 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:12:36,217 adapters 410532 413428 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:12:36,219 adapters 410532 413428 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:12:36,219 adapters 410532 413428 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-05 20:12:54,485 adapters 411188 286724 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:12:54,486 adapters 411188 286724 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:12:54,486 adapters 411188 286724 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:12:55,669 posthog 411188 286724 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:12:55,945 signals 411188 286724 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:12:55,945 emails 411188 286724 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:12:56,097 service 411188 286724 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:12:56,195 log 411188 286724 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:12:56,195 log 411188 286724 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:12:56,547 views 411188 286724 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:12:56,547 log 411188 286724 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:12:56,547 log 411188 286724 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:12:56,742 signals 411188 286724 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:12:56,742 emails 411188 286724 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:12:56,851 signals 411188 286724 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:12:56,851 emails 411188 286724 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:12:56,860 log 411188 286724 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:12:56,860 log 411188 286724 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:12:56,954 log 411188 286724 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:12:56,954 log 411188 286724 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:12:57,046 bereke 411188 286724 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:12:57,046 bereke 411188 286724 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:12:57,047 views 411188 286724 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:12:57,138 bereke 411188 286724 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:12:57,138 bereke 411188 286724 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:12:57,139 views 411188 286724 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:12:57,238 paypal 411188 286724 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:12:57,238 paypal 411188 286724 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:12:57,240 signals 411188 286724 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:12:57,241 emails 411188 286724 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:12:57,252 views 411188 286724 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:16:39,926 adapters 408628 410304 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:16:39,928 adapters 408628 410304 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:16:39,928 adapters 408628 410304 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:16:41,126 posthog 408628 410304 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:16:41,427 signals 408628 410304 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:16:41,428 emails 408628 410304 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:16:41,581 service 408628 410304 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:16:41,675 log 408628 410304 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:16:41,675 log 408628 410304 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:16:42,023 views 408628 410304 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:16:42,024 log 408628 410304 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:16:42,024 log 408628 410304 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:16:42,218 signals 408628 410304 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:16:42,218 emails 408628 410304 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:16:42,325 signals 408628 410304 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:16:42,326 emails 408628 410304 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:16:42,334 log 408628 410304 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:16:42,334 log 408628 410304 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:16:42,431 log 408628 410304 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:16:42,431 log 408628 410304 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:16:42,526 bereke 408628 410304 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:16:42,526 bereke 408628 410304 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:16:42,526 views 408628 410304 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:16:42,621 bereke 408628 410304 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:16:42,621 bereke 408628 410304 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:16:42,622 views 408628 410304 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:16:42,718 paypal 408628 410304 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:16:42,718 paypal 408628 410304 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:16:42,719 signals 408628 410304 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:16:42,720 emails 408628 410304 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:16:42,731 views 408628 410304 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:29:00,605 adapters 407220 414776 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:29:00,606 adapters 407220 414776 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:29:00,606 adapters 407220 414776 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:29:01,871 posthog 407220 414776 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:29:02,195 signals 407220 414776 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:29:02,195 emails 407220 414776 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:29:02,345 service 407220 414776 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:29:02,435 log 407220 414776 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:29:02,435 log 407220 414776 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:29:02,771 views 407220 414776 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:29:02,772 log 407220 414776 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:29:02,772 log 407220 414776 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:29:02,961 signals 407220 414776 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:29:02,961 emails 407220 414776 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:29:03,070 signals 407220 414776 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:29:03,070 emails 407220 414776 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:29:03,078 log 407220 414776 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:29:03,078 log 407220 414776 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:29:03,174 log 407220 414776 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:29:03,174 log 407220 414776 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:29:03,268 bereke 407220 414776 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:29:03,269 bereke 407220 414776 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:29:03,269 views 407220 414776 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:29:03,366 bereke 407220 414776 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:29:03,366 bereke 407220 414776 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:29:03,367 views 407220 414776 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:29:03,461 paypal 407220 414776 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:29:03,461 paypal 407220 414776 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:29:03,462 signals 407220 414776 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:29:03,463 emails 407220 414776 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:29:03,475 views 407220 414776 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:38:15,830 adapters 404056 406800 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:38:15,831 adapters 404056 406800 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:38:15,831 adapters 404056 406800 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:38:17,104 posthog 404056 406800 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:38:17,407 signals 404056 406800 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:17,407 emails 404056 406800 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:38:17,558 service 404056 406800 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:38:17,652 log 404056 406800 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:38:17,652 log 404056 406800 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:38:17,747 views 404056 406800 Payment provider error: PayPal sandbox rejected the payment: insufficient funds
+ERROR 2026-07-05 20:38:17,747 log 404056 406800 Bad Gateway: /api/payments/create/
+ERROR 2026-07-05 20:38:17,747 log 404056 406800 Bad Gateway: /api/payments/create/
+ERROR 2026-07-05 20:38:18,310 views 404056 406800 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:38:18,310 log 404056 406800 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:38:18,310 log 404056 406800 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:38:18,509 signals 404056 406800 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:18,509 emails 404056 406800 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:38:18,620 signals 404056 406800 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:18,620 emails 404056 406800 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:38:18,629 log 404056 406800 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:38:18,629 log 404056 406800 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:38:18,728 log 404056 406800 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:38:18,728 log 404056 406800 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:38:18,821 bereke 404056 406800 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:38:18,822 bereke 404056 406800 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:38:18,822 views 404056 406800 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:38:18,918 bereke 404056 406800 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:38:18,918 bereke 404056 406800 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:38:18,919 views 404056 406800 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:38:19,018 paypal 404056 406800 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:38:19,018 paypal 404056 406800 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:38:19,020 signals 404056 406800 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:19,021 emails 404056 406800 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:38:19,034 views 404056 406800 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:38:37,713 adapters 414564 415160 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:38:37,715 adapters 414564 415160 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:38:37,715 adapters 414564 415160 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:38:38,959 posthog 414564 415160 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:38:39,266 signals 414564 415160 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:39,266 emails 414564 415160 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:38:39,450 service 414564 415160 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:38:39,549 log 414564 415160 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:38:39,549 log 414564 415160 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:38:39,648 views 414564 415160 Payment provider error: PayPal sandbox rejected the payment: insufficient funds
+ERROR 2026-07-05 20:38:39,649 log 414564 415160 Bad Gateway: /api/payments/create/
+ERROR 2026-07-05 20:38:39,649 log 414564 415160 Bad Gateway: /api/payments/create/
+ERROR 2026-07-05 20:38:39,981 views 414564 415160 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:38:39,981 log 414564 415160 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:38:39,981 log 414564 415160 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:38:40,171 signals 414564 415160 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:40,172 emails 414564 415160 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:38:40,275 signals 414564 415160 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:40,275 emails 414564 415160 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:38:40,284 log 414564 415160 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:38:40,284 log 414564 415160 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:38:40,377 log 414564 415160 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:38:40,377 log 414564 415160 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:38:40,467 bereke 414564 415160 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:38:40,467 bereke 414564 415160 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:38:40,468 views 414564 415160 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:38:40,559 bereke 414564 415160 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:38:40,559 bereke 414564 415160 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:38:40,559 views 414564 415160 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:38:40,653 paypal 414564 415160 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:38:40,654 paypal 414564 415160 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:38:40,655 signals 414564 415160 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:38:40,656 emails 414564 415160 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:38:40,668 views 414564 415160 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-05 20:40:44,793 adapters 406876 404744 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-05 20:40:44,795 adapters 406876 404744 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-05 20:40:44,795 adapters 406876 404744 [ORM Patch] Applied patch to QuerySet.get()
+WARNING 2026-07-05 20:40:46,003 posthog 406876 404744 PostHog not installed - analytics will be disabled
+INFO 2026-07-05 20:40:46,275 signals 406876 404744 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:40:46,276 emails 406876 404744 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:40:46,419 service 406876 404744 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-05 20:40:46,510 log 406876 404744 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:40:46,510 log 406876 404744 Bad Request: /api/payments/create/
+ERROR 2026-07-05 20:40:46,605 views 406876 404744 Payment provider error: PayPal sandbox rejected the payment: insufficient funds
+ERROR 2026-07-05 20:40:46,606 log 406876 404744 Bad Gateway: /api/payments/create/
+ERROR 2026-07-05 20:40:46,606 log 406876 404744 Bad Gateway: /api/payments/create/
+ERROR 2026-07-05 20:40:46,957 views 406876 404744 Error getting order status: No Order matches the given query.
+WARNING 2026-07-05 20:40:46,958 log 406876 404744 Not Found: /api/payments/orders/1/
+WARNING 2026-07-05 20:40:46,958 log 406876 404744 Not Found: /api/payments/orders/1/
+INFO 2026-07-05 20:40:47,153 signals 406876 404744 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:40:47,153 emails 406876 404744 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:40:47,256 signals 406876 404744 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:40:47,256 emails 406876 404744 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-05 20:40:47,264 log 406876 404744 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:40:47,264 log 406876 404744 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-05 20:40:47,359 log 406876 404744 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:40:47,359 log 406876 404744 Bad Request: /api/payments/create/
+WARNING 2026-07-05 20:40:47,449 bereke 406876 404744 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:40:47,449 bereke 406876 404744 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:40:47,450 views 406876 404744 Invalid JSON in Bereke webhook
+WARNING 2026-07-05 20:40:47,539 bereke 406876 404744 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-05 20:40:47,540 bereke 406876 404744 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-05 20:40:47,540 views 406876 404744 Transaction not found in webhook: TXN-999
+WARNING 2026-07-05 20:40:47,630 paypal 406876 404744 PayPal credentials not configured - using mock mode
+WARNING 2026-07-05 20:40:47,630 paypal 406876 404744 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-05 20:40:47,631 signals 406876 404744 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-05 20:40:47,632 emails 406876 404744 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-05 20:40:47,643 views 406876 404744 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+ERROR 2026-07-07 07:38:24,584 signal 1 139928504570752 Signal handler <bound method DjangoFixup.on_import_modules of <celery.fixups.django.DjangoFixup object at 0x7f43a2a497f0>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 100, in on_import_modules
+    self.worker_fixup.validate_models()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 138, in validate_models
+    self.django_setup()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 134, in django_setup
+    django.setup()
+    ~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.13/site-packages/django/apps/config.py", line 193, in create
+    import_module(entry)
+    ~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+ERROR 2026-07-07 07:38:24,584 signal 1 136859566736256 Signal handler <bound method DjangoFixup.on_import_modules of <celery.fixups.django.DjangoFixup object at 0x7c7917b0d7f0>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 100, in on_import_modules
+    self.worker_fixup.validate_models()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 138, in validate_models
+    self.django_setup()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 134, in django_setup
+    django.setup()
+    ~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.13/site-packages/django/apps/config.py", line 193, in create
+    import_module(entry)
+    ~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+ERROR 2026-07-07 07:38:24,590 signal 1 139928504570752 Signal handler <promise@0x7f43a2a7c910 --> <bound method Celery._autodiscover_tasks of <Celery core at 0x7f43a2b67e00>>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 693, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_names(packages, related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 698, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 257, in find_related_module
+    module = importlib.import_module(package)
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+ERROR 2026-07-07 07:38:24,589 signal 1 136859566736256 Signal handler <promise@0x7c7917b48910 --> <bound method Celery._autodiscover_tasks of <Celery core at 0x7c7917c2fe00>>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 693, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_names(packages, related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 698, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 257, in find_related_module
+    module = importlib.import_module(package)
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+INFO 2026-07-07 07:38:25,213 adapters 7 125767293449088 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:38:25,213 adapters 7 125767293449088 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:38:25,214 adapters 7 125767293449088 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:38:27,064 adapters 8 132661396603776 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:38:27,064 adapters 8 132661396603776 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:38:27,064 adapters 8 132661396603776 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:38:28,500 adapters 10 137819256615808 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:38:28,501 adapters 10 137819256615808 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:38:28,502 adapters 10 137819256615808 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:38:28,511 adapters 11 137819256615808 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:38:28,511 adapters 11 137819256615808 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:38:28,512 adapters 11 137819256615808 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:38:28,519 adapters 12 137819256615808 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:38:28,520 adapters 12 137819256615808 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:38:28,521 adapters 12 137819256615808 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:38:28,571 adapters 13 137819256615808 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:38:28,572 adapters 13 137819256615808 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:38:28,572 adapters 13 137819256615808 [ORM Patch] Applied patch to QuerySet.get()
+ERROR 2026-07-07 07:39:42,079 signal 1 124387511870336 Signal handler <bound method DjangoFixup.on_import_modules of <celery.fixups.django.DjangoFixup object at 0x7121374b57f0>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 100, in on_import_modules
+    self.worker_fixup.validate_models()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 138, in validate_models
+    self.django_setup()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 134, in django_setup
+    django.setup()
+    ~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.13/site-packages/django/apps/config.py", line 193, in create
+    import_module(entry)
+    ~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+ERROR 2026-07-07 07:39:42,082 signal 1 124387511870336 Signal handler <promise@0x7121374e8910 --> <bound method Celery._autodiscover_tasks of <Celery core at 0x7121375d7e00>>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 693, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_names(packages, related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 698, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 257, in find_related_module
+    module = importlib.import_module(package)
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+ERROR 2026-07-07 07:39:44,304 signal 1 131982001931136 Signal handler <bound method DjangoFixup.on_import_modules of <celery.fixups.django.DjangoFixup object at 0x7809722c57f0>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 100, in on_import_modules
+    self.worker_fixup.validate_models()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 138, in validate_models
+    self.django_setup()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/celery/fixups/django.py", line 134, in django_setup
+    django.setup()
+    ~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.13/site-packages/django/apps/config.py", line 193, in create
+    import_module(entry)
+    ~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+ERROR 2026-07-07 07:39:44,307 signal 1 131982001931136 Signal handler <promise@0x7809722f8910 --> <bound method Celery._autodiscover_tasks of <Celery core at 0x7809723e7e00>>> raised: ModuleNotFoundError("No module named 'django_recaptcha'")
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 276, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 693, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_names(packages, related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/app/base.py", line 698, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/celery/loaders/base.py", line 257, in find_related_module
+    module = importlib.import_module(package)
+  File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django_recaptcha'
+INFO 2026-07-07 07:45:02,830 adapters 7 127592088425344 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:45:02,831 adapters 7 127592088425344 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:45:02,831 adapters 7 127592088425344 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:45:04,452 adapters 8 135962708476800 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:45:04,453 adapters 8 135962708476800 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:45:04,453 adapters 8 135962708476800 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:45:05,889 adapters 10 125578171712384 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:45:05,890 adapters 10 125578171712384 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:45:05,891 adapters 10 125578171712384 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:45:05,952 adapters 11 125578171712384 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:45:05,952 adapters 11 125578171712384 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:45:05,953 adapters 11 125578171712384 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:45:06,002 adapters 12 125578171712384 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:45:06,003 adapters 12 125578171712384 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:45:06,003 adapters 12 125578171712384 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 07:45:06,048 adapters 13 125578171712384 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 07:45:06,049 adapters 13 125578171712384 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 07:45:06,049 adapters 13 125578171712384 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:10:54,405 adapters 40908 37356 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:10:54,407 adapters 40908 37356 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:10:54,407 adapters 40908 37356 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:10:58,738 service 40908 37356 [PAYMENT] Created | Order: 1 | User: 1 | Provider: paypal | Amount: 10000 USD
+WARNING 2026-07-07 08:10:58,738 posthog 40908 37356 POSTHOG_API_KEY not configured - analytics disabled
+ERROR 2026-07-07 08:10:58,844 views 40908 37356 Payment provider error: PayPal sandbox rejected the payment: insufficient funds
+ERROR 2026-07-07 08:10:58,844 log 40908 37356 Bad Gateway: /api/payments/create/
+ERROR 2026-07-07 08:10:58,844 log 40908 37356 Bad Gateway: /api/payments/create/
+INFO 2026-07-07 08:11:35,188 adapters 7 125956735607680 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:11:35,189 adapters 7 125956735607680 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:11:35,189 adapters 7 125956735607680 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:11:37,406 adapters 8 128054245520256 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:11:37,407 adapters 8 128054245520256 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:11:37,408 adapters 8 128054245520256 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:11:39,292 adapters 10 128453338710912 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:11:39,293 adapters 11 128453338710912 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:11:39,293 adapters 10 128453338710912 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:11:39,294 adapters 11 128453338710912 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:11:39,294 adapters 10 128453338710912 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:11:39,294 adapters 11 128453338710912 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:11:39,357 adapters 12 128453338710912 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:11:39,358 adapters 12 128453338710912 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:11:39,359 adapters 12 128453338710912 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:11:39,429 adapters 13 128453338710912 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:11:39,430 adapters 13 128453338710912 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:11:39,431 adapters 13 128453338710912 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:13:26,140 adapters 48216 48064 Applied monkey patch to DefaultSocialAccountAdapter.get_app
+INFO 2026-07-07 08:13:26,141 adapters 48216 48064 Replaced SocialApp.objects with SafeSocialAppManager
+INFO 2026-07-07 08:13:26,141 adapters 48216 48064 [ORM Patch] Applied patch to QuerySet.get()
+INFO 2026-07-07 08:13:27,790 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:27,790 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-07 08:13:28,101 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+INFO 2026-07-07 08:13:28,194 service 48216 48064 [PAYMENT] Created | Order: 1 | User: 1 | Provider: paypal | Amount: 10000 USD
+WARNING 2026-07-07 08:13:28,194 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+INFO 2026-07-07 08:13:28,283 service 48216 48064 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-07 08:13:28,283 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+WARNING 2026-07-07 08:13:28,366 log 48216 48064 Bad Request: /api/payments/create/
+WARNING 2026-07-07 08:13:28,366 log 48216 48064 Bad Request: /api/payments/create/
+ERROR 2026-07-07 08:13:28,450 views 48216 48064 Payment provider error: PayPal sandbox rejected the payment: insufficient funds
+ERROR 2026-07-07 08:13:28,451 log 48216 48064 Bad Gateway: /api/payments/create/
+ERROR 2026-07-07 08:13:28,451 log 48216 48064 Bad Gateway: /api/payments/create/
+ERROR 2026-07-07 08:13:28,762 views 48216 48064 Error getting order status: No Order matches the given query.
+WARNING 2026-07-07 08:13:28,762 log 48216 48064 Not Found: /api/payments/orders/1/
+WARNING 2026-07-07 08:13:28,762 log 48216 48064 Not Found: /api/payments/orders/1/
+INFO 2026-07-07 08:13:28,941 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:28,941 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-07 08:13:29,065 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:29,065 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-07 08:13:29,073 log 48216 48064 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-07 08:13:29,073 log 48216 48064 Forbidden: /api/payments/transactions/TXN-004/refund
+WARNING 2026-07-07 08:13:29,161 log 48216 48064 Bad Request: /api/payments/create/
+WARNING 2026-07-07 08:13:29,161 log 48216 48064 Bad Request: /api/payments/create/
+WARNING 2026-07-07 08:13:29,248 bereke 48216 48064 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-07 08:13:29,248 bereke 48216 48064 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-07 08:13:29,248 views 48216 48064 Invalid JSON in Bereke webhook
+WARNING 2026-07-07 08:13:29,333 bereke 48216 48064 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-07 08:13:29,334 bereke 48216 48064 BEREKE_API_SECRET not configured - skipping signature validation
+ERROR 2026-07-07 08:13:29,334 views 48216 48064 Transaction not found in webhook: TXN-999
+WARNING 2026-07-07 08:13:29,421 paypal 48216 48064 PAYPAL_WEBHOOK_ID not configured - skipping signature validation
+INFO 2026-07-07 08:13:29,422 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:29,423 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-07 08:13:29,446 views 48216 48064 [WEBHOOK] PayPal order completed: PAYPAL-ORDER-001
+INFO 2026-07-07 08:13:29,899 signals 48216 48064 [SIGNAL] Payment failed, sending error notification for transaction 1
+INFO 2026-07-07 08:13:29,899 emails 48216 48064 [EMAIL] Sending error notification to test@example.com for order 1
+WARNING 2026-07-07 08:13:29,905 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+INFO 2026-07-07 08:13:29,994 signals 48216 48064 [SIGNAL] Payment failed, sending error notification for transaction 1
+INFO 2026-07-07 08:13:29,995 emails 48216 48064 [EMAIL] Sending error notification to test@example.com for order 1
+INFO 2026-07-07 08:13:30,087 signals 48216 48064 [SIGNAL] Payment failed, sending error notification for transaction 1
+INFO 2026-07-07 08:13:30,087 emails 48216 48064 [EMAIL] Sending error notification to test@example.com for order 1
+INFO 2026-07-07 08:13:30,717 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:30,718 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+WARNING 2026-07-07 08:13:30,724 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+INFO 2026-07-07 08:13:30,811 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:30,811 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-07 08:13:30,905 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 1
+INFO 2026-07-07 08:13:30,905 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-07 08:13:31,189 signals 48216 48064 [SIGNAL] Payment failed, sending error notification for transaction 1
+INFO 2026-07-07 08:13:31,190 emails 48216 48064 [EMAIL] Sending error notification to test@example.com for order 1
+INFO 2026-07-07 08:13:31,194 signals 48216 48064 [SIGNAL] Payment completed, sending receipt email for transaction 2
+INFO 2026-07-07 08:13:31,194 emails 48216 48064 [EMAIL] Sending payment receipt to test@example.com for order 1
+INFO 2026-07-07 08:13:31,246 signals 48216 48064 [SIGNAL] Payment failed, sending error notification for transaction 1
+INFO 2026-07-07 08:13:31,246 emails 48216 48064 [EMAIL] Sending error notification to test@example.com for order 1
+INFO 2026-07-07 08:13:31,360 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+INFO 2026-07-07 08:13:31,360 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+INFO 2026-07-07 08:13:31,424 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+INFO 2026-07-07 08:13:31,424 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-07-07 08:13:31,476 embed_video_tags 48216 48064 Backend wasn't recognised (``)
+WARNING 2026-07-07 08:13:32,036 log 48216 48064 Too Many Requests: /login/
+WARNING 2026-07-07 08:13:32,036 log 48216 48064 Too Many Requests: /login/
+WARNING 2026-07-07 08:13:32,064 log 48216 48064 Not Found: /accounts/accounts/google/login/
+WARNING 2026-07-07 08:13:32,064 log 48216 48064 Not Found: /accounts/accounts/google/login/
+WARNING 2026-07-07 08:13:32,625 views 48216 48064 Доступ запрещен: oauth_test_user
+WARNING 2026-07-07 08:13:32,625 views 48216 48064 Доступ запрещен: oauth_test_user
+WARNING 2026-07-07 08:13:32,626 log 48216 48064 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+WARNING 2026-07-07 08:13:32,626 log 48216 48064 Forbidden (Permission denied): /accounts/job/create/
+Traceback (most recent call last):
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\views.py", line 37, in _wrapped_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+INFO 2026-07-07 08:13:33,955 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+INFO 2026-07-07 08:13:33,955 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+WARNING 2026-07-07 08:13:34,370 bereke 48216 48064 BEREKE_API_KEY not configured - using mock mode
+INFO 2026-07-07 08:13:34,371 bereke 48216 48064 [BEREKE] Mock payment request | Order: ORD-001 | Amount: 10000 KZT
+WARNING 2026-07-07 08:13:34,376 bereke 48216 48064 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-07 08:13:34,380 bereke 48216 48064 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-07 08:13:34,382 bereke 48216 48064 BEREKE_API_KEY not configured - using mock mode
+WARNING 2026-07-07 08:13:34,382 bereke 48216 48064 BEREKE_API_SECRET not configured - skipping signature validation
+INFO 2026-07-07 08:13:34,390 paypal 48216 48064 [PAYPAL] Creating payment | Order: ORD-002 | Amount: 100.0 KZT | Sandbox: True
+INFO 2026-07-07 08:13:34,390 paypal 48216 48064 [PAYPAL] Using live API: https://api-m.sandbox.paypal.com
+INFO 2026-07-07 08:13:34,390 paypal 48216 48064 [PAYPAL] Sending POST to https://api-m.sandbox.paypal.com/v2/checkout/orders
+INFO 2026-07-07 08:13:34,391 paypal 48216 48064 [PAYPAL] Response status: 201
+INFO 2026-07-07 08:13:34,391 paypal 48216 48064 [PAYPAL] Response data: {'id': 'PAYPAL-abc123', 'status': 'CREATED', 'links': [{'rel': 'approve', 'href': 'https://sandbox.paypal.com/checkoutnow?token=PAYPAL-abc123'}]}
+INFO 2026-07-07 08:13:34,474 service 48216 48064 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-07 08:13:34,474 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+INFO 2026-07-07 08:13:34,532 service 48216 48064 [PAYMENT] Created | Order: 1 | User: 1 | Provider: bereke | Amount: 10000 KZT
+WARNING 2026-07-07 08:13:34,532 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+INFO 2026-07-07 08:13:34,533 service 48216 48064 [PAYMENT] Duplicate detected | User: 1 | Idempotency: 1476ebc5d5e1c6ff8e7cfb01bc8458c2df94121777aca4856c4cd052da249e7c
+WARNING 2026-07-07 08:13:34,533 posthog 48216 48064 POSTHOG_API_KEY not configured - analytics disabled
+WARNING 2026-07-07 08:13:34,703 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:34,704 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:34,709 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:34,710 adapters 48216 48064 [PATCHED] Using SocialApp 2 for provider google
+WARNING 2026-07-07 08:13:34,762 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+ERROR 2026-07-07 08:13:34,762 adapters 48216 48064 [PATCHED] Error in fallback: 'SiteManager' object has no attribute 'get_default'
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 80, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 90, in _patched_get_app
+    current_site = Site.objects.get_default()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SiteManager' object has no attribute 'get_default'
+WARNING 2026-07-07 08:13:34,777 adapters 48216 48064 [CustomAdapter] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:34,778 adapters 48216 48064 [CustomAdapter] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:34,879 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:34,879 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:34,880 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:34,881 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,081 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,082 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,090 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,091 adapters 48216 48064 [PATCHED] Using SocialApp 2 for provider google
+WARNING 2026-07-07 08:13:35,107 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,108 adapters 48216 48064 [PATCHED] Using SocialApp 2 for provider google
+WARNING 2026-07-07 08:13:35,123 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,123 adapters 48216 48064 [PATCHED] Using SocialApp 2 for provider google
+WARNING 2026-07-07 08:13:35,128 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,129 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,135 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,136 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,142 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+ERROR 2026-07-07 08:13:35,142 adapters 48216 48064 [PATCHED] Error in fallback: 'SiteManager' object has no attribute 'get_default'
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 80, in _patched_get_app
+    return _original_get_app(self, request, provider)
+  File "C:\Users\Altyn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\allauth\socialaccount\adapter.py", line 301, in get_app
+    raise MultipleObjectsReturned
+django.core.exceptions.MultipleObjectsReturned
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Altyn\Documents\GitHub\Simulator backend\-\classes-main\accounts\adapters.py", line 90, in _patched_get_app
+    current_site = Site.objects.get_default()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SiteManager' object has no attribute 'get_default'
+WARNING 2026-07-07 08:13:35,143 adapters 48216 48064 [CustomAdapter] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,144 adapters 48216 48064 [CustomAdapter] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,159 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,160 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,166 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,167 adapters 48216 48064 [PATCHED] Using SocialApp 2 for provider google
+WARNING 2026-07-07 08:13:35,173 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,174 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,179 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,179 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,185 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,186 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,192 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,193 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,194 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,195 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,195 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,196 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,202 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,203 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+WARNING 2026-07-07 08:13:35,230 adapters 48216 48064 [PATCHED] Multiple SocialApp entries found for google. Using fallback logic.
+INFO 2026-07-07 08:13:35,232 adapters 48216 48064 [PATCHED] Using SocialApp 1 for provider google
+INFO 2026-07-07 08:13:35,511 views 48216 48064 Skip welcome email task dispatch in local/test mode.
+INFO 2026-07-07 08:13:35,511 views 48216 48064 Skip welcome email task dispatch in local/test mode.
