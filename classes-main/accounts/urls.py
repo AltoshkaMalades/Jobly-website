@@ -23,6 +23,8 @@ urlpatterns = [
     
     # --- Работа с вакансиями ---
     path('job/create/', views.create_job, name='create_job'),
+    path('job/<int:pk>/edit/', views.edit_job, name='edit_job'),
+    path('job/<int:pk>/delete/', views.delete_job, name='delete_job'),
     path('job/<int:pk>/', views.job_detail, name='job_detail'),
     path('job/<int:pk>/apply/', views.apply_job, name='apply_job'),
     path('job/<int:job_id>/apps/', views.view_applications, name='view_applications'),

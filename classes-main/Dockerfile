@@ -1,5 +1,13 @@
-# Используем официальный образ Python 3.13
-FROM python:3.13-slim
+# Build dependencies in an isolated stage, then copy only installed packages into runtime.
+FROM python:3.13-slim AS builder
+
+WORKDIR /build
+COPY requirements.txt .
+RUN python -m venv /opt/venv \
+    && /opt/venv/bin/pip install --no-cache-dir --upgrade pip \
+    && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.13-slim AS runtime
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
@@ -7,18 +15,14 @@ WORKDIR /app
 # Отключаем буферизацию логов Python
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Устанавливаем зависимости системы
 RUN apt-get update && apt-get install -y --no-install-recommends \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Копируем requirements.txt
-COPY requirements.txt /app/
-
-# Обновляем pip и устанавливаем Python зависимости
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+COPY --from=builder /opt/venv /opt/venv
 
 # Копируем весь код проекта
 COPY . /app/

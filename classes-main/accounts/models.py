@@ -11,13 +11,24 @@ ROLE_CHOICES = (
 )
 
 class Job(models.Model):
+    JOB_TYPE_CHOICES = (
+        ('full_time', 'Полная занятость'),
+        ('part_time', 'Частичная занятость'),
+        ('internship', 'Стажировка'),
+        ('contract', 'Контракт'),
+    )
+
     employer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posted_jobs', null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name="Название вакансии")
     company = models.CharField(max_length=100, verbose_name="Компания")
     description = models.TextField(verbose_name="Описание")
     location = models.CharField(max_length=100, verbose_name="Локация")
     salary = models.CharField(max_length=50, blank=True, null=True, verbose_name="Зарплата")
+    salary_min = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    salary_max = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default='full_time')
     category = models.CharField(max_length=100, verbose_name="Категория", db_index=True)
+    requirements = models.TextField(blank=True, verbose_name="Требования")
     created_at = models.DateTimeField(auto_now_add=True)
     contact_email = models.EmailField(default="admin@example.com")
 
@@ -89,6 +100,8 @@ class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_applications')
     cover_letter = models.TextField(verbose_name="Сопроводительное письмо")
+    resume_file = models.FileField(upload_to='resumes/%Y/%m/', blank=True, null=True)
+    resume_link = models.URLField(blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='sent', db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

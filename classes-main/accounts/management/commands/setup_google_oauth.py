@@ -2,6 +2,11 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 import os
 
+try:
+    from decouple import config
+except ImportError:
+    config = lambda name, default=None: os.environ.get(name, default)
+
 
 class Command(BaseCommand):
     help = 'Автоматически создает или обновляет Google OAuth приложение и привязывает его к сайту'
@@ -10,19 +15,19 @@ class Command(BaseCommand):
         parser.add_argument(
             '--client-id',
             type=str,
-            default=os.environ.get('GOOGLE_OAUTH_CLIENT_ID', '909443104126-baj9tq8uhj7tb6fg3vv8d9vvg03c7qr4.apps.googleusercontent.com'),
+            default=config('GOOGLE_OAUTH_CLIENT_ID', default=None),
             help='Google OAuth Client ID (or env var GOOGLE_OAUTH_CLIENT_ID)',
         )
         parser.add_argument(
             '--secret',
             type=str,
-            default=os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET', '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'),
+            default=config('GOOGLE_OAUTH_CLIENT_SECRET', default=None),
             help='Google OAuth Client Secret (or env var GOOGLE_OAUTH_CLIENT_SECRET)',
         )
         parser.add_argument(
             '--domain',
             type=str,
-            default=os.environ.get('SITE_DOMAIN', 'jobly.kz'),
+            default=config('SITE_DOMAIN', default='jobly.kz'),
             help='Domain name для Site (or env var SITE_DOMAIN)',
         )
 
@@ -42,6 +47,12 @@ class Command(BaseCommand):
         secret = options['secret']
         domain = options['domain']
         site_id = 1
+
+        if not client_id or not secret:
+            self.stdout.write(self.style.ERROR(
+                'GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET are required.'
+            ))
+            return
 
         # Шаг 1: Получить или создать Site с id=1
         try:

@@ -71,7 +71,10 @@ class ProfileForm(forms.ModelForm):
 class JobCreateForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['title', 'company', 'location', 'salary', 'category', 'description']
+        fields = [
+            'title', 'company', 'location', 'job_type', 'salary_min', 'salary_max',
+            'salary', 'category', 'description', 'requirements',
+        ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all', 'placeholder': 'Python Developer'}),
             'company': forms.TextInput(attrs={'class': 'w-full px-4 py-3 rounded-xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all', 'placeholder': 'Название компании'}),
@@ -85,7 +88,7 @@ class JobCreateForm(forms.ModelForm):
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
-        fields = ['cover_letter']
+        fields = ['cover_letter', 'resume_file', 'resume_link']
         widgets = {
             'cover_letter': forms.Textarea(attrs={
                 'class': 'w-full px-4 py-3 rounded-2xl border border-neutral-200 outline-none focus:border-neutral-900 transition-all',

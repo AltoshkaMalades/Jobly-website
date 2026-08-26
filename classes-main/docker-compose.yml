@@ -1,5 +1,3 @@
-version: '3.8'
-
 # Docker Compose конфигурация для проекта Simulator Backend
 # Включает: Web, Redis, PostgreSQL, Celery, Celery Beat, Tests
 
@@ -13,15 +11,17 @@ services:
     volumes:
       - .:/app
       - logs:/app/logs
+    env_file:
+      - .env
     ports:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
-      - DEBUG=True
-      - SECRET_KEY=django-insecure-dev-key-for-docker
-      - ALLOWED_HOSTS=localhost,127.0.0.1,web
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY:?SECRET_KEY must be set in .env}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,web}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/simulator_db}
       # Redis configuration - separate DBs for Celery (0) and Cache (1)
       - REDIS_URL=redis://redis:6379
       - CELERY_BROKER_URL=redis://redis:6379/0
@@ -79,9 +79,9 @@ services:
     image: postgres:15-alpine
     container_name: simulator-db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=simulator_db
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+      - POSTGRES_DB=${POSTGRES_DB:-simulator_db}
       - POSTGRES_INITDB_ARGS=--encoding=UTF8
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -143,6 +143,8 @@ services:
     container_name: simulator-locust
     volumes:
       - .:/app
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
@@ -167,10 +169,12 @@ services:
     volumes:
       - .:/app
       - logs:/app/logs
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
-      - DEBUG=True
+      - DEBUG=${DEBUG:-False}
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
       # Redis configuration - Celery uses DB 0
       - REDIS_URL=redis://redis:6379
@@ -194,10 +198,12 @@ services:
     volumes:
       - .:/app
       - logs:/app/logs
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
-      - DEBUG=True
+      - DEBUG=${DEBUG:-False}
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
       # Redis configuration - Celery Beat uses DB 0
       - REDIS_URL=redis://redis:6379
@@ -221,10 +227,12 @@ services:
     volumes:
       - .:/app
       - logs:/app/logs
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
-      - DEBUG=True
+      - DEBUG=${DEBUG:-True}
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/simulator_db
       # Redis configuration - Tests use separate DB for cache
       - REDIS_URL=redis://redis:6379

@@ -211,11 +211,34 @@ def create_job(request):
     return render(request, 'accounts/create_job.html', {'form': form})
 
 @login_required
+@role_required(allowed_roles=['employer'])
+def edit_job(request, pk):
+    job = get_object_or_404(Job, pk=pk, employer=request.user)
+    if request.method == 'POST':
+        form = JobCreateForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вакансия обновлена.')
+            return redirect('job_detail', pk=job.pk)
+    else:
+        form = JobCreateForm(instance=job)
+    return render(request, 'accounts/create_job.html', {'form': form, 'job': job})
+
+@login_required
+@role_required(allowed_roles=['employer'])
+@require_POST
+def delete_job(request, pk):
+    job = get_object_or_404(Job, pk=pk, employer=request.user)
+    job.delete()
+    messages.success(request, 'Вакансия удалена.')
+    return redirect('profile')
+
+@login_required
 @role_required(allowed_roles=['student'])
 def apply_job(request, pk):
     job = get_object_or_404(Job, pk=pk)
     if request.method == 'POST':
-        form = ApplicationForm(request.POST)
+        form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             app = form.save(commit=False)
             app.job = job

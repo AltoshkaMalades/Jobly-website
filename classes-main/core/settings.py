@@ -2,6 +2,11 @@ import os
 from pathlib import Path
 import dj_database_url
 
+try:
+    from decouple import config
+except ImportError:
+    config = lambda name, default=None: os.environ.get(name, default)
+
 # Загрузка переменных окружения из .env файла
 try:
     from dotenv import load_dotenv
@@ -15,11 +20,26 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- БЕЗОПАСНОСТЬ ---
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-very-secret-key-here')
+DEBUG = str(config('DEBUG', default='False')).lower() in ('1', 'true', 'yes', 'on')
+DJANGO_TESTING = os.environ.get('DJANGO_TESTING', '').lower() in ('1', 'true', 'yes', 'on')
 
-DEBUG = os.environ.get('DEBUG', 'True').lower() in ('1', 'true', 'yes', 'on')
+SECRET_KEY = config('SECRET_KEY', default=None)
+if not SECRET_KEY:
+    if DEBUG or DJANGO_TESTING:
+        SECRET_KEY = 'local-only-insecure-key-change-me'
+    else:
+        raise RuntimeError('SECRET_KEY must be set when DEBUG is disabled')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+    if host.strip()
+]
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if origin.strip()
+]
 
 # --- ПРИЛОЖЕНИЯ ---
 INSTALLED_APPS = [
@@ -164,6 +184,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # 3. ЛОГИРОВАНИЕ ДЕЙСТВИЙ (Пункт 4 задания)
 LOGGING = {
